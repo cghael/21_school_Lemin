@@ -18,5 +18,6 @@ t_lemin			*ft_parse_data(t_lemin *lemin)
 
 	data = NULL;
 	ft_parse_ants(lemin, &data);
+//	ft_parse_rooms(lemin, &data);
 	return (lemin);
 }

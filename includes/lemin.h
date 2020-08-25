@@ -26,6 +26,7 @@
 
 # define HELP			"use flag -v for visualizer\n"
 # define ANTS_NOT_VALID	"Please, enter the number of ants correctly.\n"
+# define BAD_INPUT		"Bad input.\n"
 # define IS_BUSY		1
 # define IS_FREE		0
 

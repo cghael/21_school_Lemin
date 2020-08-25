@@ -3,7 +3,14 @@ project(Lemin C)
 
 set(CMAKE_C_STANDARD 90)
 
-set(SOURCES sources/main.c sources/ft_lemin_init.c sources/ft_error_n_exit.c sources/ft_check_flags.c sources/ft_parse_data.c sources/ft_parse_ants.c sources/ft_get_data.c sources/ft_free_data.c)
+set(SOURCES sources/main.c
+        sources/ft_lemin_init.c
+        sources/ft_error_n_exit.c
+        sources/ft_check_flags.c
+        sources/ft_parse_data.c
+        sources/ft_parse_ants.c
+        sources/ft_get_data.c
+        sources/ft_free_data.c)
 
 add_executable(Lemin ${SOURCES})
 
