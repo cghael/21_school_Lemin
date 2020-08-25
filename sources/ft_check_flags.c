@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_check_flags.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 12:05:24 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 12:05:27 by cghael           ###   ########.fr       */
+/*   Created: 2020/08/25 13:27:28 by cghael            #+#    #+#             */
+/*   Updated: 2020/08/25 13:27:30 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(int argc, char *argv[])
+void		ft_check_flags(t_lemin *lemin, int argc, char *argv[])
 {
-	t_lemin *lemin;
-
-	lemin = ft_lemin_init();
-	if (argc > 1)
-		ft_check_flags(lemin, argc, argv);
-	lemin = ft_parse_data(lemin);
+	if (argc != 2 || !ft_strequ(argv[1], "-v"))
+		ft_error_n_exit(HELP, lemin, LEMIN);
+	else
+		lemin->visual = TRUE;
 }

@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parse_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 12:05:24 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 12:05:27 by cghael           ###   ########.fr       */
+/*   Created: 2020/08/25 13:46:15 by cghael            #+#    #+#             */
+/*   Updated: 2020/08/25 13:46:17 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(int argc, char *argv[])
+t_lemin			*ft_parse_data(t_lemin *lemin)
 {
-	t_lemin *lemin;
-
-	lemin = ft_lemin_init();
-	if (argc > 1)
-		ft_check_flags(lemin, argc, argv);
-	lemin = ft_parse_data(lemin);
+	return (lemin);
 }

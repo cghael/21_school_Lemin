@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lemin_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 12:05:24 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 12:05:27 by cghael           ###   ########.fr       */
+/*   Created: 2020/08/25 13:09:31 by cghael            #+#    #+#             */
+/*   Updated: 2020/08/25 13:09:33 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(int argc, char *argv[])
+t_lemin			*ft_lemin_init(void)
 {
-	t_lemin *lemin;
+	t_lemin *tmp;
 
-	lemin = ft_lemin_init();
-	if (argc > 1)
-		ft_check_flags(lemin, argc, argv);
-	lemin = ft_parse_data(lemin);
+	tmp = (t_lemin*)ft_memalloc(sizeof(t_lemin));
+	if (!tmp)
+		ft_error_n_exit("Error malloc in ft_lemin_init()\n", NULL, NULL);
+	return (tmp);
 }
