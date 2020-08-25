@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_data.c                                    :+:      :+:    :+:   */
+/*   ft_free_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 13:46:15 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 13:46:17 by cghael           ###   ########.fr       */
+/*   Created: 2020/08/25 14:13:49 by cghael            #+#    #+#             */
+/*   Updated: 2020/08/25 14:13:50 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_lemin			*ft_parse_data(t_lemin *lemin)
+void		ft_free_data(t_data *data)
 {
-	t_data	*data;
+	t_data *tmp;
 
-	data = NULL;
-	ft_parse_ants(lemin, &data);
-	return (lemin);
+	if (data)
+	{
+		tmp = data->next;
+		while (tmp != NULL)
+		{
+			free(data);
+			data = tmp;
+			tmp = tmp->next;
+		}
+		free(data);
+	}
 }
