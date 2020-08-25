@@ -7,9 +7,9 @@ set(SOURCES sources/main.c)
 
 add_executable(Lemin ${SOURCES})
 
-include_directories(includes)
-include_directories(21_school_ft_printf/includes)
-include_directories(21_school_ft_printf/libft/inc)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/21_school_ft_printf/includes)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/21_school_ft_printf/libft/inc)
 
 add_subdirectory(21_school_ft_printf)
 
