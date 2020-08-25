@@ -75,6 +75,7 @@ void					ft_free_data(t_data *data);
 void					ft_check_flags(t_lemin *lemin, int argc, char *argv[]);
 t_lemin					*ft_parse_data(t_lemin *lemin);
 int						ft_get_data(t_data **data);
+t_data					*ft_get_last_data_node(t_data *data);
 void					ft_parse_ants(t_lemin *lemin, t_data **data);
 
 #endif

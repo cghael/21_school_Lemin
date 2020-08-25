@@ -26,5 +26,6 @@ void		ft_free_data(t_data *data)
 			tmp = tmp->next;
 		}
 		free(data);
+		data = NULL;
 	}
 }

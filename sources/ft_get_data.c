@@ -33,9 +33,9 @@ int				ft_get_data(t_data **data)
 
 	tmp = (t_data*)ft_memalloc(sizeof(t_data));
 	if (!tmp)
-		return (1);
+		return (0);
 	if (ft_get_next_line(0, &(tmp->content)) != 1)
-		return (1);
+		return (0);
 	ft_add_tmp_to_data(tmp, data);
-	return (0);
+	return (1);
 }
