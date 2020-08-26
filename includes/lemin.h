@@ -42,7 +42,10 @@
 typedef struct			s_data
 {
 	char				*content;
+	int					counter;
+	char				command;
 	struct s_data		*next;
+	struct s_data		*back;
 }						t_data;
 
 typedef struct			s_room
@@ -58,6 +61,7 @@ typedef struct			s_lemin
 {
 	int					visual;
 	int					ants;
+	int					rooms;
 	int					start;
 	int					end;
 	t_room				*graph;
@@ -70,12 +74,12 @@ typedef struct			s_lemin
 t_lemin					*ft_lemin_init(void);
 
 void					ft_error_n_exit(char *str, void *mem, char *type);
-void					ft_free_data(t_data *data);
+void					ft_free_data(t_data **data);
 
 void					ft_check_flags(t_lemin *lemin, int argc, char *argv[]);
 t_lemin					*ft_parse_data(t_lemin *lemin);
-int						ft_get_data(t_data **data);
-t_data					*ft_get_last_data_node(t_data *data);
+t_data					*ft_get_data(t_data **data);
+//t_data					*ft_get_last_data_node(t_data *data);
 void					ft_parse_ants(t_lemin *lemin, t_data **data);
 
 #endif

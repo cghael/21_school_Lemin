@@ -14,27 +14,25 @@
 
 void		ft_parse_ants(t_lemin *lemin, t_data **data)
 {
-	t_data	*last;
-
 	while (lemin->ants == 0)
 	{
 		if (!ft_get_data(data))
 		{
-			ft_free_data(*data);
+			ft_free_data(data);
 			ft_error_n_exit("Error in ft_parse_ants()\n", lemin, LEMIN);
 		}
-		last = ft_get_last_data_node(*data);
-		if (!ft_str_is_int(last->content) && last->content[0] != '#')
+		if (!ft_str_is_int((*data)->back->content) \
+			&& (*data)->back->content[0] != '#')
 		{
-			ft_free_data(*data);
+			ft_free_data(data);
 			ft_error_n_exit(BAD_INPUT, lemin, LEMIN);
 		}
-		else if (last->content[0] != '#')
+		else if ((*data)->back->content[0] != '#')
 		{
-			lemin->ants = ft_atoi(last->content);
+			lemin->ants = ft_atoi((*data)->back->content);
 			if (lemin->ants < 1)
 			{
-				ft_free_data(*data);
+				ft_free_data(data);
 				ft_error_n_exit(ANTS_NOT_VALID, lemin, LEMIN);
 			}
 		}

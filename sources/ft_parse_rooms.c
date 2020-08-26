@@ -12,30 +12,60 @@
 
 #include "lemin.h"
 
-static int		ft_is_room(t_data *last)
+static int		ft_is_command_or_comment(t_data **data)
 {
+	if ((*data)->back->content[1] != '#')
+		(*data)->back->command = 'c';
+	else
+	{
+		if (ft_strequ((*data)->back->content, "##start"))
+			(*data)->back->command = 's';
+		else if (ft_strequ((*data)->back->content, "##end"))
+			(*data)->back->command = 'e';
+	}
+	return (1);
+}
 
+/*
+** RETURN	1	if last->content room or command or comment
+**			0	if lat->content is link
+**			-1	if last->content is bad input or room name is exist yet or room
+**				name starts with 'L' or empty line
+*/
+
+static int		ft_is_room(t_data **data)
+{
+	if ((*data)->back->content[0] == '#')
+		return (ft_is_command_or_comment(data));
+	else
+	{
+		if (ft_word_count((*data)->back->content, ' ') != 3)
+		{
+			if (ft_is_link(data) == 1)
+				return (0);
+			else
+				return (-1);
+		}
+		return (ft_check_correct_room(data));
+	}
 }
 
 void			ft_parse_rooms(t_lemin *lemin, t_data **data)
 {
-	t_data	*last;
 	int		res;
 
 	if (!ft_get_data(data))
 	{
-		ft_free_data(*data);
+		ft_free_data(data);
 		ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, LEMIN);
 	}
-	last = ft_get_last_data_node(*data);
-	while ((res = ft_is_room(last)) == 1)
+	while ((res = ft_is_room(data) == 1)
 	{
 		if (!ft_get_data(data))
 		{
-			ft_free_data(*data);
+			ft_free_data(data);
 			ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, LEMIN);
 		}
-		last = ft_get_last_data_node(*data);
 	}
 	if (res == 0) //rooms are ends
 		return ;

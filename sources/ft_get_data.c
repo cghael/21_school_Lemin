@@ -18,24 +18,33 @@ static void		ft_add_tmp_to_data(t_data *tmp, t_data **data)
 
 	begin = *data;
 	if (begin == NULL)
+	{
+		tmp->next = tmp;
+		tmp->back = tmp;
 		*data = tmp;
+	}
 	else
 	{
-		while (begin->next != NULL)
-			begin = begin->next;
-		begin->next = tmp;
+		(*data)->back->next = tmp;
+		tmp->back = (*data)->back;
+		(*data)->back = tmp;
+		tmp->next = *data;
 	}
+	(*data)->counter++;
 }
 
-int				ft_get_data(t_data **data)
+t_data 			*ft_get_data(t_data **data)
 {
 	t_data	*tmp;
 
 	tmp = (t_data*)ft_memalloc(sizeof(t_data));
 	if (!tmp)
 		return (0);
+	tmp->content = NULL;
+	tmp->next = NULL;
+	tmp->back = NULL;
 	if (ft_get_next_line(0, &(tmp->content)) != 1)
-		return (0);
+		return (NULL);
 	ft_add_tmp_to_data(tmp, data);
-	return (1);
+	return ((*data)->back);
 }

@@ -12,20 +12,21 @@
 
 #include "lemin.h"
 
-void		ft_free_data(t_data *data)
+void		ft_free_data(t_data **data)
 {
-	t_data *tmp;
+	t_data	*tmp;
+	int		counter;
 
-	if (data)
+	if (*data)
 	{
-		tmp = data->next;
-		while (tmp != NULL)
+		counter = (*data)->counter;
+		while (counter && *data)
 		{
-			free(data);
-			data = tmp;
-			tmp = tmp->next;
+			tmp = (*data)->next;
+			free(*data);
+			*data = tmp;
+			counter--;
 		}
-		free(data);
-		data = NULL;
+		*data = NULL;
 	}
 }
