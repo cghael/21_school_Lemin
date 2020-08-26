@@ -20,5 +20,7 @@ t_lemin			*ft_parse_data(t_lemin *lemin)
 	ft_parse_ants(lemin, &data);
 	ft_free_data(&data); //clear list? but maybe should stay for visual
 	ft_parse_rooms(lemin, &data);
+//	ft_create_graph(lemin, &data); //maybe data do not need more
+//	ft_parse_links(lemin);
 	return (lemin);
 }

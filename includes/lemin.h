@@ -25,8 +25,9 @@
 */
 
 # define HELP			"use flag -v for visualizer\n"
-# define ANTS_NOT_VALID	"Please, enter the number of ants correctly.\n"
-# define BAD_INPUT		"Bad input.\n"
+# define ANTS_NOT_VALID	"Error. Please, enter the number of ants correctly.\n"
+# define ROOM_NOT_VALID	"Error. Please, enter rooms carefully\n"
+# define BAD_INPUT		"Error. Bad input.\n"
 # define IS_BUSY		1
 # define IS_FREE		0
 
@@ -81,5 +82,8 @@ t_lemin					*ft_parse_data(t_lemin *lemin);
 t_data					*ft_get_data(t_data **data);
 //t_data					*ft_get_last_data_node(t_data *data);
 void					ft_parse_ants(t_lemin *lemin, t_data **data);
+void					ft_parse_rooms(t_lemin *lemin, t_data **data);
+int						ft_check_correct_room(t_data **data);
+int						ft_is_link(t_data **data);
 
 #endif
