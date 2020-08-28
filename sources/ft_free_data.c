@@ -23,6 +23,7 @@ void		ft_free_data(t_data **data)
 		while (counter && *data)
 		{
 			tmp = (*data)->next;
+			free((*data)->content);
 			free(*data);
 			*data = tmp;
 			counter--;

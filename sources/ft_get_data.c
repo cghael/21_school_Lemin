@@ -44,7 +44,11 @@ t_data 			*ft_get_data(t_data **data)
 	tmp->next = NULL;
 	tmp->back = NULL;
 	if (ft_get_next_line(0, &(tmp->content)) != 1)
+	{
+		free(tmp->content);
+		free(tmp);
 		return (NULL);
+	}
 	ft_add_tmp_to_data(tmp, data);
 	return ((*data)->back);
 }

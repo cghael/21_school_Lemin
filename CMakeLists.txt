@@ -10,7 +10,7 @@ set(SOURCES sources/main.c
         sources/ft_parse_data.c
         sources/ft_parse_ants.c
         sources/ft_get_data.c
-        sources/ft_free_data.c sources/ft_parse_rooms.c sources/ft_get_last_data_node.c sources/ft_check_correct_room.c sources/ft_is_link.c)
+        sources/ft_free_data.c sources/ft_parse_rooms.c sources/ft_get_last_data_node.c sources/ft_check_correct_room.c sources/ft_is_link.c sources/ft_create_graph.c)
 
 add_executable(Lemin ${SOURCES})
 

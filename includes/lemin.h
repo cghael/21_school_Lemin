@@ -30,6 +30,8 @@
 # define BAD_INPUT		"Error. Bad input.\n"
 # define IS_BUSY		1
 # define IS_FREE		0
+# define START			2
+# define END			-1
 
 # define ROOM			"t_room"
 # define LEMIN			"t_lemin"
@@ -55,6 +57,7 @@ typedef struct			s_room
 	int					y;
 	int					state;
 	int					weight;
+	char				*name;
 	int					*links;
 }						t_room;
 
@@ -85,5 +88,6 @@ void					ft_parse_ants(t_lemin *lemin, t_data **data);
 void					ft_parse_rooms(t_lemin *lemin, t_data **data);
 int						ft_check_correct_room(t_data **data);
 int						ft_is_link(t_data **data);
+void					ft_create_graph(t_lemin *lemin, t_data **data);
 
 #endif

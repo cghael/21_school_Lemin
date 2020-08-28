@@ -68,12 +68,12 @@ int				ft_check_correct_room(t_data **data)
 	str = NULL;
 	str = ft_strsplit((*data)->back->content, ' ');
 	if (!str)
-		return (-1);
+		return (0);
 	if (FALSE == ft_coords_are_valid(str[1], str[2]) \
 		|| FALSE == ft_name_is_valid(str[0], *data)) //todo start 1 end 1
 	{
 		ft_free_two_dem_str(str);
-		return (-1);
+		return (0);
 	}
 	ft_free_two_dem_str(str);
 	return (1);

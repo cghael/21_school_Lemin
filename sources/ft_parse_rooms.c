@@ -36,6 +36,15 @@
 //	return (1);
 //}
 
+static void		ft_are_rooms_n_commands(t_lemin *lemin, t_data **data)
+{
+	if (lemin->rooms < 1 || lemin->start == 0 || lemin->end == 0)
+	{
+		ft_free_data(data);
+		ft_error_n_exit(ROOM_NOT_VALID, lemin, LEMIN);
+	}
+}
+
 static int		ft_is_command_or_comment(t_data **data, t_lemin *lemin)
 {
 	if ((*data)->back->content[1] != '#')
@@ -82,7 +91,11 @@ static int		ft_is_room(t_data **data, t_lemin *lemin)
 			else
 				return (-1);
 		}
-		return (ft_check_correct_room(data));
+		if (ft_check_correct_room(data))
+			lemin->rooms++;
+		else
+			return (-1);
+		return (1);
 	}
 }
 
@@ -103,8 +116,8 @@ void			ft_parse_rooms(t_lemin *lemin, t_data **data)
 			ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, LEMIN);
 		}
 	}
-	if (res == 0) //rooms are ends
-		return ;
+	if (res == 0)
+		ft_are_rooms_n_commands(lemin, data);
 	else if (res == -1)
 	{
 		ft_free_data(data);
