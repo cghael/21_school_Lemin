@@ -12,7 +12,15 @@ def about():
 
 def init_window():
     root = Tk()
-    root.geometry('600x600')
+    width = 600
+    height = 600
+    w = root.winfo_screenwidth()  # width of all screen
+    h = root.winfo_screenheight()  # height of all screen
+    # w = w // 2  # for center on screen
+    h = h // 2
+    w = w - width // 2
+    h = h - height // 2
+    root.geometry('600x600+{}+{}'.format(w, h))  # create window with shift
     root.title("lemin visualiser v 0.1")
 
     Button(text="Button", width=20).pack()
