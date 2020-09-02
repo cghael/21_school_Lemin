@@ -1,7 +1,21 @@
-3
+8
 ##start
 a 1 2
 b 2 3
-##end
 c 3 4
+d 4 5
+e 5 6
+f 5 6
+g 7 8
+##end
+h 8 9
+a-b
+a-c
+c-d
+d-e
+e-b
+b-f
+g-f
+g-h
+h-e
 
