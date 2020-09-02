@@ -27,6 +27,7 @@
 # define HELP			"use flag -v for visualizer\n"
 # define ANTS_NOT_VALID	"Error. Please, enter the number of ants correctly.\n"
 # define ROOM_NOT_VALID	"Error. Please, enter rooms carefully\n"
+# define LINK_NOT_VALID	"Error. Please, enter links carefully\n"
 # define BAD_INPUT		"Error. Bad input.\n"
 # define IS_BUSY		1
 # define IS_FREE		0
@@ -77,17 +78,19 @@ typedef struct			s_lemin
 
 t_lemin					*ft_lemin_init(void);
 
-void					ft_error_n_exit(char *str, void *mem, char *type);
+void					ft_error_n_exit(char *str, t_lemin *lemin, t_data **data);
 void					ft_free_data(t_data **data);
+void					ft_free_lemin(t_lemin *lemin);
+void					ft_free_room(t_room *room);
 
 void					ft_check_flags(t_lemin *lemin, int argc, char *argv[]);
 t_lemin					*ft_parse_data(t_lemin *lemin);
-t_data					*ft_get_data(t_data **data);
-//t_data					*ft_get_last_data_node(t_data *data);
+int						ft_get_data(t_data **data);
 void					ft_parse_ants(t_lemin *lemin, t_data **data);
 void					ft_parse_rooms(t_lemin *lemin, t_data **data);
 int						ft_check_correct_room(t_data **data);
-int						ft_is_link(t_data **data);
+int						ft_is_link(t_data **data, t_lemin *lemin);
 void					ft_create_graph(t_lemin *lemin, t_data **data);
+void					ft_parse_links(t_lemin *lemin, t_data **data);
 
 #endif

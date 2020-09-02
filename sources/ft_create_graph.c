@@ -32,9 +32,9 @@ static int		ft_copy_data_to_array(t_room *room, char *str, char command)
 	int		len_x;
 
 	ft_count_name_len(str, &len_name, &len_x);
-	if (!(room->name = (char*)ft_memalloc(sizeof(len_name))))
+	if (!(room->name = (char*)ft_memalloc(sizeof(len_name) + 1)))
 		return (FALSE);
-	room->name = ft_strncpy(room->name, str, len_name - 1);
+	room->name = ft_strncpy(room->name, str, len_name);
 	room->x = ft_atoi(&str[len_name]);
 	room->y = ft_atoi(&str[len_x]);
 	if (command == 's' || command == 'e')
@@ -50,26 +50,14 @@ static void		ft_fill_graph(t_lemin *lemin, t_data **data)
 
 	i = 0;
 	rooms = lemin->rooms;
-	if (!(*data)->command)
-	{
-		if (FALSE == ft_copy_data_to_array(&lemin->graph[0], (*data)->content, '0'))
-		{
-			ft_free_data(data);
-			ft_error_n_exit("Error in ft_create_graph()\n", lemin, LEMIN);
-		}
-		rooms--;
-		i++;
-	}
-	tmp = (*data)->next;
-	while (tmp != *data && rooms)
+	tmp = *data;
+	while (rooms)
 	{
 		if (!tmp->command)
 		{
-			if (FALSE == ft_copy_data_to_array(&lemin->graph[i], tmp->content, tmp->back->command))
-			{
-				ft_free_data(data);
-				ft_error_n_exit("Error in ft_create_graph()\n", lemin, LEMIN);
-			}
+			if (FALSE == ft_copy_data_to_array(&lemin->graph[i], \
+											tmp->content, tmp->back->command))
+				ft_error_n_exit("Error in ft_create_graph()\n", lemin, data);
 			rooms--;
 			i++;
 		}
@@ -82,19 +70,17 @@ void			ft_create_graph(t_lemin *lemin, t_data **data)
 	int i;
 
 	i = 0;
-	if (!(lemin->graph = (t_room*)ft_memalloc(sizeof(t_room) * lemin->rooms)))
-	{
-		ft_free_data(data);
-		ft_error_n_exit("Error in ft_create_graph()\n", lemin, LEMIN);
-	}
+	if (!(lemin->graph = (t_room*)ft_memalloc(sizeof(t_room) * \
+																lemin->rooms)))
+		ft_error_n_exit("Error in ft_create_graph()\n", lemin, data);
 	while (i < lemin->rooms)
 	{
-		if (!(lemin->graph[i].links = (int*)ft_memalloc(sizeof(int) * lemin->rooms)))
+		if (!(lemin->graph[i].links = (int*)ft_memalloc(sizeof(int) * \
+																lemin->rooms)))
 		{
 			while (--i >= 0)
 				free(lemin->graph[i].links);
-			ft_free_data(data);
-			ft_error_n_exit("Error in ft_create_graph()\n", lemin, LEMIN);
+			ft_error_n_exit("Error in ft_create_graph()\n", lemin, data);
 		}
 		i++;
 	}

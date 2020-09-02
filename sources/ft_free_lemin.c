@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_lemin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 12:05:24 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 12:05:27 by cghael           ###   ########.fr       */
+/*   Created: 2020/09/02 15:45:41 by cghael            #+#    #+#             */
+/*   Updated: 2020/09/02 15:45:43 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(int argc, char *argv[])
+void		ft_free_lemin(t_lemin *lemin)
 {
-	t_lemin *lemin;
+	int i;
 
-	lemin = ft_lemin_init();
-	if (argc > 1)
-		ft_check_flags(lemin, argc, argv);
-	lemin = ft_parse_data(lemin);
-	ft_free_lemin(lemin);
-	return (0);
+	i = 0;
+	if (lemin)
+	{
+		if (lemin->graph)
+		{
+			while (i < lemin->rooms)
+			{
+				if (lemin->graph[i].name)
+					free(lemin->graph[i].name);
+				if (lemin->graph[i].links)
+					free(lemin->graph[i].links);
+				i++;
+			}
+			free(lemin->graph);
+		}
+		free(lemin);
+	}
 }

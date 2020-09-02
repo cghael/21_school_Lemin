@@ -33,9 +33,10 @@ static void		ft_add_tmp_to_data(t_data *tmp, t_data **data)
 	(*data)->counter++;
 }
 
-t_data 			*ft_get_data(t_data **data)
+int 			ft_get_data(t_data **data)
 {
 	t_data	*tmp;
+	int		res;
 
 	tmp = (t_data*)ft_memalloc(sizeof(t_data));
 	if (!tmp)
@@ -43,12 +44,12 @@ t_data 			*ft_get_data(t_data **data)
 	tmp->content = NULL;
 	tmp->next = NULL;
 	tmp->back = NULL;
-	if (ft_get_next_line(0, &(tmp->content)) != 1)
+	if ((res = ft_get_next_line(0, &(tmp->content))) < 1)
 	{
 		free(tmp->content);
 		free(tmp);
-		return (NULL);
+		return (res);
 	}
 	ft_add_tmp_to_data(tmp, data);
-	return ((*data)->back);
+	return (res);
 }

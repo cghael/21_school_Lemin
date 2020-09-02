@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_room.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 12:05:24 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 12:05:27 by cghael           ###   ########.fr       */
+/*   Created: 2020/09/02 15:49:21 by cghael            #+#    #+#             */
+/*   Updated: 2020/09/02 15:49:23 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(int argc, char *argv[])
+void		ft_free_room(t_room *room)
 {
-	t_lemin *lemin;
-
-	lemin = ft_lemin_init();
-	if (argc > 1)
-		ft_check_flags(lemin, argc, argv);
-	lemin = ft_parse_data(lemin);
-	ft_free_lemin(lemin);
-	return (0);
+	if (room)
+	{
+		if (room->name)
+			free(room->name);
+		if (room->links)
+			free(room->links);
+		free(room);
+	}
 }
