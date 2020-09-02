@@ -13,6 +13,8 @@ from tkinter import *
 import grafix
 import networkx as nx
 import matplotlib.pyplot as plt
+from sys import argv
+
 
 def print_func_name(name):
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
@@ -30,33 +32,50 @@ def print_graph(graph):
             cprint("")
 
 
-def init_graph():
+def init_graph(g):
     print_func_name('init graph')
-    graph = {}
-    graph["you"] = ["alice", "bob", "claire"]
-    graph["bob"] = ["anuj", "peggy"]
-    graph["alice"] = ["peggy"]
-    graph["claire"] = ["tom", "jonny"]
-    graph["anuj"] = []
-    graph["peggy"] = []
-    graph["tom"] = []
-    graph["jonny"] = []
-    return [graph]
+    # open file
+    file = open("../test", 'r')
+    # print('im readed file: ', file.read())  # open all data
+    check_start = 0
+    check_end = 0
+    for line in file:
+        # cprint('curr line is: '+line, color='green')
+        if line == '##start\n':
+            # cprint('i found start!')
+            # cprint(line, color='green', end=" ")
+            check_start = 1
+        elif line == '##end\n':
+            # cprint('i found end!')
+            # cprint(line, color='cyan', end=" ")
+            check_end = 1
+    if check_start == 1 and check_end == 1:
+        cprint('start && end founded!', color='yellow')
+    file = open("../test", 'r')
+    line = file.readline()
+    cprint(line)
+    # add nodes
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    g.add_node(4)
+    # add edges
+    g.add_edge(1, 2)
+    g.add_edge(3, 1)
+    g.add_edge(4, 1)
+    # print("len g is: ", len(g))
+    return [g]
 
 
 if __name__ == '__main__':
-    graph = init_graph()
-    print_graph(graph)
+    # init graph
+    G = nx.Graph()
+    init_graph(G)
+    # print_graph(G)
 
-    search_queue = deque()  # <- Соэдание новой очереди
-    for each in graph:
-        for elem in each:
-            search_queue += each[elem]  # add elems in row from graph...
-
-    while search_queue:
-        person = search_queue.popleft()
-        cprint(person, end=" ")
+    cprint(argv[1])  # print argv[1]
 # ############################################# GRAFIX
-    grafix.init_window(graph)
+    # grafix.init_window(G)
+
 # ############################################# GRAFIX
     cprint("\nEND\n", 'magenta')
