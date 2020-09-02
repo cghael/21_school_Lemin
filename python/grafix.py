@@ -1,4 +1,6 @@
-from Tkinter import *
+from tkinter import *
+import networkx as nx
+
 
 
 def about():
@@ -10,7 +12,7 @@ def about():
     a.after(7000, lambda: a.destroy())  # autokill window after 1000 ms
 
 
-def init_window():
+def init_window(graph):
     root = Tk()
     width = 600
     height = 600

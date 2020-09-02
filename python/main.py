@@ -9,9 +9,10 @@ from termcolor import colored, cprint  # цветной cprint https://pypi.org/
 from collections import deque # двусторонняя очередь
 # import Tkinter as tk
 # from random import *
-from Tkinter import *
+from tkinter import *
 import grafix
-
+import networkx as nx
+import matplotlib.pyplot as plt
 
 def print_func_name(name):
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
@@ -56,6 +57,6 @@ if __name__ == '__main__':
         person = search_queue.popleft()
         cprint(person, end=" ")
 # ############################################# GRAFIX
-    grafix.init_window()
+    grafix.init_window(graph)
 # ############################################# GRAFIX
     cprint("\nEND\n", 'magenta')
