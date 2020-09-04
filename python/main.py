@@ -34,7 +34,7 @@ def print_graph(graph):
             cprint("")
 
 
-def init_graph(g):
+def init_graph(g, argv):
     print_func_name('init graph')
     # open file
     file = open("../test", 'r')
@@ -63,14 +63,6 @@ def init_graph(g):
     g.add_edge(3, 1)
     g.add_edge(4, 1)
     # print("len g is: ", len(g))
-    return [g]
-
-
-if __name__ == '__main__':
-    # init graph
-    G = nx.Graph()
-    init_graph(G)
-    # print_graph(G)
 
 # START parsing mb need create class?
     cprint("open file: "+argv[1])  # print argv[1]
@@ -106,8 +98,15 @@ if __name__ == '__main__':
             links.append(line.split(sep='-'))
     print(links)
     print(len(links))
-# END parsing
+    # END parsing
+    return [g]
 
+
+if __name__ == '__main__':
+    # init graph
+    G = nx.Graph()
+    init_graph(G, argv)
+    # print_graph(G)
 
 # ############################################# GRAFIX
 #     grafix.init_window(G)
