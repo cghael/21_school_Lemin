@@ -14,6 +14,8 @@ import grafix
 import networkx as nx
 import matplotlib.pyplot as plt
 from sys import argv
+from pyparsing import *
+import re
 
 
 def print_func_name(name):
@@ -42,18 +44,15 @@ def init_graph(g):
     for line in file:
         # cprint('curr line is: '+line, color='green')
         if line == '##start\n':
-            # cprint('i found start!')
-            # cprint(line, color='green', end=" ")
             check_start = 1
         elif line == '##end\n':
-            # cprint('i found end!')
-            # cprint(line, color='cyan', end=" ")
             check_end = 1
     if check_start == 1 and check_end == 1:
         cprint('start && end founded!', color='yellow')
     file = open("../test", 'r')
     line = file.readline()
-    cprint(line)
+    cprint("numbers of ant:"+line)
+
     # add nodes
     g.add_node(1)
     g.add_node(2)
@@ -73,9 +72,45 @@ if __name__ == '__main__':
     init_graph(G)
     # print_graph(G)
 
-    cprint(argv[1])  # print argv[1]
+# START parsing mb need create class?
+    cprint("open file: "+argv[1])  # print argv[1]
+    file = open(argv[1])
+    ants = int(file.readline())
+    print("ANTS from argv:", ants)
+    rooms = []
+    check_start = 0
+    check_end = 0
+    for line in file:
+        # start, end
+        if check_start == 1:
+            rooms.append("start->")
+            check_start = 0
+        if check_end == 1:
+            rooms.append("end->")
+            check_end = 0
+        if line == '##start\n':
+            check_start = 1
+        elif line == '##end\n':
+            check_end = 1
+        if ' ' not in line and line[0] != '#':
+            break
+        if line[0] != '#':
+            rooms.append(line.split())
+    print(rooms)
+    print(len(rooms))
+    file = open(argv[1])
+    links = []
+    for line in file:
+        if line[0] != '#' and '-' in line:
+            line = ' '.join(line.split())  # remove '\n' for correctly splitting
+            links.append(line.split(sep='-'))
+    print(links)
+    print(len(links))
+# END parsing
+
+
 # ############################################# GRAFIX
-    # grafix.init_window(G)
+#     grafix.init_window(G)
 
 # ############################################# GRAFIX
     cprint("\nEND\n", 'magenta')
