@@ -13,6 +13,10 @@ from tkinter import *
 import grafix
 import networkx as nx
 import matplotlib.pyplot as plt
+from sys import argv
+from pyparsing import *
+import re
+
 
 def print_func_name(name):
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
@@ -30,33 +34,82 @@ def print_graph(graph):
             cprint("")
 
 
-def init_graph():
+def init_graph(g, argv):
     print_func_name('init graph')
-    graph = {}
-    graph["you"] = ["alice", "bob", "claire"]
-    graph["bob"] = ["anuj", "peggy"]
-    graph["alice"] = ["peggy"]
-    graph["claire"] = ["tom", "jonny"]
-    graph["anuj"] = []
-    graph["peggy"] = []
-    graph["tom"] = []
-    graph["jonny"] = []
-    return [graph]
+    # open file
+    file = open("../test", 'r')
+    # print('im readed file: ', file.read())  # open all data
+    check_start = 0
+    check_end = 0
+    for line in file:
+        # cprint('curr line is: '+line, color='green')
+        if line == '##start\n':
+            check_start = 1
+        elif line == '##end\n':
+            check_end = 1
+    if check_start == 1 and check_end == 1:
+        cprint('start && end founded!', color='yellow')
+    file = open("../test", 'r')
+    line = file.readline()
+    cprint("numbers of ant:"+line)
+
+    # add nodes
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    g.add_node(4)
+    # add edges
+    g.add_edge(1, 2)
+    g.add_edge(3, 1)
+    g.add_edge(4, 1)
+    # print("len g is: ", len(g))
+
+# START parsing mb need create class?
+    cprint("open file: "+argv[1])  # print argv[1]
+    file = open(argv[1])
+    ants = int(file.readline())
+    print("ANTS from argv:", ants)
+    rooms = []
+    check_start = 0
+    check_end = 0
+    for line in file:
+        # start, end
+        if check_start == 1:
+            rooms.append("start->")
+            check_start = 0
+        if check_end == 1:
+            rooms.append("end->")
+            check_end = 0
+        if line == '##start\n':
+            check_start = 1
+        elif line == '##end\n':
+            check_end = 1
+        if ' ' not in line and line[0] != '#':
+            break
+        if line[0] != '#':
+            rooms.append(line.split())
+    print(rooms)
+    print(len(rooms))
+    file = open(argv[1])
+    links = []
+    for line in file:
+        if line[0] != '#' and '-' in line:
+            line = ' '.join(line.split())  # remove '\n' for correctly splitting
+            links.append(line.split(sep='-'))
+    print(links)
+    print(len(links))
+    # END parsing
+    return [g]
 
 
 if __name__ == '__main__':
-    graph = init_graph()
-    print_graph(graph)
+    # init graph
+    G = nx.Graph()
+    init_graph(G, argv)
+    # print_graph(G)
 
-    search_queue = deque()  # <- Соэдание новой очереди
-    for each in graph:
-        for elem in each:
-            search_queue += each[elem]  # add elems in row from graph...
-
-    while search_queue:
-        person = search_queue.popleft()
-        cprint(person, end=" ")
 # ############################################# GRAFIX
-    grafix.init_window(graph)
+#     grafix.init_window(G)
+
 # ############################################# GRAFIX
     cprint("\nEND\n", 'magenta')

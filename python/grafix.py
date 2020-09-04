@@ -1,6 +1,6 @@
 from tkinter import *
 import networkx as nx
-
+import matplotlib.pyplot as plt
 
 
 def about():
@@ -12,7 +12,7 @@ def about():
     a.after(7000, lambda: a.destroy())  # autokill window after 1000 ms
 
 
-def init_window(graph):
+def init_window(g):
     root = Tk()
     width = 600
     height = 600
@@ -29,4 +29,8 @@ def init_window(graph):
     Label(text="Label", width=20, height=3).pack()
     Button(text="About", width=20, command=about).pack()
 
+    print("len g is: ", len(g))
+    nx.draw(g, with_labels=True)
+    plt.show()
+# graph plot
     root.mainloop()
