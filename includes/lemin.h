@@ -43,6 +43,18 @@
 **--------------------------------structs---------------------------------------
 */
 
+typedef struct			s_path
+{
+	char				*name;
+	struct s_path		*next;
+}						t_path;
+
+typedef struct			s_link
+{
+	int					lk;
+	int					way;
+}						t_link;
+
 typedef struct			s_data
 {
 	char				*content;
@@ -58,8 +70,9 @@ typedef struct			s_room
 	int					y;
 	int					state;
 	int					weight;
+	int					level;
 	char				*name;
-	int					*links;
+	t_link				*links;
 }						t_room;
 
 typedef struct			s_lemin
@@ -77,8 +90,8 @@ typedef struct			s_lemin
 */
 
 t_lemin					*ft_lemin_init(void);
-
-void					ft_error_n_exit(char *str, t_lemin *lemin, t_data **data);
+void					ft_error_n_exit(char *str, t_lemin *lemin, \
+																t_data **data);
 void					ft_free_data(t_data **data);
 void					ft_free_lemin(t_lemin *lemin);
 void					ft_free_room(t_room *room);
@@ -92,5 +105,11 @@ int						ft_check_correct_room(t_data **data);
 int						ft_is_link(t_data **data, t_lemin *lemin);
 void					ft_create_graph(t_lemin *lemin, t_data **data);
 void					ft_parse_links(t_lemin *lemin, t_data **data);
+
+void					ft_print_matrix(t_room *graph, int counter);
+void					ft_print_path(t_path *path);
+
+void					ft_find_paths(t_lemin *lemin);
+int						ft_set_levels(t_lemin *lemin, int lvl);
 
 #endif

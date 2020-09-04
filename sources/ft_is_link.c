@@ -38,8 +38,8 @@ static int	ft_write_link(char **str, t_lemin *lemin)
 	j = ft_get_index_of_room(str[1], lemin);
 	if (i < 0 || j < 0)
 		return (FALSE);
-	lemin->graph[i].links[j] = 1;
-	lemin->graph[j].links[i] = 1;
+	lemin->graph[i].links[j].lk = 1;
+	lemin->graph[j].links[i].lk = 1;
 	return (TRUE);
 }
 
