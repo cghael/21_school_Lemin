@@ -19,5 +19,5 @@ void		ft_error_n_exit(char *str, t_lemin *lemin, t_data **data)
 		ft_free_data(data);
 	if (lemin)
 		ft_free_lemin(lemin);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
