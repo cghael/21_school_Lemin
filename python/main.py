@@ -6,16 +6,18 @@
 
 import sys
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
-from collections import deque # двусторонняя очередь
+# from collections import deque # двусторонняя очередь
 # import Tkinter as tk
 # from random import *
 from tkinter import *
-import grafix
 import networkx as nx
 import matplotlib.pyplot as plt
 from sys import argv
-from pyparsing import *
-import re
+import grafix
+
+
+# from pyparsing import *
+# import re
 
 
 def print_func_name(name):
@@ -24,14 +26,14 @@ def print_func_name(name):
     cprint("{}\n".format(name), 'green')
 
 
-def print_graph(graph):
-    print_func_name('print graph')
-    for row in graph:
-        for item in row:
-            cprint("row [{}]:".format(item), end=" ")
-            cprint("->", 'grey', end=" ")
-            cprint(row[item], 'white', end=" ")
-            cprint("")
+# def print_graph(graph):
+    # print_func_name('print graph')
+    # for row in graph:
+    #     for item in row:
+    #         cprint("row [{}]:".format(item), end=" ")
+    #         cprint("->", 'grey', end=" ")
+    #         cprint(row[item], 'white', end=" ")
+    #         cprint("")
 
 
 def init_graph(g, argv):
@@ -49,20 +51,6 @@ def init_graph(g, argv):
             check_end = 1
     if check_start == 1 and check_end == 1:
         cprint('start && end founded!', color='yellow')
-    file = open("../test", 'r')
-    line = file.readline()
-    cprint("numbers of ant:"+line)
-
-    # add nodes
-    g.add_node(1)
-    g.add_node(2)
-    g.add_node(3)
-    g.add_node(4)
-    # add edges
-    g.add_edge(1, 2)
-    g.add_edge(3, 1)
-    g.add_edge(4, 1)
-    # print("len g is: ", len(g))
 
 # START parsing mb need create class?
     cprint("open file: "+argv[1])  # print argv[1]
@@ -73,12 +61,16 @@ def init_graph(g, argv):
     check_start = 0
     check_end = 0
     for line in file:
-        # start, end
+        # check & save start, end
         if check_start == 1:
-            rooms.append("start->")
+            # rooms.append("start->")
+            start_name = line.split().pop(0)
+            print("start name: ", start_name)
             check_start = 0
         if check_end == 1:
-            rooms.append("end->")
+            # rooms.append("end->")
+            end_name = line.split().pop(0)
+            print("end name: ", end_name)
             check_end = 0
         if line == '##start\n':
             check_start = 1
@@ -91,14 +83,30 @@ def init_graph(g, argv):
     print(rooms)
     print(len(rooms))
     file = open(argv[1])
-    links = []
+    edges = []
     for line in file:
         if line[0] != '#' and '-' in line:
             line = ' '.join(line.split())  # remove '\n' for correctly splitting
-            links.append(line.split(sep='-'))
-    print(links)
-    print(len(links))
+            edges.append(line.split(sep='-'))
+    print(edges)
+    print(len(edges))
     # END parsing
+    print("len g is: ", len(g))
+    g.clear()
+    print("len g is: ", len(g))
+
+    # fill Graph from list
+    # fill all node_names
+    r_names = rooms.copy()
+    for i in range(len(r_names)):
+        g.add_node(r_names.pop().pop(0))
+    print("nodes in g: ", g.nodes)
+    # fill all edges
+    g.add_edges_from(edges)
+    # end fill Graph
+
+    print("len g is: ", len(g), "len rooms: ", len(rooms))
+
     return [g]
 
 
@@ -109,7 +117,7 @@ if __name__ == '__main__':
     # print_graph(G)
 
 # ############################################# GRAFIX
-#     grafix.init_window(G)
+    grafix.init_window(G)
 
 # ############################################# GRAFIX
     cprint("\nEND\n", 'magenta')
