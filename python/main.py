@@ -115,6 +115,7 @@ if __name__ == '__main__':
     G = nx.Graph()
     init_graph(G, argv)
     # print_graph(G)
+    # G.Graph('Olt2') {color='red'}
 
 # ############################################# GRAFIX
     grafix.init_window(G)
