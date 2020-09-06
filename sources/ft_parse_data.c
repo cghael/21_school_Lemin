@@ -22,7 +22,7 @@ t_lemin			*ft_parse_data(t_lemin *lemin)
 	ft_parse_rooms(lemin, &data); //todo coords are same in diff rooms
 	ft_create_graph(lemin, &data);
 	ft_parse_links(lemin, &data);
-	ft_print_matrix(lemin->graph, lemin->rooms);
+	ft_print_matrix(lemin->graph, lemin->rooms, 0);
 	ft_free_data(&data);
 	return (lemin);
 }

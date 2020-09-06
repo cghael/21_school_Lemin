@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-void		ft_print_matrix(t_room *graph, int counter)
+void		ft_print_matrix(t_room *graph, int counter, int way)
 {
 	int i;
 	int j;
@@ -38,7 +38,10 @@ void		ft_print_matrix(t_room *graph, int counter)
 			ft_printf("\e[1;31m%7c%d%c%s\e[m", '(', graph[i].level, ')', graph[i].name);
 		while (j < counter)
 		{
-			ft_printf("%10d", graph[i].links[j]);
+			if (way)
+				ft_printf("%10d", graph[i].links[j].way);
+			else
+				ft_printf("%10d", graph[i].links[j].lk);
 			j++;
 		}
 		ft_printf("\n\n");

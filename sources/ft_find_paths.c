@@ -26,36 +26,45 @@ static t_path		*ft_add_path(t_path **path, char *name)
 	return (*path);
 }
 
+static int		ft_find_from_room(t_lemin *lemin, int lvl, int to, \
+																t_path **path)
+{
+	int from;
+
+	from = 0;
+	while (from < lemin->rooms)
+	{
+		if (lemin->graph[to].links[from].lk == 1 \
+			&& lemin->graph[from].level == lvl \
+			&& lemin->graph[from].links[to].way < 1)
+		{
+			if (!ft_add_path(path, lemin->graph[from].name))
+				return (-1);
+			lemin->graph[from].links[to].way = 1;
+			lemin->graph[to].links[from].way = -1;
+			return (from);
+		}
+		from++;
+	}
+	return (-1);
+}
+
 static int		ft_write_path(t_lemin *lemin, int lvl, t_path **path)
 {
-	int		i;
+	int	to;
 
-	i = 0;
-	if (lvl == 0)
+	to = lemin->end;
+	while (lvl > 0)
 	{
-		if (!ft_add_path(path, lemin->graph[lemin->start].name))
-			return (1);
-		return (0);
+		if ((to = ft_find_from_room(lemin, lvl, to, path)) == -1)
+			return (EXIT_FAILURE);
+		lvl--;
 	}
-	if ((*path)->name == lemin->graph[lemin->end].name)
-	{
-		ft_add_to_end(); //todo
-		while (i < lemin->rooms)
-		{
-			if (lemin->graph[lemin->end].links[i].lk == 1 \
-			&& lemin->graph[i].level == lvl)
-			{
-				if (!(ft_add_path(path, lemin->graph[i].name)))
-					return (1);
-//			lemin->graph[lemin->end].links[i].way = 1;
-				break ;
-			}
-			i++;
-		}
-	}
-	else
-
-	return (ft_write_path(lemin, lvl - 1, path));
+	if (!ft_add_path(path, lemin->graph[lemin->start].name))
+		return (EXIT_FAILURE);
+	lemin->graph[to].links[lemin->start].way = -1;
+	lemin->graph[lemin->start].links[to].way = 1;
+	return (EXIT_SUCCESS);
 }
 
 void			ft_find_paths(t_lemin *lemin)
@@ -63,9 +72,24 @@ void			ft_find_paths(t_lemin *lemin)
 	int		lvl;
 	t_path	*path;
 
-	path = NULL;//todo add end
+	path = NULL;
+	if (!ft_add_path(&path, lemin->graph[lemin->end].name))
+	{
+		//todo free path
+		ft_error_n_exit("Error in ft_find_paths()\n", lemin, NULL);
+	}
 	lvl = ft_set_levels(lemin, 0);
-	ft_print_matrix(lemin->graph, lemin->rooms);
-	ft_write_path(lemin, lvl, &path); //todo if error
+	if (lvl == -1)
+	{
+		//todo if not found lvl
+		return ;
+	}
+	ft_print_matrix(lemin->graph, lemin->rooms, 0);
+	if (EXIT_FAILURE == ft_write_path(lemin, lvl, &path)) //todo if error
+	{
+		//todo free path
+		ft_error_n_exit("Error in ft_find_paths()\n", lemin, NULL);
+	}
+	ft_print_matrix(lemin->graph, lemin->rooms, 1);
 	ft_print_path(path);
 }

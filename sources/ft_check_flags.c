@@ -15,7 +15,7 @@
 void		ft_check_flags(t_lemin *lemin, int argc, char *argv[])
 {
 	if (argc != 2 || !ft_strequ(argv[1], "-v"))
-		ft_error_n_exit(HELP, lemin, LEMIN);
+		ft_error_n_exit(HELP, lemin, NULL);
 	else
 		lemin->visual = TRUE;
 }
