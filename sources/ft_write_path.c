@@ -55,7 +55,7 @@ static t_return 	ft_find_from_room(t_lemin *lemin, int lvl, int to, \
 				return (ft_return(-1, 0));
 			//todo if we met -1
 			if (lemin->graph[from].links[to].way == -1)
-				cross = 1;
+				cross = 1; //todo return from-to cross links in struct
 			lemin->graph[from].links[to].way = 1;
 			lemin->graph[to].links[from].way = -1;
 			return (ft_return(from, cross));
