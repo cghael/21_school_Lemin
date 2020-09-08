@@ -25,7 +25,8 @@ static int		ft_first_lvl_set(t_lemin *lemin)
 	find = NOT_FOUND;
 	while (i < lemin->rooms)
 	{
-		if (lemin->graph[lemin->start].links[i].lk == 1)
+		if (lemin->graph[lemin->start].links[i].lk == 1 \
+			&& lemin->graph[lemin->start].links[i].way < 1)
 		{
 			if (i == lemin->end)
 				return (END_FOUND);
@@ -47,7 +48,8 @@ static int		ft_set_lvl_on_links(t_lemin *lemin, int j, int lvl)
 	while (i < lemin->rooms)
 	{
 		if (lemin->graph[j].links[i].lk == 1 \
-					&& lemin->graph[i].level == 0 && i != lemin->start)
+			&& lemin->graph[j].links[i].way < 1 \
+			&& lemin->graph[i].level == 0 && i != lemin->start)
 		{
 			if (i == lemin->end)
 				return (END_FOUND);

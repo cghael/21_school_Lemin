@@ -12,84 +12,91 @@
 
 #include "lemin.h"
 
-static t_path		*ft_add_path(t_path **path, char *name)
+static t_tracks		*ft_create_tracks(void)
 {
-	t_path *tmp;
+	t_tracks	*tracks;
 
-	if (!(tmp = ft_memalloc(sizeof(t_path))))
+	tracks = NULL;
+	if ((tracks = ft_memalloc(sizeof(t_tracks))) == NULL)
 		return (NULL);
-	tmp->name = name;
-	tmp->next = NULL;
-	if (*path)
-		tmp->next = *path;
-	*path = tmp;
-	return (*path);
+	tracks->next = NULL;
+	tracks->path = NULL;
+	return (tracks);
 }
 
-static int		ft_find_from_room(t_lemin *lemin, int lvl, int to, \
-																t_path **path)
+static t_tracks		*ft_create_new_track(t_tracks **tracks)
 {
-	int from;
+	t_tracks	*current;
+	t_tracks	*tmp;
 
-	from = 0;
-	while (from < lemin->rooms)
+	if (*tracks == NULL)
 	{
-		if (lemin->graph[to].links[from].lk == 1 \
-			&& lemin->graph[from].level == lvl \
-			&& lemin->graph[from].links[to].way < 1)
-		{
-			if (!ft_add_path(path, lemin->graph[from].name))
-				return (-1);
-			lemin->graph[from].links[to].way = 1;
-			lemin->graph[to].links[from].way = -1;
-			return (from);
-		}
-		from++;
+		if ((*tracks = ft_create_tracks()) == NULL)
+			return (NULL);
+		current = *tracks;
 	}
-	return (-1);
+	else
+	{
+		if ((current = ft_create_tracks()) == NULL)
+			return (NULL);
+		tmp = *tracks;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = current;
+	}
+	return (current);
 }
 
-static int		ft_write_path(t_lemin *lemin, int lvl, t_path **path)
+static int			ft_count_path_len(t_path *path)
 {
-	int	to;
+	int		len;
+	t_path	*tmp;
 
-	to = lemin->end;
-	while (lvl > 0)
+	len = 0;
+	tmp = path;
+	while (tmp)
 	{
-		if ((to = ft_find_from_room(lemin, lvl, to, path)) == -1)
-			return (EXIT_FAILURE);
-		lvl--;
+		len++;
+		tmp = tmp->next;
 	}
-	if (!ft_add_path(path, lemin->graph[lemin->start].name))
-		return (EXIT_FAILURE);
-	lemin->graph[to].links[lemin->start].way = -1;
-	lemin->graph[lemin->start].links[to].way = 1;
-	return (EXIT_SUCCESS);
+	return (len); //count steps
 }
 
-void			ft_find_paths(t_lemin *lemin)
+static void			ft_clear_lvls(t_lemin *lemin)
 {
-	int		lvl;
-	t_path	*path;
+	int i;
 
-	path = NULL;
-	if (!ft_add_path(&path, lemin->graph[lemin->end].name))
+	i = 0;
+	while (i < lemin->rooms)
 	{
-		//todo free path
-		ft_error_n_exit("Error in ft_find_paths()\n", lemin, NULL);
+		lemin->graph[i].level = 0;
+		i++;
 	}
-	lvl = ft_set_levels(lemin, 0);
-	if (lvl == -1)
+}
+
+void				ft_find_paths(t_lemin *lemin)
+{
+	int			lvl;
+	t_tracks	*tracks;
+	t_tracks	*current;
+	t_return	ret;
+
+	lvl = 0;
+	tracks = NULL;
+	while (lvl >= 0)
 	{
-		//todo if not found lvl
-		return ;
+		if ((lvl = ft_set_levels(lemin, 0)) < 0)
+			break ; //todo no more ways
+		ft_print_matrix(lemin->graph, lemin->rooms, 0); //todo del
+		current = ft_create_new_track(&tracks);
+		ret = ft_write_path(lemin, lvl, &current->path);
+		if (EXIT_FAILURE == ret.res)
+			ft_error_n_exit("Error in ft_find_paths()\n", lemin, NULL, tracks);
+		current->len = ft_count_path_len(current->path);
+		//todo if ret.cross == 1 !!!
+		ft_print_matrix(lemin->graph, lemin->rooms, 1); //todo del
+		ft_print_path(lemin->graph, current->path, current->len); //todo del
+		ft_clear_lvls(lemin);
+//		lvl = -1;
 	}
-	ft_print_matrix(lemin->graph, lemin->rooms, 0);
-	if (EXIT_FAILURE == ft_write_path(lemin, lvl, &path)) //todo if error
-	{
-		//todo free path
-		ft_error_n_exit("Error in ft_find_paths()\n", lemin, NULL);
-	}
-	ft_print_matrix(lemin->graph, lemin->rooms, 1);
-	ft_print_path(path);
 }
