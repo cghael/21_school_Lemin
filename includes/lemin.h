@@ -45,9 +45,25 @@
 
 typedef struct			s_path
 {
+	int					from;
+	int					to;
 	char				*name;
 	struct s_path		*next;
 }						t_path;
+
+typedef	struct			s_return
+{
+	int					res;
+	int					cross;
+}						t_return;
+
+typedef struct			s_tracks
+{
+	t_path				*path;
+	int					len;
+	int					num;
+	struct s_tracks		*next;
+}						t_tracks;
 
 typedef struct			s_link
 {
@@ -90,11 +106,11 @@ typedef struct			s_lemin
 */
 
 t_lemin					*ft_lemin_init(void);
-void					ft_error_n_exit(char *str, t_lemin *lemin, \
-																t_data **data);
+void					ft_error_n_exit(char *str, t_lemin *lemin, t_data **data, t_tracks *tracks);
 void					ft_free_data(t_data **data);
 void					ft_free_lemin(t_lemin *lemin);
 void					ft_free_room(t_room *room);
+void					ft_free_tracks(t_tracks *tracks);
 
 void					ft_check_flags(t_lemin *lemin, int argc, char *argv[]);
 t_lemin					*ft_parse_data(t_lemin *lemin);
@@ -107,9 +123,10 @@ void					ft_create_graph(t_lemin *lemin, t_data **data);
 void					ft_parse_links(t_lemin *lemin, t_data **data);
 
 void					ft_print_matrix(t_room *graph, int counter, int way);
-void					ft_print_path(t_path *path);
+void					ft_print_path(t_room *graph, t_path *path, int len);
 
 void					ft_find_paths(t_lemin *lemin);
+t_return				ft_write_path(t_lemin *lemin, int lvl, t_path **path);
 int						ft_set_levels(t_lemin *lemin, int lvl);
 
 #endif

@@ -57,7 +57,11 @@ static void		ft_fill_graph(t_lemin *lemin, t_data **data)
 		{
 			if (FALSE == ft_copy_data_to_array(&lemin->graph[i], \
 											tmp->content, tmp->back->command))
-				ft_error_n_exit("Error in ft_create_graph()\n", lemin, data);
+				ft_error_n_exit(
+						"Error in ft_create_graph()\n",
+						lemin,
+						data,
+						NULL);
 			if (lemin->graph[i].state == START)
 				lemin->start = i;
 			if (lemin->graph[i].state == END)
@@ -76,7 +80,11 @@ void			ft_create_graph(t_lemin *lemin, t_data **data)
 	i = 0;
 	if (!(lemin->graph = (t_room*)ft_memalloc(sizeof(t_room) * \
 																lemin->rooms)))
-		ft_error_n_exit("Error in ft_create_graph()\n", lemin, data);
+		ft_error_n_exit(
+				"Error in ft_create_graph()\n",
+				lemin,
+				data,
+				NULL);
 	while (i < lemin->rooms)
 	{
 		if (!(lemin->graph[i].links = (t_link*)ft_memalloc(sizeof(t_link) * \
@@ -84,7 +92,11 @@ void			ft_create_graph(t_lemin *lemin, t_data **data)
 		{
 			while (--i >= 0)
 				free(lemin->graph[i].links);
-			ft_error_n_exit("Error in ft_create_graph()\n", lemin, data);
+			ft_error_n_exit(
+					"Error in ft_create_graph()\n",
+					lemin,
+					data,
+					NULL);
 		}
 		i++;
 	}

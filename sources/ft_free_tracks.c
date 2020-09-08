@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_n_exit.c                                  :+:      :+:    :+:   */
+/*   ft_free_tracks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 13:16:06 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 13:16:08 by cghael           ###   ########.fr       */
+/*   Created: 2020/09/07 12:17:32 by cghael            #+#    #+#             */
+/*   Updated: 2020/09/07 12:17:33 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void		ft_error_n_exit(char *str, t_lemin *lemin, t_data **data, t_tracks *tracks)
+static void	ft_free_path(t_path *path)
 {
-	write(2, str, ft_strlen(str));
-	if (data)
-		ft_free_data(data);
-	if (lemin)
-		ft_free_lemin(lemin);
+	t_path *tmp;
+
+	while (path != NULL)
+	{
+		tmp = path->next;
+		free(path->name);
+		free(path);
+		path = tmp;
+	}
+}
+
+void		ft_free_tracks(t_tracks *tracks)
+{
 	if (tracks)
-		ft_free_tracks(tracks);
-	exit(EXIT_FAILURE);
+	{
+		while (tracks)
+		{
+			ft_free_path(tracks->path);
+			tracks = tracks->next;
+		}
+	}
 }

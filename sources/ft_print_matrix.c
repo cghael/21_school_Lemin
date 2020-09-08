@@ -51,11 +51,14 @@ void		ft_print_matrix(t_room *graph, int counter, int way)
 }
 
 
-void	ft_print_path(t_path *path)
+void	ft_print_path(t_room *graph, t_path *path, int len)
 {
+	ft_printf("Length = %d | ", len);
+//	path = path->next;
 	while (path)
 	{
-		ft_printf("-%s", path->name);
+		ft_printf("%s-%s, ", graph[path->from].name, graph[path->to].name);
 		path = path->next;
 	}
+	ft_printf("\n\n");
 }

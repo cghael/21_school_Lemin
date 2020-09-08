@@ -104,17 +104,33 @@ void			ft_parse_rooms(t_lemin *lemin, t_data **data)
 	int		res;
 
 	if (!ft_get_data(data))
-		ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, data);
+		ft_error_n_exit(
+				"Error in ft_parse_rooms()\n",
+				lemin,
+				data,
+				NULL);
 	while ((res = ft_is_room(data, lemin)) == 1)
 	{
 		if (ft_get_data(data) < 1)
-			ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, data);
+			ft_error_n_exit(
+					"Error in ft_parse_rooms()\n",
+					lemin,
+					data,
+					NULL);
 	}
 	if (res == 0)
 	{
 		if (lemin->rooms < 1 || lemin->start == 0 || lemin->end == 0)
-			ft_error_n_exit(ROOM_NOT_VALID, lemin, data);
+			ft_error_n_exit(
+					ROOM_NOT_VALID,
+					lemin,
+					data,
+					NULL);
 	}
 	else if (res == -1)
-		ft_error_n_exit(ROOM_NOT_VALID, lemin, data);
+		ft_error_n_exit(
+				ROOM_NOT_VALID,
+				lemin,
+				data,
+				NULL);
 }
