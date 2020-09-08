@@ -37,7 +37,7 @@ def ft_embed_graph(g, root):
     plt.legend(handles=[red_patch])
     canvas = FigureCanvasTkAgg(plt.figure(1), master=root)
     canvas.draw()
-    canvas.get_tk_widget().grid()
+    canvas.get_tk_widget().grid(row=1, columnspan=3, padx=5, pady=5)
 
 
 def ft_destroy_graph():
@@ -47,20 +47,20 @@ def ft_destroy_graph():
 def ft_init_window(g):
     root = Tk()
     root.tk_setPalette('gray60')
-    width = 600
-    height = 600
+    width = 650
+    height = 500
     w = root.winfo_screenwidth()  # width of all screen
     h = root.winfo_screenheight()  # height of all screen
     w = w // 2  # for center on screen by a X
     h = h // 2
     w = w - width // 2
     h = h - height // 2
-    root.geometry('600x600+{}+{}'.format(w, h))  # create window with shift
+    root.geometry('650x530+{}+{}'.format(w, h))  # create window with shift
     root.title("lemin visualiser v 0.1")
 # buttons
-    Button(text="Open map", width=10, command=ft_open_map).grid()
-    Button(text="About", width=10, command=ft_about).grid()
-    Button(text="destroy", width=10, command=ft_destroy_graph).grid()
+    Button(text="Open map", width=10, command=ft_open_map).grid(row=0, column=0, padx=5, pady=5)
+    Button(text="About", width=10, command=ft_about).grid(row=0, column=1, padx=5, pady=5)
+    Button(text="destroy", width=10, command=ft_destroy_graph).grid(row=0, column=2, padx=5, pady=5)
 # end buttons
     print("len g is: ", len(g))  #todo
     ft_embed_graph(g, root)  # including graph ^^^
