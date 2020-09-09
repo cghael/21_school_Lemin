@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
 # from collections import deque # двусторонняя очередь

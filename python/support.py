@@ -76,4 +76,5 @@ def ft_init_graph(g, argv):
     g.add_edges_from(edges)
     # end fill Graph
     print("len g is: ", len(g), "len rooms: ", len(rooms))
+    print(g.nodes(data=True))
     return [g]
