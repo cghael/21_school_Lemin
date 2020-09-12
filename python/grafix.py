@@ -31,7 +31,10 @@ def ft_open_map():
 
 def ft_embed_graph(g, root):
     pos = nx.spring_layout(g)
-    nx.draw(g, pos, node_color='g', with_labels=True)
+    # nx.draw(g, pos, node_color='g', with_labels=True)
+    nx.draw(g, pos, node_color='gray', with_labels=True, font_size=10)
+    nx.draw_networkx_nodes(g, pos, nodelist=['a', 'b', 'c'], node_color="r", node_size=100)
+    nx.draw_networkx_nodes(g, pos, nodelist=['d', 'a', 'f'], node_color="b", node_size=100)
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
     plt.legend(handles=[red_patch])

@@ -77,4 +77,5 @@ def ft_init_graph(g, argv):
     # end fill Graph
     print("len g is: ", len(g), "len rooms: ", len(rooms))
     print(g.nodes(data=True))
+    # g[1][3]['color'] = "blue"
     return [g]
