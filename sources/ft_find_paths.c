@@ -55,11 +55,12 @@ void				ft_find_paths(t_lemin *lemin)
 		current->len = ft_count_path_len(current->path);
 		//todo count DO WE NEED any more ways (steps & ants)
 		if (current->cross)
-			ft_change_cross_ways(current, tracks);
+			ft_change_cross_ways(current, tracks, lemin);
 		ft_print_matrix(lemin->graph, lemin->rooms, 1); //todo del
-		ft_print_path(lemin->graph, current->path, current->len); //todo del
+		ft_print_path(lemin->graph, tracks); //todo del
 		ft_clear_lvls(lemin);
+		ft_print_matrix(lemin->graph, lemin->rooms, 0);
 		lvl = ft_set_levels(lemin, 0);
 	}
-	ft_free_tracks(tracks);
+//	ft_free_tracks(tracks);
 }

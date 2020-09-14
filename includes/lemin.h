@@ -124,12 +124,12 @@ void					ft_create_graph(t_lemin *lemin, t_data **data);
 void					ft_parse_links(t_lemin *lemin, t_data **data);
 
 void					ft_print_matrix(t_room *graph, int counter, int way);
-void					ft_print_path(t_room *graph, t_path *path, int len);
+void					ft_print_path(t_room *graph, t_tracks *tracks);
 
 t_tracks				*ft_create_new_track(t_tracks **tracks);
 void					ft_find_paths(t_lemin *lemin);
 t_tracks				*ft_write_path(t_lemin *lemin, int lvl, t_tracks **tracks);
 int						ft_set_levels(t_lemin *lemin, int lvl);
-void					ft_change_cross_ways(t_tracks *current, t_tracks *tracks);
+void					ft_change_cross_ways(t_tracks *current, t_tracks *tracks, t_lemin *lemin);
 
 #endif
