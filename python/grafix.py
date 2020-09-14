@@ -33,11 +33,14 @@ def ft_embed_graph(g, root):
     pos = nx.spring_layout(g)
     # nx.draw(g, pos, node_color='g', with_labels=True)
 
-    nx.draw(g, pos, node_color='gray', with_labels=True, font_size=10)
     curr_ants = ['a', 'b', 'c']
-    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
+    pos['a'] = 10, 10
     pos['d'] = 10, 20
-    nx.draw_networkx_nodes(g, pos, nodelist=['d', 'a', 'f'], node_color="b", node_size=100)
+    # ololo - func placed to coords
+
+    nx.draw(g, pos, node_color='gray', with_labels=True, font_size=10)
+    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
+    nx.draw_networkx_nodes(g, pos, nodelist=['d', 'f'], node_color="b", node_size=100)
 
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')

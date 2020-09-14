@@ -18,7 +18,7 @@ if __name__ == '__main__':
     # G.Graph('Olt2') {color='red'}
 
     # ############################### GRAFIX ##############################
-    gx.ft_init_window(data.graph)
+    gx.ft_init_window(data.graph)  #todo rebuild to data
 
     # ############################### GRAFIX ##############################
     cprint("\nEND\n", 'magenta')
