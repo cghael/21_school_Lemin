@@ -29,15 +29,19 @@ def ft_open_map():
     s.ft_print_func_name("open map")
 
 
-def ft_embed_graph(g, root):
+def ft_embed_graph(data, root):
+    g = data.graph
     pos = nx.spring_layout(g)
     # nx.draw(g, pos, node_color='g', with_labels=True)
 
-    nx.draw(g, pos, node_color='gray', with_labels=True, font_size=10)
     curr_ants = ['a', 'b', 'c']
-    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
+    pos['a'] = 10, 10
     pos['d'] = 10, 20
-    nx.draw_networkx_nodes(g, pos, nodelist=['d', 'a', 'f'], node_color="b", node_size=100)
+    # ololo - func placed to coords
+
+    nx.draw(g, pos, node_color='gray', with_labels=True, font_size=10)
+    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
+    nx.draw_networkx_nodes(g, pos, nodelist=['d', 'f'], node_color="b", node_size=100)
 
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
@@ -54,7 +58,8 @@ def ft_next_step():
     s.ft_print_func_name("next_step")
 
 
-def ft_init_window(g):
+def ft_init_window(data):
+    g = data.graph
     root = Tk()
     root.tk_setPalette('gray60')
     width = 660
@@ -73,5 +78,6 @@ def ft_init_window(g):
     Button(text="Next step", width=10, command=ft_next_step).grid(row=0, column=2, padx=5, pady=5)
 # end buttons
     print("len g is: ", len(g))  #todo
-    ft_embed_graph(g, root)  # including graph ^^^
+    # ft_embed_graph(g, root)  # including graph ^^^
+    ft_embed_graph(data, root)  # including graph ^^^
     root.mainloop()
