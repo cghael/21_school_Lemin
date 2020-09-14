@@ -10,14 +10,21 @@ from sys import argv
 import grafix
 
 
+class ParsedData:
+    def __init__(self, graph, coords):
+        self.graph = graph
+        self.coords = coords
+
+
 def ft_print_func_name(name):
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
     cprint("func:", 'cyan', end=" ")
     cprint("{}\n".format(name), 'green')
 
 
-def ft_init_graph(g, argv):
+def ft_init_graph(argv):
     ft_print_func_name('init graph')
+    g = nx.Graph()
     # open file
     file = open("../test", 'r')
     # print('im readed file: ', file.read())  # open all data
@@ -77,5 +84,6 @@ def ft_init_graph(g, argv):
     # end fill Graph
     print("len g is: ", len(g), "len rooms: ", len(rooms))
     print(g.nodes(data=True))
-    # g[1][3]['color'] = "blue"
-    return [g]
+    # return [g]
+    data = ParsedData(g, edges)
+    return data

@@ -12,13 +12,13 @@ import support as s
 
 if __name__ == '__main__':
     # init graph
-    G = nx.Graph()
-    s.ft_init_graph(G, argv)
+    # G = nx.Graph()
+    data = s.ft_init_graph(argv)
     # print_graph(G)
     # G.Graph('Olt2') {color='red'}
 
     # ############################### GRAFIX ##############################
-    gx.ft_init_window(G)
+    gx.ft_init_window(data.graph)
 
     # ############################### GRAFIX ##############################
     cprint("\nEND\n", 'magenta')
