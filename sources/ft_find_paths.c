@@ -12,41 +12,6 @@
 
 #include "lemin.h"
 
-static t_tracks		*ft_create_tracks(void)
-{
-	t_tracks	*tracks;
-
-	tracks = NULL;
-	if ((tracks = ft_memalloc(sizeof(t_tracks))) == NULL)
-		return (NULL);
-	tracks->next = NULL;
-	tracks->path = NULL;
-	return (tracks);
-}
-
-static t_tracks		*ft_create_new_track(t_tracks **tracks)
-{
-	t_tracks	*current;
-	t_tracks	*tmp;
-
-	if (*tracks == NULL)
-	{
-		if ((*tracks = ft_create_tracks()) == NULL)
-			return (NULL);
-		current = *tracks;
-	}
-	else
-	{
-		if ((current = ft_create_tracks()) == NULL)
-			return (NULL);
-		tmp = *tracks;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = current;
-	}
-	return (current);
-}
-
 static int			ft_count_path_len(t_path *path)
 {
 	int		len;
@@ -79,24 +44,22 @@ void				ft_find_paths(t_lemin *lemin)
 	int			lvl;
 	t_tracks	*tracks;
 	t_tracks	*current;
-	t_return	ret;
 
-	lvl = 0;
 	tracks = NULL;
+	lvl = ft_set_levels(lemin, 0);
 	while (lvl >= 0)
 	{
-		if ((lvl = ft_set_levels(lemin, 0)) < 0)
-			break ; //todo no more ways
 		ft_print_matrix(lemin->graph, lemin->rooms, 0); //todo del
-		current = ft_create_new_track(&tracks);
-		ret = ft_write_path(lemin, lvl, &current->path);
-		if (EXIT_FAILURE == ret.res)
-			ft_error_n_exit("Error in ft_find_paths()\n", lemin, NULL, tracks);
+		if ((current = ft_write_path(lemin, lvl, &tracks)) == NULL)
+			ft_error_n_exit("Error in ft_write_paths()\n", lemin, NULL, tracks);
 		current->len = ft_count_path_len(current->path);
-		//todo if ret.cross == 1 !!!
+		//todo count DO WE NEED any more ways (steps & ants)
+		if (current->cross)
+			ft_change_cross_ways(current, tracks);
 		ft_print_matrix(lemin->graph, lemin->rooms, 1); //todo del
 		ft_print_path(lemin->graph, current->path, current->len); //todo del
 		ft_clear_lvls(lemin);
-//		lvl = -1;
+		lvl = ft_set_levels(lemin, 0);
 	}
+	ft_free_tracks(tracks);
 }
