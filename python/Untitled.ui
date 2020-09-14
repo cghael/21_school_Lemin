@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.0">
+  <object class="ttk.Frame" id="main">
+    <property name="height">600</property>
+    <property name="takefocus">true</property>
+    <property name="width">600</property>
+    <layout manager="grid">
+      <property name="propagate">True</property>
+    </layout>
+    <child>
+      <object class="ttk.Labelframe" id="labelframe_1">
+        <property name="height">600</property>
+        <property name="relief">flat</property>
+        <property name="text" translatable="yes">visual</property>
+        <property name="width">600</property>
+        <layout manager="pack">
+          <property name="fill">both</property>
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Button" id="button_1">
+            <property name="text" translatable="yes">button_1</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_2">
+            <property name="text" translatable="yes">button_2</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_3">
+            <property name="text" translatable="yes">button_3</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_4">
+            <property name="text" translatable="yes">button_4</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame_4">
+        <property name="height">600</property>
+        <property name="width">600</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="tk.Canvas" id="graph">
+            <property name="background">#6c6c6c</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
