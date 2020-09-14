@@ -47,19 +47,20 @@ typedef struct			s_path
 {
 	int					from;
 	int					to;
-	char				*name;
+	int					num;
 	struct s_path		*next;
 }						t_path;
 
-typedef	struct			s_return
-{
-	int					res;
-	int					cross;
-}						t_return;
+//typedef	struct			s_return
+//{
+//	int					res;
+//	int					cross;
+//}						t_return;
 
 typedef struct			s_tracks
 {
 	t_path				*path;
+	t_path				*cross;
 	int					len;
 	int					num;
 	struct s_tracks		*next;
@@ -125,8 +126,10 @@ void					ft_parse_links(t_lemin *lemin, t_data **data);
 void					ft_print_matrix(t_room *graph, int counter, int way);
 void					ft_print_path(t_room *graph, t_path *path, int len);
 
+t_tracks				*ft_create_new_track(t_tracks **tracks);
 void					ft_find_paths(t_lemin *lemin);
-t_return				ft_write_path(t_lemin *lemin, int lvl, t_path **path);
+t_tracks				*ft_write_path(t_lemin *lemin, int lvl, t_tracks **tracks);
 int						ft_set_levels(t_lemin *lemin, int lvl);
+void					ft_change_cross_ways(t_tracks *current, t_tracks *tracks);
 
 #endif

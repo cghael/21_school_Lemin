@@ -1,44 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tracks.c                                   :+:      :+:    :+:   */
+/*   ft_change_cross_ways.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 12:17:32 by cghael            #+#    #+#             */
-/*   Updated: 2020/09/07 12:17:33 by cghael           ###   ########.fr       */
+/*   Created: 2020/09/14 13:47:25 by cghael            #+#    #+#             */
+/*   Updated: 2020/09/14 13:47:27 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void		ft_free_path(t_path *path)
-{
-	t_path *tmp;
-
-	while (path != NULL)
-	{
-		tmp = path->next;
-//		free(path->name);
-		free(path);
-		path = tmp;
-	}
-}
-
-void			ft_free_tracks(t_tracks *tracks)
+void		ft_change_cross_ways(t_tracks *current, t_tracks *tracks)
 {
 	t_tracks	*tmp;
 
-	if (tracks)
+	while (current->cross)
 	{
-		while (tracks)
-		{
-			tmp = tracks->next;
-			ft_free_path(tracks->path);
-			ft_free_path(tracks->cross);
-			tracks->path = NULL;
-			free(tracks);
-			tracks = tmp;
-		}
+		current->cross = current->cross->next;
 	}
 }
