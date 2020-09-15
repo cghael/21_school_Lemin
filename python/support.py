@@ -13,7 +13,7 @@ import grafix
 class ParsedData:
     def __init__(self, graph, curr_node, start_name, end_name):
         self.graph = graph
-        self.coords = {}
+        self.coords = []
         self.start_name = start_name
         self.end_name = end_name
         self.curr_node = 0
@@ -21,9 +21,10 @@ class ParsedData:
     def save_coords(self, curr_name, x, y):
         tmp_node = {}
         tmp_node['name'] = curr_name
-        tmp_node['x'] = x
-        tmp_node['y'] = y  # todo crash on last elem (((((
-        print('curr_node: ', tmp_node['name'], tmp_node['x'], tmp_node['y'])
+        tmp_node['x'] = int(x)
+        tmp_node['y'] = int(y)
+        # print('curr_node: ', tmp_node['name'], tmp_node['x'], tmp_node['y'])
+        self.coords.append(tmp_node)
 
 
 def ft_print_func_name(name):
@@ -85,7 +86,9 @@ def ft_init_graph(argv):
         curr_node = room_names.pop()
         curr_name = curr_node.pop(0)
         g.add_node(curr_name)
-        data.save_coords(curr_name, curr_node.pop(), curr_node.pop())  # todo must save x,y to class! REVERSE SAVING NOW
+        y = curr_node.pop()
+        x = curr_node.pop()
+        data.save_coords(curr_name, x, y)
     print("nodes in g: ", g.nodes)  # todo del
     # fill all edges
     g.add_edges_from(edges)

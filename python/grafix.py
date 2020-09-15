@@ -22,7 +22,7 @@ def ft_about():
     a.after(1000, lambda: a.destroy())  # autokill window after 1000 ms
 
 
-def ft_open_map():
+def ft_open_map(fig):
     # destroy figure
     # open new .map
     # parse, draw
@@ -31,27 +31,29 @@ def ft_open_map():
 
 def ft_embed_graph(data, root):
     g = data.graph
+    fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
     pos = nx.spring_layout(g)
     # nx.draw(g, pos, node_color='g', with_labels=True)
 
-    curr_ants = ['a', 'b', 'c']
-    pos['a'] = 10, 10
-    pos['d'] = 10, 20
+    curr_ants = nx.nodes(g)
+    for each in data.coords:
+        pos[each['name']] = each['x'], each['y']
     # ololo - func placed to coords
 
-    nx.draw(g, pos, node_color='gray', with_labels=True, font_size=10)
     nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
-    nx.draw_networkx_nodes(g, pos, nodelist=['d', 'f'], node_color="b", node_size=100)
+    nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
+    nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
+    nx.draw_networkx_edges(g, pos, edge_color='g')
 
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
     plt.legend(handles=[red_patch])
 
-    fig = plt.figure(1, figsize=(2, 4), facecolor="r")
-    # canvas = FigureCanvasTkAgg(plt.figure(1), master=root)
+    # fig = plt.figure(1, figsize=(5, 5), dpi=280)
     canvas = FigureCanvasTkAgg(figure=fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
+    button_open = Button(text="Open map", width=10, command=ft_open_map(fig)).grid(row=0, column=0, padx=5, pady=5)
 
 
 def ft_next_step():
@@ -62,22 +64,22 @@ def ft_init_window(data):
     g = data.graph
     root = Tk()
     root.tk_setPalette('gray60')
-    width = 660
-    height = 540
+    width = 1020
+    height = 1060
     w = root.winfo_screenwidth()  # width of all screen
     h = root.winfo_screenheight()  # height of all screen
     w = w // 2  # for center on screen by a X
     h = h // 2
     w = w - width // 2
     h = h - height // 2
-    root.geometry('660x540+{}+{}'.format(w, h))  # create window with shift
+    root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
     root.title("lemin visualiser v 0.1")
+    ft_embed_graph(data, root)  # including graph ^^^
+
 # buttons
-    Button(text="Open map", width=10, command=ft_open_map).grid(row=0, column=0, padx=5, pady=5)
+#     Button(text="Open map", width=10, command=ft_open_map).grid(row=0, column=0, padx=5, pady=5)
     Button(text="About", width=10, command=ft_about).grid(row=0, column=1, padx=5, pady=5)
     Button(text="Next step", width=10, command=ft_next_step).grid(row=0, column=2, padx=5, pady=5)
 # end buttons
     print("len g is: ", len(g))  #todo
-    # ft_embed_graph(g, root)  # including graph ^^^
-    ft_embed_graph(data, root)  # including graph ^^^
     root.mainloop()
