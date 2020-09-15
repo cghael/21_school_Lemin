@@ -11,7 +11,7 @@ import grafix
 
 
 class ParsedData:
-    def __init__(self, graph, curr_node, start_name, end_name):
+    def __init__(self, graph, start_name, end_name):
         self.graph = graph
         self.coords = []
         self.start_name = start_name
@@ -23,7 +23,6 @@ class ParsedData:
         tmp_node['name'] = curr_name
         tmp_node['x'] = int(x)
         tmp_node['y'] = int(y)
-        # print('curr_node: ', tmp_node['name'], tmp_node['x'], tmp_node['y'])
         self.coords.append(tmp_node)
 
 
@@ -44,7 +43,7 @@ def ft_init_graph(argv):
     ants = int(file.readline())
     print("ANTS from argv:", ants)  # todo del
 
-    data = ParsedData(g, 0, 0, 0)  # init data class
+    data = ParsedData(g, 0, 0)  # init data class
 
     rooms = []
     check_start = 0

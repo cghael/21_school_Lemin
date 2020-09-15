@@ -11,6 +11,8 @@ import matplotlib.patches as mpatches
 import support as s
 import numpy as np
 import buttons as btn
+import os
+from tkinter.filedialog import askopenfilename
 
 
 def ft_about():
@@ -22,11 +24,14 @@ def ft_about():
     a.after(1000, lambda: a.destroy())  # autokill window after 1000 ms
 
 
-def ft_open_map(fig):
+def ft_open_map(fig, root):
     # destroy figure
     # open new .map
     # parse, draw
+    new_map = askopenfilename()
     s.ft_print_func_name("open map")
+    root.destroy()
+    os.system("python3 main.py"+" "+new_map)
 
 
 def ft_embed_graph(data, root):
@@ -45,6 +50,8 @@ def ft_embed_graph(data, root):
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='g')
 
+    Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
+
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
     plt.legend(handles=[red_patch])
@@ -53,7 +60,6 @@ def ft_embed_graph(data, root):
     canvas = FigureCanvasTkAgg(figure=fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
-    button_open = Button(text="Open map", width=10, command=ft_open_map(fig)).grid(row=0, column=0, padx=5, pady=5)
 
 
 def ft_next_step():
