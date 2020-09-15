@@ -9,30 +9,6 @@ from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 import matplotlib.patches as mpatches
 import support as s
-import numpy as np
-import buttons as btn
-import os
-from tkinter.filedialog import askopenfilename
-
-
-def ft_about():
-    a = Toplevel()
-    a.geometry('500x100')
-    # a['bg'] = 'gray'
-    a.overrideredirect(True)
-    Label(a, text="This is a visualiser for lem in by a cghael && ksemele!").grid()
-    a.after(1000, lambda: a.destroy())  # autokill window after 1000 ms
-
-
-def ft_open_map(fig, root):  # todo recode to open in current window TT_TT
-    # destroy figure
-    # open new .map
-    # parse, draw
-    root.attributes("-topmost", False)
-    new_map = askopenfilename()
-    s.ft_print_func_name("open map")
-    root.destroy()
-    os.system("python3 main.py"+" "+new_map)
 
 
 def ft_embed_graph(data, root):
@@ -43,7 +19,7 @@ def ft_embed_graph(data, root):
 
     curr_ants = nx.nodes(g)
     for each in data.coords:
-        pos[each['name']] = each['x'], each['y']
+        pos[each['name']] = each['x'], each['y']  # fill XY coords from data
     # ololo - func placed to coords
 
     nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
@@ -51,20 +27,21 @@ def ft_embed_graph(data, root):
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='g')
 
-    Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
+    Button(text="Open map", width=10, command=lambda: s.ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
+    Button(text="Next step", width=10, command=lambda: ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
 
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
     plt.legend(handles=[red_patch])
 
-    # fig = plt.figure(1, figsize=(5, 5), dpi=280)
     canvas = FigureCanvasTkAgg(figure=fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
 
 
-def ft_next_step():
+def ft_next_step(fig, root):  # todo im a cry about this -_-
     s.ft_print_func_name("next_step")
+    fig.clf()
 
 
 def ft_init_window(data):
@@ -82,12 +59,11 @@ def ft_init_window(data):
     root.attributes("-topmost", True)  # lift root to top of all windows
     root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
     root.title("lemin visualiser v 0.1")
-    ft_embed_graph(data, root)  # including graph ^^^
+    ft_embed_graph(data, root)  # including graph
 
-# buttons
-#     Button(text="Open map", width=10, command=ft_open_map).grid(row=0, column=0, padx=5, pady=5)
-    Button(text="About", width=10, command=ft_about).grid(row=0, column=1, padx=5, pady=5)
-    Button(text="Next step", width=10, command=ft_next_step).grid(row=0, column=2, padx=5, pady=5)
-# end buttons
+    # buttons
+    Button(text="Open solution", width=10, command=lambda: s.ft_open_solution(root)).grid(row=0, column=1, padx=5, pady=5)
+    # end buttons
+
     print("len g is: ", len(g))  #todo
     root.mainloop()

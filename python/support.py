@@ -1,10 +1,12 @@
 import sys
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
 from tkinter import *
+from tkinter.filedialog import askopenfilename
 import networkx as nx
 import matplotlib.pyplot as plt
 from sys import argv
 import grafix
+import os
 
 
 class ParsedData:
@@ -92,3 +94,20 @@ def ft_init_graph(argv):
     print(g.nodes(data=True))  # todo del
     print('data!!!!', data.coords)  # todo del
     return data
+
+
+def ft_open_solution(root):
+    root.attributes("-topmost", False)
+    new_solution = askopenfilename()
+    ft_print_func_name("open solution")
+
+
+def ft_open_map(fig, root):  # todo recode to open in current window TT_TT
+    # destroy figure
+    # open new .map
+    # parse, draw
+    root.attributes("-topmost", False)
+    new_map = askopenfilename()
+    ft_print_func_name("open map")
+    root.destroy()
+    os.system("python3 main.py"+" "+new_map)
