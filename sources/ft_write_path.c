@@ -16,23 +16,24 @@ static t_path		*ft_add_new_cross_link(t_tracks **current, int from, \
 																int to, int way)
 {
 	t_path	*tmp;
-	t_path	*begin;
+//	t_path	*begin;
 
 	if (!(tmp = ft_memalloc(sizeof(t_path))))
 		return (NULL);
-	tmp->from = from;
-	tmp->to = to;
+	tmp->from = to;
+	tmp->to = from;
 	tmp->num = -way;
 	tmp->next = NULL;
-	if ((*current)->cross == NULL)
-		(*current)->cross = tmp;
-	else
-	{
-		begin = (*current)->cross;
-		while (begin->next)
-			begin = begin->next;
-		begin->next = tmp;
-	}
+	if ((*current)->cross)
+		tmp->next = (*current)->cross;
+	(*current)->cross = tmp;
+//	else
+//	{
+//		begin = (*current)->cross;
+//		while (begin->next)
+//			begin = begin->next;
+//		begin->next = tmp;
+//	}
 	return (tmp);
 }
 
