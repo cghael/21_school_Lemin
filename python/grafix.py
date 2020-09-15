@@ -28,6 +28,7 @@ def ft_open_map(fig, root):  # todo recode to open in current window TT_TT
     # destroy figure
     # open new .map
     # parse, draw
+    root.attributes("-topmost", False)
     new_map = askopenfilename()
     s.ft_print_func_name("open map")
     root.destroy()
