@@ -28,7 +28,7 @@ def ft_embed_graph(data, root):
     nx.draw_networkx_edges(g, pos, edge_color='g')
 
     Button(text="Open map", width=10, command=lambda: s.ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
-    Button(text="Next step", width=10, command=lambda: ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
+    Button(text="Next step", width=10, command=lambda: s.ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
 
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
@@ -37,11 +37,6 @@ def ft_embed_graph(data, root):
     canvas = FigureCanvasTkAgg(figure=fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
-
-
-def ft_next_step(fig, root):  # todo im a cry about this -_-
-    s.ft_print_func_name("next_step")
-    fig.clf()
 
 
 def ft_init_window(data):

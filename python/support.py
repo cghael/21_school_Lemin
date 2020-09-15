@@ -110,4 +110,9 @@ def ft_open_map(fig, root):  # todo recode to open in current window TT_TT
     new_map = askopenfilename()
     ft_print_func_name("open map")
     root.destroy()
-    os.system("python3 main.py"+" "+new_map)
+    os.system("python3 main.py "+new_map)
+
+
+def ft_next_step(fig, root):  # todo im a cry about this -_-
+    ft_print_func_name("next_step")
+    fig.clf()
