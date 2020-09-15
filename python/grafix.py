@@ -78,6 +78,7 @@ def ft_init_window(data):
     h = h // 2
     w = w - width // 2
     h = h - height // 2
+    root.attributes("-topmost", True)  # lift root to top of all windows
     root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
     root.title("lemin visualiser v 0.1")
     ft_embed_graph(data, root)  # including graph ^^^

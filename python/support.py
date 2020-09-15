@@ -23,7 +23,7 @@ class ParsedData:
         self.coords.append(tmp_node)
 
 
-def ft_print_func_name(name):
+def ft_print_func_name(name):  # todo del
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
     cprint("func:", 'cyan', end=" ")
     cprint("{}\n".format(name), 'green')
@@ -32,7 +32,6 @@ def ft_print_func_name(name):
 def ft_init_graph(argv):
     ft_print_func_name('init graph')
     g = nx.Graph()
-    # coords = {}
 
     # open file
     cprint("open file: "+argv[1])  # print argv[1]

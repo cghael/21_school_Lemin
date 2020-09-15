@@ -9,9 +9,7 @@ import support as s
 if __name__ == '__main__':
     # init graph
     data = s.ft_init_graph(argv)
-
     # ############################### GRAFIX ##############################
-    gx.ft_init_window(data)  #todo rebuild to data
-
+    gx.ft_init_window(data)
     # ############################### GRAFIX ##############################
     cprint("\nEND\n", 'magenta')
