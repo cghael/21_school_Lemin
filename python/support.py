@@ -1,8 +1,5 @@
 import sys
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
-# from collections import deque # двусторонняя очередь
-# import Tkinter as tk
-# from random import *
 from tkinter import *
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -94,6 +91,5 @@ def ft_init_graph(argv):
     # end fill Graph
     print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
     print(g.nodes(data=True))  # todo del
-    # return [g]
     print('data!!!!', data.coords)  # todo del
     return data

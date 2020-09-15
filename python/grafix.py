@@ -24,7 +24,7 @@ def ft_about():
     a.after(1000, lambda: a.destroy())  # autokill window after 1000 ms
 
 
-def ft_open_map(fig, root):
+def ft_open_map(fig, root):  # todo recode to open in current window TT_TT
     # destroy figure
     # open new .map
     # parse, draw
