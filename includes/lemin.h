@@ -64,6 +64,7 @@ typedef struct			s_tracks
 	t_path				*cross;
 	t_ant				*ants;
 	int					ant_num;
+	int					running_ants;
 	int					len;
 	int					num;
 	struct s_tracks		*next;

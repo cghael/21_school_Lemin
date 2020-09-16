@@ -38,7 +38,82 @@ static int		ft_create_ant_arrays(t_tracks *tracks)
 
 static void		ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks)
 {
-	
+	t_tracks	*tmp;
+	int			ants;
+
+	ants = lemin->ants;
+	while (ants)
+	{
+		tmp = tracks;
+		while (tmp->next && tmp->len + tmp->ant_num > tmp->next->len + tmp->next->ant_num)
+			tmp = tmp->next;
+		tmp->ant_num++;
+		ants--;
+	}
+}
+
+static int		ft_ants_tap_tap(t_ant *ants, int len, t_room *graph)
+{
+	int		i;
+	int		res;
+
+	res = 0;
+	i = len - 1;
+	while (i >= 0)
+	{
+		if (ants[i].ant)
+		{
+			ants[i + 1].ant = ants[i].ant;
+			ft_printf("L%d-%s ", ants[i + 1].ant, graph[ants[i+1].room].name);
+			ants[i].ant = 0;
+			if (i + 2 == len)
+			{
+				res++;
+				ants[i + 1].ant = 0;
+			}
+		}
+		i--;
+	}
+	return (res);
+}
+
+static void		ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
+{
+	int			ant_number;
+	int			ant_start;
+	int			ant_finish;
+	t_tracks	*tmp;
+
+	ant_number = 1;
+	ant_start = lemin->ants;
+	ant_finish = 0;
+	while (ant_finish < lemin->ants)
+	{
+		tmp = tracks;
+		while (tmp)
+		{
+			if (tmp->running_ants)
+			{
+				if (ft_ants_tap_tap(tmp->ants, tmp->len, lemin->graph))
+				{
+					ant_finish++;
+					tmp->running_ants--;
+				}
+			}
+//				ft_ants_tap_tap(tmp->ants, tmp->len, lemin->graph);
+			if (tmp->ant_num && ant_start)
+			{
+				tmp->ants[0].ant = ant_number;
+				tmp->running_ants++;
+				ft_printf("L%d-%s ", tmp->ants[0].ant, lemin->graph[tmp->ants[0].room].name);
+				ant_number++;
+				ant_start--;
+				tmp->ant_num--;
+			}
+			tmp = tmp->next;
+		}
+		ft_printf("\n");
+	}
 }
 
 void			ft_run_ants_run(t_lemin *lemin, t_tracks *tracks)
@@ -47,4 +122,5 @@ void			ft_run_ants_run(t_lemin *lemin, t_tracks *tracks)
 	if (EXIT_FAILURE == ft_create_ant_arrays(tracks))
 		ft_error_n_exit("Error in ft_run_ants_run()\n", lemin, NULL, tracks);
 	ft_ants_choose_ways(lemin, tracks);
+	ft_ants_mooving(lemin, tracks);
 }
