@@ -107,15 +107,14 @@ def ft_open_solution(root):
     ft_print_func_name("open solution")
 
 
-def ft_open_map(fig, root):  # todo recode to open in current window TT_TT
+def ft_open_map(fig, root):
     root.attributes("-topmost", False)
-    new_map = askopenfilename()  # open new .map
+    new_map = askopenfilename()  # open new *.map
     ft_print_func_name("open map")
     fig.clf()  # clear figure
+    plt.close(fig)
     data = ft_init_graph(new_map)  # parse, draw
     ft_embed_graph(data, root)
-    print("alialable figs: ", plt.get_fignums())
-    # os.system("python3 main.py "+new_map)
 
 
 def ft_next_step(fig, root):  # todo im a cry about this -_-
@@ -131,8 +130,8 @@ def ft_embed_graph(data, root):
     for each in data.coords:
         pos[each['name']] = each['x'], each['y']  # fill XY coords from data
 
-    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
-    nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
+    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="k", node_size=250)
+    nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=200)
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='g')
 
