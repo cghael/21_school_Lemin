@@ -9,7 +9,7 @@ import support as s
 if __name__ == '__main__':
     # init graph
     print('LEN ARGV', len(argv))
-    if (len(argv) == 2):
+    if len(argv) == 2:
         data = s.ft_init_graph(argv[1])
         gx.ft_init_window(data)
     else:
