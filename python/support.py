@@ -37,65 +37,67 @@ def ft_print_func_name(name):  # todo del
 def ft_init_graph(map):
     ft_print_func_name('init graph')
     g = nx.Graph()
-
-    # open file
-    cprint("open file: " + map)  # print argv[1]
-    file = open(map)
-    ants = int(file.readline())
-    print("ANTS from argv:", ants)  # todo del
-
     data = ParsedData(g, 0, 0)  # init data class
 
-    rooms = []
-    check_start = 0
-    check_end = 0
-    for line in file:
-        # check & save start, end
-        if check_start == 1:
-            data.start_name = line.split().pop(0)
-            print("start name: ", data.start_name)  # todo del
-            check_start = 0
-        if check_end == 1:
-            data.end_name = line.split().pop(0)
-            print("end name: ", data.end_name)  # todo del
-            check_end = 0
-        if line == '##start\n':
-            check_start = 1
-        elif line == '##end\n':
-            check_end = 1
-        if ' ' not in line and line[0] != '#':  # filter edges (links)
-            break
-        if line[0] != '#':
-            rooms.append(line.split())
-    print(rooms)  # todo del
-    print(len(rooms))  # todo del
-    file = open(map)
-    edges = []
-    for line in file:
-        if line[0] != '#' and '-' in line:
-            line = ' '.join(line.split())  # remove '\n' for correctly splitting
-            edges.append(line.split(sep='-'))
-    print(edges)  # todo del
-    print(len(edges))  # todo del
-    # END parsing
+    # open file
+    if map == 'not map':
+        cprint(map)
 
-    print("len g is: ", len(g))  # todo del
-    # fill Graph from list && fill all node_names
-    room_names = rooms.copy()
-    for i in range(len(room_names)):
-        curr_node = room_names.pop()
-        curr_name = curr_node.pop(0)
-        g.add_node(curr_name)
-        y = curr_node.pop()
-        x = curr_node.pop()
-        data.save_coords(curr_name, x, y)
-    print("nodes in g: ", g.nodes)  # todo del
-    # fill all edges
-    g.add_edges_from(edges)
-    # end fill Graph
-    print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
-    print(g.nodes(data=True))  # todo del
-    print('data!!!!', data.coords)  # todo del
+    if map != 'not map':
+        cprint("open file: " + map)
+        file = open(map)
+        ants = int(file.readline())
+        print("ANTS from argv:", ants)  # todo del
+        rooms = []
+        check_start = 0
+        check_end = 0
+        for line in file:
+            # check & save start, end
+            if check_start == 1:
+                data.start_name = line.split().pop(0)
+                print("start name: ", data.start_name)  # todo del
+                check_start = 0
+            if check_end == 1:
+                data.end_name = line.split().pop(0)
+                print("end name: ", data.end_name)  # todo del
+                check_end = 0
+            if line == '##start\n':
+                check_start = 1
+            elif line == '##end\n':
+                check_end = 1
+            if ' ' not in line and line[0] != '#':  # filter edges (links)
+                break
+            if line[0] != '#':
+                rooms.append(line.split())
+        print(rooms)  # todo del
+        print(len(rooms))  # todo del
+        file = open(map)
+        edges = []
+        for line in file:
+            if line[0] != '#' and '-' in line:
+                line = ' '.join(line.split())  # remove '\n' for correctly splitting
+                edges.append(line.split(sep='-'))
+        print(edges)  # todo del
+        print(len(edges))  # todo del
+        # END parsing
+
+        print("len g is: ", len(g))  # todo del
+        # fill Graph from list && fill all node_names
+        room_names = rooms.copy()
+        for i in range(len(room_names)):
+            curr_node = room_names.pop()
+            curr_name = curr_node.pop(0)
+            g.add_node(curr_name)
+            y = curr_node.pop()
+            x = curr_node.pop()
+            data.save_coords(curr_name, x, y)
+        print("nodes in g: ", g.nodes)  # todo del
+        # fill all edges
+        g.add_edges_from(edges)
+        # end fill Graph
+        print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
+        print(g.nodes(data=True))  # todo del
+        print('data!!!!', data.coords)  # todo del
     return data
 
 
@@ -137,6 +139,9 @@ def ft_embed_graph(data, root):
     Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
     Button(text="Next step", width=10, command=lambda: ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
 
+    # buttons
+    Button(text="Open solution", width=10, command=lambda: ft_open_solution(root)).grid(row=0, column=1, padx=5, pady=5)
+    # end buttons
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
     plt.legend(handles=[red_patch])

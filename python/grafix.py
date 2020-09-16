@@ -26,10 +26,5 @@ def ft_init_window(data):
     root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
     root.title("lemin visualiser v 0.1")
     s.ft_embed_graph(data, root)  # including graph
-
-    # buttons
-    Button(text="Open solution", width=10, command=lambda: s.ft_open_solution(root)).grid(row=0, column=1, padx=5, pady=5)
-    # end buttons
-
     print("len g is: ", len(g))  # todo del
     root.mainloop()
