@@ -12,19 +12,23 @@
 
 #include "lemin.h"
 
-static int			ft_count_path_len(t_path *path)
+static void			ft_count_path_len(t_tracks *tracks)
 {
-	int		len;
-	t_path	*tmp;
+	t_tracks	*tmp_tr;
+	t_path		*tmp_p;
 
-	len = 0;
-	tmp = path;
-	while (tmp)
+	tmp_tr = tracks;
+	while (tmp_tr)
 	{
-		len++;
-		tmp = tmp->next;
+		tmp_tr->len = 0;
+		tmp_p = tmp_tr->path;
+		while (tmp_p)
+		{
+			tmp_tr->len++;
+			tmp_p = tmp_p->next;
+		}
+		tmp_tr = tmp_tr->next;
 	}
-	return (len); //count steps
 }
 
 static void			ft_clear_lvls(t_lemin *lemin)
@@ -39,7 +43,7 @@ static void			ft_clear_lvls(t_lemin *lemin)
 	}
 }
 
-void				ft_find_paths(t_lemin *lemin)
+t_tracks			*ft_find_paths(t_lemin *lemin)
 {
 	int			lvl;
 	t_tracks	*tracks;
@@ -52,15 +56,16 @@ void				ft_find_paths(t_lemin *lemin)
 		ft_print_matrix(lemin->graph, lemin->rooms, 0); //todo del
 		if ((current = ft_write_path(lemin, lvl, &tracks)) == NULL)
 			ft_error_n_exit("Error in ft_write_paths()\n", lemin, NULL, tracks);
-		current->len = ft_count_path_len(current->path);
-		//todo count DO WE NEED any more ways (steps & ants)
 		if (current->cross)
 			ft_change_cross_ways(current, tracks, lemin);
+		ft_count_path_len(tracks);
+		//todo count DO WE NEED any more ways (steps & ants)!!!!!
 		ft_print_matrix(lemin->graph, lemin->rooms, 1); //todo del
 		ft_print_path(lemin->graph, tracks); //todo del
 		ft_clear_lvls(lemin);
-		ft_print_matrix(lemin->graph, lemin->rooms, 0);
+		ft_print_matrix(lemin->graph, lemin->rooms, 1);
 		lvl = ft_set_levels(lemin, 0);
 	}
 //	ft_free_tracks(tracks);
+	return (tracks);
 }
