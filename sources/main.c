@@ -20,7 +20,9 @@ int		main(int argc, char *argv[])
 	if (argc > 1)
 		ft_check_flags(lemin, argc, argv);
 	lemin = ft_parse_data(lemin);
+	//todo убрать тупики и петли!!!
 	ft_find_paths(lemin);
+
 	ft_free_lemin(lemin);
 	return (0);
 }
