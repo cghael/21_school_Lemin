@@ -43,7 +43,7 @@ static void			ft_clear_lvls(t_lemin *lemin)
 	}
 }
 
-void				ft_find_paths(t_lemin *lemin)
+t_tracks			*ft_find_paths(t_lemin *lemin)
 {
 	int			lvl;
 	t_tracks	*tracks;
@@ -67,4 +67,5 @@ void				ft_find_paths(t_lemin *lemin)
 		lvl = ft_set_levels(lemin, 0);
 	}
 //	ft_free_tracks(tracks);
+	return (tracks);
 }

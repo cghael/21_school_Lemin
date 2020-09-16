@@ -22,6 +22,7 @@ static t_tracks		*ft_create_tracks(void)
 	tmp->next = NULL;
 	tmp->path = NULL;
 	tmp->cross = NULL;
+	tmp->ants = NULL;
 	return (tmp);
 }
 

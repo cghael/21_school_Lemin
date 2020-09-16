@@ -48,19 +48,22 @@ typedef struct			s_path
 	int					from;
 	int					to;
 	int					num;
+	int					ant;
 	struct s_path		*next;
 }						t_path;
 
-//typedef	struct			s_return
-//{
-//	int					res;
-//	int					cross;
-//}						t_return;
+typedef struct			s_ant
+{
+	int					room;
+	int					ant;
+}						t_ant;
 
 typedef struct			s_tracks
 {
 	t_path				*path;
 	t_path				*cross;
+	t_ant				*ants;
+	int					ant_num;
 	int					len;
 	int					num;
 	struct s_tracks		*next;
@@ -127,9 +130,11 @@ void					ft_print_matrix(t_room *graph, int counter, int way);
 void					ft_print_path(t_room *graph, t_tracks *tracks);
 
 t_tracks				*ft_create_new_track(t_tracks **tracks);
-void					ft_find_paths(t_lemin *lemin);
+t_tracks				*ft_find_paths(t_lemin *lemin);
 t_tracks				*ft_write_path(t_lemin *lemin, int lvl, t_tracks **tracks);
 int						ft_set_levels(t_lemin *lemin, int lvl);
 void					ft_change_cross_ways(t_tracks *current, t_tracks *tracks, t_lemin *lemin);
+void					ft_run_ants_run(t_lemin *lemin, t_tracks *tracks);
+void					ft_sort_tracks(t_tracks **tracks);
 
 #endif
