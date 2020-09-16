@@ -130,17 +130,17 @@ def ft_embed_graph(data, root):
     for each in data.coords:
         pos[each['name']] = each['x'], each['y']  # fill XY coords from data
 
-    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="k", node_size=250)
-    nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=200)
+    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="k", node_size=120)
+    nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='g')
 
+    # buttons
     Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
     Button(text="Next step", width=10, command=lambda: ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
-
-    # buttons
     Button(text="Open solution", width=10, command=lambda: ft_open_solution(root)).grid(row=0, column=1, padx=5, pady=5)
     # end buttons
+
     # red patch with Ants marker?
     red_patch = mpatches.Patch(color='red', label='Ants')
     plt.legend(handles=[red_patch])
