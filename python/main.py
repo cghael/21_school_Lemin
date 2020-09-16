@@ -8,7 +8,7 @@ import support as s
 
 if __name__ == '__main__':
     # init graph
-    data = s.ft_init_graph(argv)
+    data = s.ft_init_graph(argv[1])
     # ############################### GRAFIX ##############################
     gx.ft_init_window(data)
     # ############################### GRAFIX ##############################

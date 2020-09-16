@@ -1,4 +1,6 @@
 import sys
+
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
 from tkinter import *
 from tkinter.filedialog import askopenfilename
@@ -7,6 +9,7 @@ import matplotlib.pyplot as plt
 from sys import argv
 import grafix
 import os
+import matplotlib.patches as mpatches
 
 
 class ParsedData:
@@ -31,13 +34,13 @@ def ft_print_func_name(name):  # todo del
     cprint("{}\n".format(name), 'green')
 
 
-def ft_init_graph(argv):
+def ft_init_graph(map):
     ft_print_func_name('init graph')
     g = nx.Graph()
 
     # open file
-    cprint("open file: "+argv[1])  # print argv[1]
-    file = open(argv[1])
+    cprint("open file: " + map)  # print argv[1]
+    file = open(map)
     ants = int(file.readline())
     print("ANTS from argv:", ants)  # todo del
 
@@ -66,7 +69,7 @@ def ft_init_graph(argv):
             rooms.append(line.split())
     print(rooms)  # todo del
     print(len(rooms))  # todo del
-    file = open(argv[1])
+    file = open(map)
     edges = []
     for line in file:
         if line[0] != '#' and '-' in line:
@@ -103,16 +106,41 @@ def ft_open_solution(root):
 
 
 def ft_open_map(fig, root):  # todo recode to open in current window TT_TT
-    # destroy figure
-    # open new .map
-    # parse, draw
     root.attributes("-topmost", False)
-    new_map = askopenfilename()
+    new_map = askopenfilename()  # open new .map
     ft_print_func_name("open map")
-    root.destroy()
-    os.system("python3 main.py "+new_map)
+    fig.clf()  # clear figure
+    data = ft_init_graph(new_map)  # parse, draw
+    ft_embed_graph(data, root)
+    print("alialable figs: ", plt.get_fignums())
+    # os.system("python3 main.py "+new_map)
 
 
 def ft_next_step(fig, root):  # todo im a cry about this -_-
     ft_print_func_name("next_step")
     fig.clf()
+
+
+def ft_embed_graph(data, root):
+    g = data.graph
+    fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
+    pos = nx.spring_layout(g)
+    curr_ants = nx.nodes(g)
+    for each in data.coords:
+        pos[each['name']] = each['x'], each['y']  # fill XY coords from data
+
+    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=100)
+    nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
+    nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
+    nx.draw_networkx_edges(g, pos, edge_color='g')
+
+    Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
+    Button(text="Next step", width=10, command=lambda: ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
+
+    # red patch with Ants marker?
+    red_patch = mpatches.Patch(color='red', label='Ants')
+    plt.legend(handles=[red_patch])
+
+    canvas = FigureCanvasTkAgg(figure=fig, master=root)
+    canvas.draw()
+    canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
