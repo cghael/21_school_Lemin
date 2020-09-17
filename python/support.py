@@ -19,7 +19,10 @@ class ParsedData:
         self.start_name = start_name
         self.end_name = end_name
         self.curr_node = 0
-        self.solution = 0
+        self.solution_loaded = False
+        self.solution = []
+        self.curr_ants = []
+        # self.ant = 0
 
     def save_coords(self, curr_name, x, y):
         tmp_node = {}
@@ -102,36 +105,53 @@ def ft_init_graph(map):
     return data
 
 
-def ft_open_solution(root, data):
-    ft_print_func_name("open solution")
-    # new_solution
-    root.attributes("-topmost", False)
-    data.solution = askopenfilename()
-
-
 def ft_open_map(fig, root):
     root.attributes("-topmost", False)
     new_map = askopenfilename()  # open new *.map
     ft_print_func_name("open map")
-
     fig.clf()  # clear figure
     plt.close(fig)
     data = ft_init_graph(new_map)  # parse, draw
     ft_embed_graph(data, root)
 
 
-def ft_next_step(g, pos, fig, root, data):  # todo im a cry about this -_-
+def ft_parse_solution(data):
+    file = open(data.solution)
+    data.solution_loaded = True
+    data.curr_ants = file.read().rstrip().split('\n')
+    data.curr_ants.reverse()
+
+
+def ft_open_solution(root, data):
+    # new_solution
+    ft_print_func_name("open solution")
+    root.attributes("-topmost", False)
+    data.solution_loaded = True
+    data.solution = askopenfilename()
+    print(data.solution)  # todo del
+    ft_parse_solution(data)
+    print(data.curr_ants)  # todo del
+    # data.ant = open(data.solution)
+
+
+# read & draw ants from solution file
+def ft_next_step(g, pos, fig, root, data):
     ft_print_func_name("next_step")
-    fig.clf()  # clear figure
-    # plt.close(fig)
-    ft_embed_graph(data, root)
-    if data.solution == 0:
+    if not data.solution_loaded:
         cprint('need open solution file!')
     else:
-        cprint('readed solution: ', end=' ', color='yellow')
-        cprint(data.solution)
-    curr_ants = ['start', 'end', '1']
-    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="b", node_size=30)
+        cprint('open solution: ', end=' ', color='yellow')  # todo del
+        print(data.solution)  # todo del
+        if data.curr_ants:
+            print('NEXT', data.curr_ants.pop())  # todo del
+        else:
+            ft_parse_solution(data)
+            print('NEXT', data.curr_ants.pop())  # todo del
+
+        fig.clf()  # clear figure
+        # nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="b", node_size=30)
+        nx.draw_networkx_nodes(g, pos, node_color="b", node_size=30)
+        ft_embed_graph(data, root)
 
 
 def ft_embed_graph(data, root):
@@ -145,11 +165,6 @@ def ft_embed_graph(data, root):
     nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='g')
-
-    # select & draw ants
-    # curr_ants = nx.nodes(g)  # all nodes
-    # curr_ants = ['start']
-    # nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=30)
 
     # buttons
     Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
