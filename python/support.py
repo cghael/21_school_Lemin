@@ -22,6 +22,7 @@ class ParsedData:
         self.solution_loaded = False
         self.solution = []
         self.curr_ants = []
+        self.g_ants = nx.Graph()
         # self.ant = 0
 
     def save_coords(self, curr_name, x, y):
@@ -142,15 +143,38 @@ def ft_next_step(g, pos, fig, root, data):
     else:
         cprint('open solution: ', end=' ', color='yellow')  # todo del
         print(data.solution)  # todo del
+        data.g_ants.clear()
         if data.curr_ants:
-            print('NEXT', data.curr_ants.pop())  # todo del
+            ants = data.curr_ants.pop().split(' ')
+            for each in ants:
+                each = ''.join(each).split('-')[-1:]  # todo
+                for ant in each:
+                    data.g_ants.add_node(ant)
+            print(data.g_ants.nodes)  # todo del
+            print('CURR', ants)  # todo del
+
+            # fig.clf()  # clear figure
+            # # nx.draw_networkx_nodes(g, pos, node_color="b", node_size=300)
+            # nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=250)
+            # ft_embed_graph(data, root)
         else:
             ft_parse_solution(data)
+            cprint('open solution: ', end=' ', color='yellow')  # todo del
+            print(data.solution)  # todo del
+            # data.g_ants.clear()
+            if data.curr_ants:
+                ants = data.curr_ants.pop().split(' ')
+                for each in ants:
+                    each = ''.join(each).split('-')[-1:]  # todo
+                    for ant in each:
+                        data.g_ants.add_node(ant)
+                print(data.g_ants.nodes)  # todo del
+                print('CURR', ants)  # todo del
             print('NEXT', data.curr_ants.pop())  # todo del
 
         fig.clf()  # clear figure
-        # nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="b", node_size=30)
-        nx.draw_networkx_nodes(g, pos, node_color="b", node_size=30)
+        # nx.draw_networkx_nodes(g, pos, node_color="b", node_size=300)
+        nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=250)
         ft_embed_graph(data, root)
 
 
