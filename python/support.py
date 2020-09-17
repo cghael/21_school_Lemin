@@ -19,6 +19,11 @@ class ParsedData:
         self.start_name = start_name
         self.end_name = end_name
         self.curr_node = 0
+        self.solution_loaded = False
+        self.solution = []
+        self.curr_ants = []
+        self.g_ants = nx.Graph()
+        # self.ant = 0
 
     def save_coords(self, curr_name, x, y):
         tmp_node = {}
@@ -101,12 +106,6 @@ def ft_init_graph(map):
     return data
 
 
-def ft_open_solution(root):
-    root.attributes("-topmost", False)
-    new_solution = askopenfilename()
-    ft_print_func_name("open solution")
-
-
 def ft_open_map(fig, root):
     root.attributes("-topmost", False)
     new_map = askopenfilename()  # open new *.map
@@ -117,28 +116,84 @@ def ft_open_map(fig, root):
     ft_embed_graph(data, root)
 
 
-def ft_next_step(fig, root):  # todo im a cry about this -_-
+def ft_parse_solution(data):
+    file = open(data.solution)
+    data.solution_loaded = True
+    data.curr_ants = file.read().rstrip().split('\n')
+    data.curr_ants.reverse()
+
+
+def ft_open_solution(root, data):
+    # new_solution
+    ft_print_func_name("open solution")
+    root.attributes("-topmost", False)
+    data.solution_loaded = True
+    data.solution = askopenfilename()
+    print(data.solution)  # todo del
+    ft_parse_solution(data)
+    print(data.curr_ants)  # todo del
+    # data.ant = open(data.solution)
+
+
+# read & draw ants from solution file
+def ft_next_step(g, pos, fig, root, data):
     ft_print_func_name("next_step")
-    fig.clf()
+    if not data.solution_loaded:
+        cprint('need open solution file!')
+    else:
+        cprint('open solution: ', end=' ', color='yellow')  # todo del
+        print(data.solution)  # todo del
+        data.g_ants.clear()
+        if data.curr_ants:
+            ants = data.curr_ants.pop().split(' ')
+            for each in ants:
+                each = ''.join(each).split('-')[-1:]  # todo
+                for ant in each:
+                    data.g_ants.add_node(ant)
+            print(data.g_ants.nodes)  # todo del
+            print('CURR', ants)  # todo del
+
+            # fig.clf()  # clear figure
+            # # nx.draw_networkx_nodes(g, pos, node_color="b", node_size=300)
+            # nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=250)
+            # ft_embed_graph(data, root)
+        else:
+            ft_parse_solution(data)
+            cprint('open solution: ', end=' ', color='yellow')  # todo del
+            print(data.solution)  # todo del
+            # data.g_ants.clear()
+            if data.curr_ants:
+                ants = data.curr_ants.pop().split(' ')
+                for each in ants:
+                    each = ''.join(each).split('-')[-1:]  # todo
+                    for ant in each:
+                        data.g_ants.add_node(ant)
+                print(data.g_ants.nodes)  # todo del
+                print('CURR', ants)  # todo del
+            print('NEXT', data.curr_ants.pop())  # todo del
+
+        fig.clf()  # clear figure
+        # nx.draw_networkx_nodes(g, pos, node_color="b", node_size=300)
+        nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=250)
+        ft_embed_graph(data, root)
 
 
 def ft_embed_graph(data, root):
     g = data.graph
     fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
     pos = nx.spring_layout(g)
-    curr_ants = nx.nodes(g)
     for each in data.coords:
         pos[each['name']] = each['x'], each['y']  # fill XY coords from data
 
-    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="k", node_size=120)
+    # draw graph
     nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='g')
 
     # buttons
     Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
-    Button(text="Next step", width=10, command=lambda: ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
-    Button(text="Open solution", width=10, command=lambda: ft_open_solution(root)).grid(row=0, column=1, padx=5, pady=5)
+    Button(text="Open solution", width=10, command=lambda: ft_open_solution(root, data)).grid(row=0, column=1, padx=5, pady=5)
+    Button(text="Next step", width=10, command=lambda: ft_next_step(g, pos, fig, root, data)).grid(row=0, column=2, padx=5, pady=5)
     # end buttons
 
     # red patch with Ants marker?
