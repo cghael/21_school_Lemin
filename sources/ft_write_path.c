@@ -16,7 +16,7 @@ static t_path		*ft_add_new_cross_link(t_tracks **current, int from, \
 																int to, int way)
 {
 	t_path	*tmp;
-//	t_path	*begin;
+	t_path	*begin;
 
 	if (!(tmp = ft_memalloc(sizeof(t_path))))
 		return (NULL);
@@ -24,16 +24,15 @@ static t_path		*ft_add_new_cross_link(t_tracks **current, int from, \
 	tmp->to = from;
 	tmp->num = -way;
 	tmp->next = NULL;
-	if ((*current)->cross)
-		tmp->next = (*current)->cross;
-	(*current)->cross = tmp;
-//	else
-//	{
-//		begin = (*current)->cross;
-//		while (begin->next)
-//			begin = begin->next;
-//		begin->next = tmp;
-//	}
+	begin = (*current)->cross;
+	if ((*current)->cross == NULL)
+		(*current)->cross = tmp;
+	else
+	{
+		while (begin->next)
+			begin = begin->next;
+		begin->next = tmp;
+	}
 	return (tmp);
 }
 
@@ -65,6 +64,8 @@ static t_path 		*ft_find_from_room(t_lemin *lemin, int lvl, int to, \
 			&& lemin->graph[from].links[to].way < 1)
 		{
 			(*cur)->path->from = from;
+			if (from == 0)
+				ft_printf("");
 			if (((*cur)->path = ft_add_path((*cur)->path, 0, from)) == NULL)
 				return (NULL);
 			if (lemin->graph[from].links[to].way < 0)
