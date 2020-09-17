@@ -3,3 +3,4 @@ brew install python3
 pip3 install matplotlib
 pip3 install networkx
 pip3 install termcolor
+pip3 install scipy

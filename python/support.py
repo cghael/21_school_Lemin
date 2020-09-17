@@ -19,6 +19,7 @@ class ParsedData:
         self.start_name = start_name
         self.end_name = end_name
         self.curr_node = 0
+        self.solution = 0
 
     def save_coords(self, curr_name, x, y):
         tmp_node = {}
@@ -101,44 +102,59 @@ def ft_init_graph(map):
     return data
 
 
-def ft_open_solution(root):
-    root.attributes("-topmost", False)
-    new_solution = askopenfilename()
+def ft_open_solution(root, data):
     ft_print_func_name("open solution")
+    # new_solution
+    root.attributes("-topmost", False)
+    data.solution = askopenfilename()
 
 
 def ft_open_map(fig, root):
     root.attributes("-topmost", False)
     new_map = askopenfilename()  # open new *.map
     ft_print_func_name("open map")
+
     fig.clf()  # clear figure
     plt.close(fig)
     data = ft_init_graph(new_map)  # parse, draw
     ft_embed_graph(data, root)
 
 
-def ft_next_step(fig, root):  # todo im a cry about this -_-
+def ft_next_step(g, pos, fig, root, data):  # todo im a cry about this -_-
     ft_print_func_name("next_step")
-    fig.clf()
+    fig.clf()  # clear figure
+    # plt.close(fig)
+    ft_embed_graph(data, root)
+    if data.solution == 0:
+        cprint('need open solution file!')
+    else:
+        cprint('readed solution: ', end=' ', color='yellow')
+        cprint(data.solution)
+    curr_ants = ['start', 'end', '1']
+    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="b", node_size=30)
 
 
 def ft_embed_graph(data, root):
     g = data.graph
     fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
     pos = nx.spring_layout(g)
-    curr_ants = nx.nodes(g)
     for each in data.coords:
         pos[each['name']] = each['x'], each['y']  # fill XY coords from data
 
-    nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="k", node_size=120)
+    # draw graph
     nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='g')
 
+    # select & draw ants
+    # curr_ants = nx.nodes(g)  # all nodes
+    # curr_ants = ['start']
+    # nx.draw_networkx_nodes(g, pos, nodelist=curr_ants, node_color="r", node_size=30)
+
     # buttons
     Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
-    Button(text="Next step", width=10, command=lambda: ft_next_step(fig, root)).grid(row=0, column=2, padx=5, pady=5)
-    Button(text="Open solution", width=10, command=lambda: ft_open_solution(root)).grid(row=0, column=1, padx=5, pady=5)
+    Button(text="Open solution", width=10, command=lambda: ft_open_solution(root, data)).grid(row=0, column=1, padx=5, pady=5)
+    Button(text="Next step", width=10, command=lambda: ft_next_step(g, pos, fig, root, data)).grid(row=0, column=2, padx=5, pady=5)
     # end buttons
 
     # red patch with Ants marker?
