@@ -57,7 +57,11 @@ t_tracks			*ft_find_paths(t_lemin *lemin)
 		if ((current = ft_write_path(lemin, lvl, &tracks)) == NULL)
 			ft_error_n_exit("Error in ft_write_paths()\n", lemin, NULL, tracks);
 		if (current->cross)
+		{
+//			if (lvl == 126)
+//				ft_printf("");
 			ft_change_cross_ways(current, tracks, lemin);
+		}
 		ft_count_path_len(tracks);
 		//todo count DO WE NEED any more ways (steps & ants)!!!!!
 //		ft_print_matrix(lemin->graph, lemin->rooms, 1); //todo del

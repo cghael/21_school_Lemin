@@ -65,6 +65,7 @@ static int		ft_set_not_first_levels(t_lemin *lemin, int lvl)
 {
 	int	j;
 	int	find;
+	int	res;
 
 	j = 0;
 	find = NOT_FOUND;
@@ -72,8 +73,10 @@ static int		ft_set_not_first_levels(t_lemin *lemin, int lvl)
 	{
 		if (lemin->graph[j].level == lvl)
 		{
-			find = ft_set_lvl_on_links(lemin, j, lvl);
-			if (find == END_FOUND)
+			res = ft_set_lvl_on_links(lemin, j, lvl);
+			if (res == LVL_FOUND)
+				find = LVL_FOUND;
+			if (res == END_FOUND)
 				return (END_FOUND);
 		}
 		j++;
