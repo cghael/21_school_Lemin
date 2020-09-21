@@ -1,5 +1,4 @@
 import sys
-
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
 from tkinter import *
@@ -111,6 +110,7 @@ def ft_open_map(fig, root):
     new_map = askopenfilename()  # open new *.map
     ft_print_func_name("open map")
     fig.clf()  # clear figure
+    fig.clear()
     plt.close(fig)
     data = ft_init_graph(new_map)  # parse, draw
     ft_embed_graph(data, root)
@@ -132,50 +132,6 @@ def ft_open_solution(root, data):
     print(data.solution)  # todo del
     ft_parse_solution(data)
     print(data.curr_ants)  # todo del
-    # data.ant = open(data.solution)
-
-
-# read & draw ants from solution file
-def ft_next_step(g, pos, fig, root, data):
-    ft_print_func_name("next_step")
-    if not data.solution_loaded:
-        cprint('need open solution file!')
-    else:
-        cprint('open solution: ', end=' ', color='yellow')  # todo del
-        print(data.solution)  # todo del
-        data.g_ants.clear()
-        if data.curr_ants:
-            ants = data.curr_ants.pop().split(' ')
-            for each in ants:
-                each = ''.join(each).split('-')[-1:]  # todo
-                for ant in each:
-                    data.g_ants.add_node(ant)
-            print(data.g_ants.nodes)  # todo del
-            print('CURR', ants)  # todo del
-
-            # fig.clf()  # clear figure
-            # # nx.draw_networkx_nodes(g, pos, node_color="b", node_size=300)
-            # nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=250)
-            # ft_embed_graph(data, root)
-        else:
-            ft_parse_solution(data)
-            cprint('open solution: ', end=' ', color='yellow')  # todo del
-            print(data.solution)  # todo del
-            # data.g_ants.clear()
-            if data.curr_ants:
-                ants = data.curr_ants.pop().split(' ')
-                for each in ants:
-                    each = ''.join(each).split('-')[-1:]  # todo
-                    for ant in each:
-                        data.g_ants.add_node(ant)
-                print(data.g_ants.nodes)  # todo del
-                print('CURR', ants)  # todo del
-            print('NEXT', data.curr_ants.pop())  # todo del
-
-        fig.clf()  # clear figure
-        # nx.draw_networkx_nodes(g, pos, node_color="b", node_size=300)
-        nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=250)
-        ft_embed_graph(data, root)
 
 
 def ft_embed_graph(data, root):
@@ -186,20 +142,17 @@ def ft_embed_graph(data, root):
         pos[each['name']] = each['x'], each['y']  # fill XY coords from data
 
     # draw graph
-    nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
+    nodes = nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
+    # nodes.set_edgecolor("black")
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
-    nx.draw_networkx_edges(g, pos, edge_color='g')
-
-    # buttons
-    Button(text="Open map", width=10, command=lambda: ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
-    Button(text="Open solution", width=10, command=lambda: ft_open_solution(root, data)).grid(row=0, column=1, padx=5, pady=5)
-    Button(text="Next step", width=10, command=lambda: ft_next_step(g, pos, fig, root, data)).grid(row=0, column=2, padx=5, pady=5)
-    # end buttons
+    nx.draw_networkx_edges(g, pos, edge_color='gray')
 
     # red patch with Ants marker?
-    red_patch = mpatches.Patch(color='red', label='Ants')
-    plt.legend(handles=[red_patch])
+    # red_patch = mpatches.Patch(color='red', label='Ants')
+    # plt.legend(handles=[red_patch])
 
     canvas = FigureCanvasTkAgg(figure=fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
+
+
