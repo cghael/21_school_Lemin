@@ -31,6 +31,16 @@ class ParsedData:
         tmp_node['y'] = int(y)
         self.coords.append(tmp_node)
 
+    def free_data(self):
+        del self.graph
+        del self.coords
+        del self.start_name
+        del self.end_name
+        del self.curr_node
+        self.solution_loaded = False
+        del self.solution
+        del self.curr_ants
+        del self.g_ants
 
 def ft_print_func_name(name):  # todo del
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
@@ -105,14 +115,16 @@ def ft_init_graph(map):
     return data
 
 
-def ft_open_map(fig, root):
+def ft_open_map(fig, root, data):
     root.attributes("-topmost", False)
     new_map = askopenfilename()  # open new *.map
     ft_print_func_name("open map")
     fig.clf()  # clear figure
-    fig.clear()
+    # fig.clear()
     plt.close(fig)
+    # data.free_data()
     data = ft_init_graph(new_map)  # parse, draw
+    data.solution_loaded = False
     ft_embed_graph(data, root)
 
 
@@ -137,6 +149,7 @@ def ft_open_solution(root, data):
 def ft_embed_graph(data, root):
     g = data.graph
     fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
+    fig.clf()
     pos = nx.spring_layout(g)
     for each in data.coords:
         pos[each['name']] = each['x'], each['y']  # fill XY coords from data

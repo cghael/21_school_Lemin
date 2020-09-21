@@ -51,7 +51,7 @@ if __name__ == '__main__':
     nx.draw_networkx_edges(g, pos, edge_color='gray')
 
     # buttons
-    Button(text="Open map", width=10, command=lambda: s.ft_open_map(fig, root)).grid(row=0, column=0, padx=5, pady=5)
+    Button(text="Open map", width=10, command=lambda: s.ft_open_map(fig, root, data)).grid(row=0, column=0, padx=5, pady=5)
     Button(text="Open solution", width=10, command=lambda: s.ft_open_solution(root, data)).grid(row=0, column=1, padx=5, pady=5)
 
 
@@ -63,7 +63,9 @@ if __name__ == '__main__':
             cprint('open solution: ', end=' ', color='yellow')  # todo del
             print(data.solution)  # todo del
             data.g_ants.clear()
-            # fig.clf()  # clear figure
+            # fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
+            # fig.clf()
+            # pos = nx.spring_layout(g)
             if data.curr_ants:
                 ants = data.curr_ants.pop().split(' ')
                 for each in ants:
