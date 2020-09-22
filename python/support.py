@@ -58,8 +58,8 @@ def ft_init_graph(map):
     # open file
     if map == 'not map':
         cprint(map)
-
     if map != 'not map':
+        # print('try to open', map)
         cprint("open file: " + map)
         file = open(map)
         data.start_ants = int(file.readline())
@@ -113,7 +113,7 @@ def ft_init_graph(map):
         g.add_edges_from(edges)
         # end fill Graph
         print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
-        print(g.nodes(data=True))  # todo del
+        # print(g.nodes(data=True))  # todo del
         print('data!!!!', data.coords)  # todo del
     return data
 

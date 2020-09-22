@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import os
 from sys import argv
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
 import grafix as gx
@@ -15,15 +16,13 @@ from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 import matplotlib.patches as mpatches
 
-
 if __name__ == '__main__':
     # init graph
     print('LEN ARGV', len(argv))
     if len(argv) == 2:
         data = s.ft_init_graph(argv[1])
     else:
-        data = s.ft_init_graph('not map')
-
+        data = s.ft_init_graph('./test')
     g = data.graph
     root = Tk()
     root.tk_setPalette('gray60')
