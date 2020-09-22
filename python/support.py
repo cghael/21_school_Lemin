@@ -22,7 +22,8 @@ class ParsedData:
         self.solution = []
         self.curr_ants = []
         self.g_ants = nx.Graph()
-        # self.ant = 0
+        self.ants = 0
+        self.start_ants = 0
 
     def save_coords(self, curr_name, x, y):
         tmp_node = {}
@@ -42,6 +43,7 @@ class ParsedData:
         del self.curr_ants
         del self.g_ants
 
+
 def ft_print_func_name(name):  # todo del
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
     cprint("func:", 'cyan', end=" ")
@@ -60,8 +62,9 @@ def ft_init_graph(map):
     if map != 'not map':
         cprint("open file: " + map)
         file = open(map)
-        ants = int(file.readline())
-        print("ANTS from argv:", ants)  # todo del
+        data.start_ants = int(file.readline())
+        data.ants = data.start_ants
+        print("ANTS from argv:", data.start_ants)  # todo del
         rooms = []
         check_start = 0
         check_end = 0
@@ -159,11 +162,8 @@ def ft_embed_graph(data, root):
     # nodes.set_edgecolor("black")
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='gray')
-
-    # red patch with Ants marker?
-    # red_patch = mpatches.Patch(color='red', label='Ants')
-    # plt.legend(handles=[red_patch])
-
+    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.start_name], node_color='b', node_size=230)
+    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.end_name], node_color='g', node_size=230)
     canvas = FigureCanvasTkAgg(figure=fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)

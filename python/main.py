@@ -46,6 +46,12 @@ if __name__ == '__main__':
 
     # draw graph
     nodes = nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=150)
+    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.start_name], node_color='b', node_size=230)
+    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.end_name], node_color='g', node_size=230)
+    ant_patch = mpatches.Patch(color='red', label='Ants')
+    start_patch = mpatches.Patch(color='b', label='Start')
+    end_patch = mpatches.Patch(color='g', label='End')
+    plt.legend(handles=[ant_patch, start_patch, end_patch])
     # nodes.set_edgecolor("black")
     nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
     nx.draw_networkx_edges(g, pos, edge_color='gray')
@@ -63,20 +69,19 @@ if __name__ == '__main__':
             cprint('open solution: ', end=' ', color='yellow')  # todo del
             print(data.solution)  # todo del
             data.g_ants.clear()
-            # fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
-            # fig.clf()
-            # pos = nx.spring_layout(g)
             if data.curr_ants:
                 ants = data.curr_ants.pop().split(' ')
                 for each in ants:
                     each = ''.join(each).split('-')[-1:]  # todo
                     for ant in each:
                         data.g_ants.add_node(ant)
+                        data.ants -= 1
                 print(data.g_ants.nodes)  # todo del
                 print('CURR', ants)  # todo del
             else:
                 s.ft_parse_solution(data)
                 cprint('open solution: ', end=' ', color='yellow')  # todo del
+                data.ants = data.start_ants
                 print(data.solution)  # todo del
                 if data.curr_ants:
                     ants = data.curr_ants.pop().split(' ')
@@ -84,17 +89,20 @@ if __name__ == '__main__':
                         each = ''.join(each).split('-')[-1:]  # todo
                         for ant in each:
                             data.g_ants.add_node(ant)
+                            data.ants -= 1
                     print(data.g_ants.nodes)  # todo del
                     print('CURR', ants)  # todo del
                 print('NEXT', data.curr_ants.pop())  # todo del
+            print('ants: ', data.ants)
             # draw graph
             nodes = nx.draw_networkx_nodes(g, pos, node_color="gray", node_size=150)
             # nodes.set_edgecolor("black")
             nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
             nx.draw_networkx_edges(g, pos, edge_color='gray')
             nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=50)
-            red_patch = mpatches.Patch(color='red', label='Ants')
-            plt.legend(handles=[red_patch])
+            if data.ants >= 0:
+                print('not all ants in route!')
+                nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.start_name], node_color="r", node_size=50)
             canvas.draw()
 
     Button(text="Next step", width=10, command=lambda: ft_next_step(g, pos, fig, root, data, canvas)).grid(row=0, column=2, padx=5, pady=5)
