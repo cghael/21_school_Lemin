@@ -61,7 +61,10 @@ def ft_init_graph(map):
     if map != 'not map':
         # print('try to open', map)
         cprint("open file: " + map)
-        file = open(map)
+        try:
+            file = open(map)
+        except FileNotFoundError:
+            return
         data.start_ants = int(file.readline())
         data.ants = data.start_ants
         print("ANTS from argv:", data.start_ants)  # todo del
@@ -132,7 +135,11 @@ def ft_open_map(fig, root, data):
 
 
 def ft_parse_solution(data):
-    file = open(data.solution)
+    try:
+        file = open(data.solution)
+    except FileNotFoundError:
+        data.solution_loaded = False
+        return
     data.solution_loaded = True
     data.curr_ants = file.read().rstrip().split('\n')
     data.curr_ants.reverse()
