@@ -3,7 +3,6 @@ import sys
 import os
 from sys import argv
 from termcolor import colored, cprint  # цветной cprint https://pypi.org/project/termcolor/
-import grafix as gx
 import support as s
 import tkinter as tk
 from tkinter import *
@@ -19,48 +18,37 @@ import matplotlib.patches as mpatches
 if __name__ == '__main__':
     # init graph
     print('LEN ARGV', len(argv))
+    grafix = s.GrafixStruct(0)
     if len(argv) == 2:
-        data = s.ft_init_graph(argv[1])
+        data = s.ft_init_graph(argv[1], grafix)
     else:
-        data = s.ft_init_graph('./test')
+        data = s.ft_init_graph('./test', grafix)
     g = data.graph
-    root = Tk()
-    root.tk_setPalette('gray60')
-    width = 1020
-    height = 1060
-    w = root.winfo_screenwidth()  # width of all screen
-    h = root.winfo_screenheight()  # height of all screen
-    w = w // 2  # for center on screen by a X
-    h = h // 2
-    w = w - width // 2
-    h = h - height // 2
-    root.attributes("-topmost", True)  # lift root to top of all windows
-    root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
-    root.title("lemin visualiser v 0.2")
-
-    fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
-    pos = nx.spring_layout(g)
-    for each in data.coords:
-        pos[each['name']] = each['x'], each['y']  # fill XY coords from data
+    grafix.root.tk_setPalette('gray60')
+    w = (grafix.root.winfo_screenwidth() // 2) - grafix.width // 2
+    h = (grafix.root.winfo_screenheight() // 2) - grafix.height // 2
+    grafix.root.attributes("-topmost", True)  # lift root to top of all windows
+    grafix.root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
+    grafix.root.title("lemin visualiser v 0.2")
 
     # draw graph
-    nodes = nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=150)
-    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.start_name], node_color='b', node_size=230)
-    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.end_name], node_color='g', node_size=230)
+    nodes = nx.draw_networkx_nodes(g, grafix.pos,  node_color="gray", node_size=150)
+    nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.start_name], node_color='b', node_size=230)
+    nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.end_name], node_color='g', node_size=230)
     ant_patch = mpatches.Patch(color='red', label='Ants')
     start_patch = mpatches.Patch(color='b', label='Start')
     end_patch = mpatches.Patch(color='g', label='End')
     plt.legend(handles=[ant_patch, start_patch, end_patch])
     # nodes.set_edgecolor("black")
-    nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
-    nx.draw_networkx_edges(g, pos, edge_color='gray')
+    nx.draw_networkx_labels(g, grafix.pos, font_size=8, font_color='k')
+    nx.draw_networkx_edges(g, grafix.pos, edge_color='gray')
 
     # buttons
-    Button(text="Open map", width=10, command=lambda: s.ft_open_map(fig, root, data)).grid(row=0, column=0, padx=5, pady=5)
-    Button(text="Open solution", width=10, command=lambda: s.ft_open_solution(root, data)).grid(row=0, column=1, padx=5, pady=5)
+    Button(text="Open map", width=10, command=lambda: s.ft_open_map(data, grafix)).grid(row=0, column=0, padx=5, pady=5)
+    Button(text="Open solution", width=10, command=lambda: s.ft_open_solution(data, grafix)).grid(row=0, column=1, padx=5, pady=5)
 
 
-    def ft_next_step(g, pos, fig, root, data, canvas):  # idk why, but this is work correctly!
+    def ft_next_step(data, grafix):  # idk why, but this is work correctly!
         s.ft_print_func_name("next_step")
         if not data.solution_loaded:
             cprint('need open solution file!')
@@ -94,22 +82,22 @@ if __name__ == '__main__':
                 print('NEXT', data.curr_ants.pop())  # todo del
             print('ants: ', data.ants)
             # draw graph
-            nodes = nx.draw_networkx_nodes(g, pos, node_color="gray", node_size=150)
+            nodes = nx.draw_networkx_nodes(g, grafix.pos, node_color="gray", node_size=150)
             # nodes.set_edgecolor("black")
-            nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
-            nx.draw_networkx_edges(g, pos, edge_color='gray')
-            nx.draw_networkx_nodes(data.g_ants, pos, node_color="r", node_size=50)
+            nx.draw_networkx_labels(g, grafix.pos, font_size=8, font_color='k')
+            nx.draw_networkx_edges(g, grafix.pos, edge_color='gray')
+            nx.draw_networkx_nodes(data.g_ants, grafix.pos, node_color="r", node_size=50)
             if data.ants >= 0:
                 print('not all ants in route!')
-                nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.start_name], node_color="r", node_size=50)
-            canvas.draw()
+                nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.start_name], node_color="r", node_size=50)
+            grafix.canvas.draw()
 
-    Button(text="Next step", width=10, command=lambda: ft_next_step(g, pos, fig, root, data, canvas)).grid(row=0, column=2, padx=5, pady=5)
+    Button(text="Next step", width=10, command=lambda: ft_next_step(data, grafix)).grid(row=0, column=2, padx=5, pady=0)
     # end buttons
 
-    canvas = FigureCanvasTkAgg(figure=fig, master=root)
-    canvas.draw()
-    canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
+    grafix.canvas = FigureCanvasTkAgg(figure=grafix.fig, master=grafix.root)
+    grafix.canvas.draw()
+    grafix.canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
     print("len g is: ", len(g))  # todo del
-    root.mainloop()
+    grafix.root.mainloop()
     cprint("\nEND\n", 'magenta')

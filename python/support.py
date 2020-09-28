@@ -6,9 +6,20 @@ from tkinter.filedialog import askopenfilename
 import networkx as nx
 import matplotlib.pyplot as plt
 from sys import argv
-import grafix
 import os
 import matplotlib.patches as mpatches
+
+
+class GrafixStruct:
+    def __init__(self, data):
+        # grafix part
+        self.root = Tk()
+        self.fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
+        self.canvas = FigureCanvasTkAgg(figure=self.fig, master=self.root)
+        if data != 0:
+            self.pos = nx.spring_layout(data.graph)
+        self.width = 1020
+        self.height = 1060
 
 
 class ParsedData:
@@ -32,17 +43,6 @@ class ParsedData:
         tmp_node['y'] = int(y)
         self.coords.append(tmp_node)
 
-    def free_data(self):
-        del self.graph
-        del self.coords
-        del self.start_name
-        del self.end_name
-        del self.curr_node
-        self.solution_loaded = False
-        del self.solution
-        del self.curr_ants
-        del self.g_ants
-
 
 def ft_print_func_name(name):  # todo del
     # end=" " - аттрибут, который меняет "\n" по-умолчанию на " ", чтобы принтилось в одну строку.
@@ -50,16 +50,14 @@ def ft_print_func_name(name):  # todo del
     cprint("{}\n".format(name), 'green')
 
 
-def ft_init_graph(map):
+def ft_init_graph(map, grafix):
     ft_print_func_name('init graph')
     g = nx.Graph()
     data = ParsedData(g, 0, 0)  # init data class
-
     # open file
     if map == 'not map':
         cprint(map)
     if map != 'not map':
-        # print('try to open', map)
         cprint("open file: " + map)
         try:
             file = open(map)
@@ -112,26 +110,13 @@ def ft_init_graph(map):
             x = curr_node.pop()
             data.save_coords(curr_name, x, y)
         print("nodes in g: ", g.nodes)  # todo del
-        # fill all edges
-        g.add_edges_from(edges)
-        # end fill Graph
+        g.add_edges_from(edges)  # fill all edges
         print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
-        # print(g.nodes(data=True))  # todo del
         print('data!!!!', data.coords)  # todo del
+        grafix.pos = nx.spring_layout(data.graph)
+        for each in data.coords:
+            grafix.pos[each['name']] = each['x'], each['y']  # fill XY coords from data
     return data
-
-
-def ft_open_map(fig, root, data):
-    root.attributes("-topmost", False)
-    new_map = askopenfilename()  # open new *.map
-    ft_print_func_name("open map")
-    fig.clf()  # clear figure
-    # fig.clear()
-    plt.close(fig)
-    # data.free_data()
-    data = ft_init_graph(new_map)  # parse, draw
-    data.solution_loaded = False
-    ft_embed_graph(data, root)
 
 
 def ft_parse_solution(data):
@@ -145,10 +130,10 @@ def ft_parse_solution(data):
     data.curr_ants.reverse()
 
 
-def ft_open_solution(root, data):
+def ft_open_solution(data, grafix):
     # new_solution
     ft_print_func_name("open solution")
-    root.attributes("-topmost", False)
+    grafix.root.attributes("-topmost", False)
     data.solution_loaded = True
     data.solution = askopenfilename()
     print(data.solution)  # todo del
@@ -156,23 +141,36 @@ def ft_open_solution(root, data):
     print(data.curr_ants)  # todo del
 
 
-def ft_embed_graph(data, root):
+def ft_open_map(data, grafix):
+    grafix.root.attributes("-topmost", False)
+    new_map = askopenfilename()  # open new *.map
+    ft_print_func_name("open map")
+    grafix.fig.clf()  # clear figure
+    data = ft_init_graph(new_map, grafix)  # parse, draw
+    data.solution_loaded = False
+    ft_embed_graph(data, grafix)
+
+
+def ft_embed_graph(data, grafix):
+    ft_print_func_name("embed graph")
     g = data.graph
-    fig = plt.figure(1, figsize=(5, 5), dpi=200, edgecolor='w', tight_layout=True)
-    fig.clf()
-    pos = nx.spring_layout(g)
-    for each in data.coords:
-        pos[each['name']] = each['x'], each['y']  # fill XY coords from data
-
+    grafix.root.tk_setPalette('gray60')
+    w = (grafix.root.winfo_screenwidth() // 2) - grafix.width // 2
+    h = (grafix.root.winfo_screenheight() // 2) - grafix.height // 2
+    grafix.root.attributes("-topmost", True)  # lift root to top of all windows
+    grafix.root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
+    grafix.root.title("lemin visualiser v 0.2")
     # draw graph
-    nodes = nx.draw_networkx_nodes(g, pos,  node_color="gray", node_size=100)
+    nodes = nx.draw_networkx_nodes(g, grafix.pos,  node_color="gray", node_size=150)
+    nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.start_name], node_color='b', node_size=230)
+    nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.end_name], node_color='g', node_size=230)
+    ant_patch = mpatches.Patch(color='red', label='Ants')
+    start_patch = mpatches.Patch(color='b', label='Start')
+    end_patch = mpatches.Patch(color='g', label='End')
+    plt.legend(handles=[ant_patch, start_patch, end_patch])
     # nodes.set_edgecolor("black")
-    nx.draw_networkx_labels(g, pos, font_size=8, font_color='k')
-    nx.draw_networkx_edges(g, pos, edge_color='gray')
-    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.start_name], node_color='b', node_size=230)
-    nx.draw_networkx_nodes(data.graph, pos, nodelist=[data.end_name], node_color='g', node_size=230)
-    canvas = FigureCanvasTkAgg(figure=fig, master=root)
-    canvas.draw()
-    canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
-
-
+    nx.draw_networkx_labels(g, grafix.pos, font_size=8, font_color='k')
+    nx.draw_networkx_edges(g, grafix.pos, edge_color='gray')
+    grafix.canvas = FigureCanvasTkAgg(figure=grafix.fig, master=grafix.root)
+    grafix.canvas.draw()
+    grafix.canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
