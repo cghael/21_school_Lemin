@@ -87,16 +87,12 @@ def ft_init_graph(map, grafix):
                 break
             if line[0] != '#':
                 rooms.append(line.split())
-        # print(rooms)  # todo del
-        # print(len(rooms))  # todo del
         file = open(map)
         edges = []
         for line in file:
             if line[0] != '#' and '-' in line:
                 line = ' '.join(line.split())  # remove '\n' for correctly splitting
                 edges.append(line.split(sep='-'))
-        # print(edges)  # todo del
-        # print(len(edges))  # todo del
         # END parsing
 
         # print("len g is: ", len(g))  # todo del
@@ -109,10 +105,7 @@ def ft_init_graph(map, grafix):
             y = curr_node.pop()
             x = curr_node.pop()
             data.save_coords(curr_name, x, y)
-        # print("nodes in g: ", g.nodes)  # todo del
         g.add_edges_from(edges)  # fill all edges
-        # print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
-        # print('data!!!!', data.coords)  # todo del
         grafix.pos = nx.spring_layout(data.graph)
         for each in data.coords:
             grafix.pos[each['name']] = each['x'], each['y']  # fill XY coords from data
@@ -136,9 +129,7 @@ def ft_open_solution(data, grafix):
     grafix.root.attributes("-topmost", False)
     data.solution_loaded = True
     data.solution = askopenfilename()
-    # print(data.solution)  # todo del
     ft_parse_solution(data)
-    # print(data.curr_ants)  # todo del
 
 
 def ft_open_map(data, grafix):

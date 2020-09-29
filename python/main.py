@@ -10,14 +10,11 @@ from tkinter import ttk
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
-# Implement the default Matplotlib key bindings.
-from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 import matplotlib.patches as mpatches
 
 if __name__ == '__main__':
     # init graph
-    # print('LEN ARGV', len(argv))
     grafix = s.GrafixStruct(0)
     if len(argv) == 2:
         data = s.ft_init_graph(argv[1], grafix)
@@ -47,9 +44,7 @@ if __name__ == '__main__':
     Button(text="Open map", width=10, command=lambda: s.ft_open_map(data, grafix)).grid(row=0, column=0, padx=5, pady=5)
     Button(text="Open solution", width=10, command=lambda: s.ft_open_solution(data, grafix)).grid(row=0, column=1, padx=5, pady=5)
 
-
-    def ft_next_step(data, grafix):  # idk why, but this is work correctly!
-        # s.ft_print_func_name("next_step")
+    def ft_next_step(data, grafix):  # idk why, but this is work correctly
         if not data.solution_loaded:
             cprint('need open solution file!')
         else:
@@ -63,33 +58,29 @@ if __name__ == '__main__':
                     for ant in each:
                         data.g_ants.add_node(ant)
                         data.ants -= 1
-                # print(data.g_ants.nodes)  # todo del
                 print('CURR', ants)  # todo del
             else:
-                s.ft_parse_solution(data)
-                cprint('open solution: ', end=' ', color='yellow')  # todo del
-                data.ants = data.start_ants
-                print(data.solution)  # todo del
-                if data.curr_ants:
-                    ants = data.curr_ants.pop().split(' ')
-                    for each in ants:
-                        each = ''.join(each).split('-')[-1:]  # todo
-                        for ant in each:
-                            data.g_ants.add_node(ant)
-                            data.ants -= 1
-                    # print(data.g_ants.nodes)  # todo del
-                    print('CURR', ants)  # todo del
-                # print('NEXT', data.curr_ants.pop())  # todo del
-            # print('ants: ', data.ants)
+                print('fucking ants end :)')
+                # s.ft_parse_solution(data)
+                # cprint('open solution: ', end=' ', color='yellow')  # todo del
+                # data.ants = data.start_ants
+                # print(data.solution)  # todo del
+                # if data.curr_ants:
+                #     ants = data.curr_ants.pop().split(' ')
+                #     for each in ants:
+                #         each = ''.join(each).split('-')[-1:]  # todo
+                #         for ant in each:
+                #             data.g_ants.add_node(ant)
+                #             data.ants -= 1
+                #     print('CURR', ants)  # todo del
             # draw graph
             nodes = nx.draw_networkx_nodes(g, grafix.pos, node_color="gray", node_size=150)
-            # nodes.set_edgecolor("black")
             nx.draw_networkx_labels(g, grafix.pos, font_size=8, font_color='k')
             nx.draw_networkx_edges(g, grafix.pos, edge_color='gray')
-            nx.draw_networkx_nodes(data.g_ants, grafix.pos, node_color="r", node_size=50)
+            nx.draw_networkx_nodes(data.g_ants, grafix.pos, node_color="r", node_size=60)
             if data.ants >= 0:
                 # print('not all ants in route!')
-                nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.start_name], node_color="r", node_size=50)
+                nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.start_name], node_color="r", node_size=60)
             grafix.canvas.draw()
 
     Button(text="Next step", width=10, command=lambda: ft_next_step(data, grafix)).grid(row=0, column=2, padx=5, pady=0)
@@ -97,7 +88,6 @@ if __name__ == '__main__':
 
     grafix.canvas = FigureCanvasTkAgg(figure=grafix.fig, master=grafix.root)
     grafix.canvas.draw()
-    grafix.canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
-    # print("len g is: ", len(g))  # todo del
+    grafix.canvas.get_tk_widget().grid(row=2, columnspan=3, padx=10, pady=10)
     grafix.root.mainloop()
     cprint("\nEND working visualiser.\nhave a nice day! :)\n", 'magenta')
