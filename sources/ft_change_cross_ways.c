@@ -55,6 +55,7 @@ static void	ft_change_path_parts(t_path *tmp_p, t_path *tmp_cur, t_lemin *lemin)
 		del = tmptmp_cur;
 		tmptmp_cur = tmptmp_cur->next;
 		free(del);
+		del = NULL;
 	}
 	tmp_p->next = tmptmp_cur;
 	tmp_cur->next = tmptmp_p;
@@ -76,6 +77,18 @@ static t_path	*ft_check_cross_length(t_path *cross)
 		tmp = tmp->next;
 	}
 	return (tmp);
+}
+
+static void		ft_free_cross_part(t_tracks *current, t_path *end)
+{
+	t_path	*tmp;
+
+	while (current->cross != end)
+	{
+		tmp = current->cross;
+		current->cross = current->cross->next;
+		free(tmp);
+	}
 }
 
 void			ft_change_cross_ways(t_tracks *current, t_tracks *tracks, \
@@ -101,6 +114,6 @@ void			ft_change_cross_ways(t_tracks *current, t_tracks *tracks, \
 				&& current->cross->to != tmp_p->next->to)
 			tmp_p = tmp_p->next;
 		ft_change_path_parts(tmp_p, tmp_cur, lemin);
-		current->cross = cross_end->next;
+		ft_free_cross_part(current, cross_end->next);
 	}
 }
