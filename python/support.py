@@ -51,21 +51,21 @@ def ft_print_func_name(name):  # todo del
 
 
 def ft_init_graph(map, grafix):
-    ft_print_func_name('init graph')
+    # ft_print_func_name('init graph')
     g = nx.Graph()
     data = ParsedData(g, 0, 0)  # init data class
     # open file
     if map == 'not map':
         cprint(map)
     if map != 'not map':
-        cprint("open file: " + map)
+        cprint("open map: " + map)
         try:
             file = open(map)
         except FileNotFoundError:
             return
         data.start_ants = int(file.readline())
         data.ants = data.start_ants
-        print("ANTS from argv:", data.start_ants)  # todo del
+        print("ANTS:", data.start_ants)  # todo del
         rooms = []
         check_start = 0
         check_end = 0
@@ -87,19 +87,19 @@ def ft_init_graph(map, grafix):
                 break
             if line[0] != '#':
                 rooms.append(line.split())
-        print(rooms)  # todo del
-        print(len(rooms))  # todo del
+        # print(rooms)  # todo del
+        # print(len(rooms))  # todo del
         file = open(map)
         edges = []
         for line in file:
             if line[0] != '#' and '-' in line:
                 line = ' '.join(line.split())  # remove '\n' for correctly splitting
                 edges.append(line.split(sep='-'))
-        print(edges)  # todo del
-        print(len(edges))  # todo del
+        # print(edges)  # todo del
+        # print(len(edges))  # todo del
         # END parsing
 
-        print("len g is: ", len(g))  # todo del
+        # print("len g is: ", len(g))  # todo del
         # fill Graph from list && fill all node_names
         room_names = rooms.copy()
         for i in range(len(room_names)):
@@ -109,10 +109,10 @@ def ft_init_graph(map, grafix):
             y = curr_node.pop()
             x = curr_node.pop()
             data.save_coords(curr_name, x, y)
-        print("nodes in g: ", g.nodes)  # todo del
+        # print("nodes in g: ", g.nodes)  # todo del
         g.add_edges_from(edges)  # fill all edges
-        print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
-        print('data!!!!', data.coords)  # todo del
+        # print("len g is: ", len(g), "len rooms: ", len(rooms))  # todo del
+        # print('data!!!!', data.coords)  # todo del
         grafix.pos = nx.spring_layout(data.graph)
         for each in data.coords:
             grafix.pos[each['name']] = each['x'], each['y']  # fill XY coords from data
@@ -132,13 +132,13 @@ def ft_parse_solution(data):
 
 def ft_open_solution(data, grafix):
     # new_solution
-    ft_print_func_name("open solution")
+    # ft_print_func_name("open solution")
     grafix.root.attributes("-topmost", False)
     data.solution_loaded = True
     data.solution = askopenfilename()
-    print(data.solution)  # todo del
+    # print(data.solution)  # todo del
     ft_parse_solution(data)
-    print(data.curr_ants)  # todo del
+    # print(data.curr_ants)  # todo del
 
 
 def ft_open_map(data, grafix):
@@ -152,14 +152,14 @@ def ft_open_map(data, grafix):
 
 
 def ft_embed_graph(data, grafix):
-    ft_print_func_name("embed graph")
+    # ft_print_func_name("embed graph")
     g = data.graph
     grafix.root.tk_setPalette('gray60')
     w = (grafix.root.winfo_screenwidth() // 2) - grafix.width // 2
     h = (grafix.root.winfo_screenheight() // 2) - grafix.height // 2
     grafix.root.attributes("-topmost", True)  # lift root to top of all windows
     grafix.root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
-    grafix.root.title("lemin visualiser v 0.2")
+    grafix.root.title("lemin visualiser v 0.3")
     # draw graph
     nodes = nx.draw_networkx_nodes(g, grafix.pos,  node_color="gray", node_size=150)
     nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.start_name], node_color='b', node_size=230)

@@ -17,7 +17,7 @@ import matplotlib.patches as mpatches
 
 if __name__ == '__main__':
     # init graph
-    print('LEN ARGV', len(argv))
+    # print('LEN ARGV', len(argv))
     grafix = s.GrafixStruct(0)
     if len(argv) == 2:
         data = s.ft_init_graph(argv[1], grafix)
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     h = (grafix.root.winfo_screenheight() // 2) - grafix.height // 2
     grafix.root.attributes("-topmost", True)  # lift root to top of all windows
     grafix.root.geometry('1020x1060+{}+{}'.format(w, h))  # create window with shift
-    grafix.root.title("lemin visualiser v 0.2")
+    grafix.root.title("lemin visualiser v 0.3")
 
     # draw graph
     nodes = nx.draw_networkx_nodes(g, grafix.pos,  node_color="gray", node_size=150)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
 
     def ft_next_step(data, grafix):  # idk why, but this is work correctly!
-        s.ft_print_func_name("next_step")
+        # s.ft_print_func_name("next_step")
         if not data.solution_loaded:
             cprint('need open solution file!')
         else:
@@ -63,7 +63,7 @@ if __name__ == '__main__':
                     for ant in each:
                         data.g_ants.add_node(ant)
                         data.ants -= 1
-                print(data.g_ants.nodes)  # todo del
+                # print(data.g_ants.nodes)  # todo del
                 print('CURR', ants)  # todo del
             else:
                 s.ft_parse_solution(data)
@@ -77,10 +77,10 @@ if __name__ == '__main__':
                         for ant in each:
                             data.g_ants.add_node(ant)
                             data.ants -= 1
-                    print(data.g_ants.nodes)  # todo del
+                    # print(data.g_ants.nodes)  # todo del
                     print('CURR', ants)  # todo del
-                print('NEXT', data.curr_ants.pop())  # todo del
-            print('ants: ', data.ants)
+                # print('NEXT', data.curr_ants.pop())  # todo del
+            # print('ants: ', data.ants)
             # draw graph
             nodes = nx.draw_networkx_nodes(g, grafix.pos, node_color="gray", node_size=150)
             # nodes.set_edgecolor("black")
@@ -88,7 +88,7 @@ if __name__ == '__main__':
             nx.draw_networkx_edges(g, grafix.pos, edge_color='gray')
             nx.draw_networkx_nodes(data.g_ants, grafix.pos, node_color="r", node_size=50)
             if data.ants >= 0:
-                print('not all ants in route!')
+                # print('not all ants in route!')
                 nx.draw_networkx_nodes(data.graph, grafix.pos, nodelist=[data.start_name], node_color="r", node_size=50)
             grafix.canvas.draw()
 
@@ -98,6 +98,6 @@ if __name__ == '__main__':
     grafix.canvas = FigureCanvasTkAgg(figure=grafix.fig, master=grafix.root)
     grafix.canvas.draw()
     grafix.canvas.get_tk_widget().grid(row=1, columnspan=3, padx=10, pady=10)
-    print("len g is: ", len(g))  # todo del
+    # print("len g is: ", len(g))  # todo del
     grafix.root.mainloop()
-    cprint("\nEND\n", 'magenta')
+    cprint("\nEND working visualiser.\nhave a nice day! :)\n", 'magenta')
