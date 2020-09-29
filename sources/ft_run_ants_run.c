@@ -36,6 +36,22 @@ static int		ft_create_ant_arrays(t_tracks *tracks)
 	return (EXIT_SUCCESS);
 }
 
+static t_tracks	*ft_smallest_tmp(t_tracks *tracks)
+{
+	t_tracks	*tmp;
+	t_tracks	*smallest;
+
+	tmp = tracks;
+	smallest = tmp;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		if ((tmp->len + tmp->ant_num) < (smallest->len + smallest->ant_num))
+			smallest = tmp;
+	}
+	return (smallest);
+}
+
 static void		ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks)
 {
 	t_tracks	*tmp;
@@ -44,9 +60,7 @@ static void		ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks)
 	ants = lemin->ants;
 	while (ants)
 	{
-		tmp = tracks;
-		while (tmp->next && tmp->len + tmp->ant_num > tmp->next->len + tmp->next->ant_num)
-			tmp = tmp->next;
+		tmp = ft_smallest_tmp(tracks);
 		tmp->ant_num++;
 		ants--;
 	}
@@ -100,7 +114,6 @@ static void		ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
 					tmp->running_ants--;
 				}
 			}
-//				ft_ants_tap_tap(tmp->ants, tmp->len, lemin->graph);
 			if (tmp->ant_num && ant_start)
 			{
 				tmp->ants[0].ant = ant_number;

@@ -19,7 +19,6 @@ static void		ft_free_path(t_path *path)
 	while (path != NULL)
 	{
 		tmp = path->next;
-//		free(path->name);
 		free(path);
 		path = tmp;
 	}
@@ -36,6 +35,7 @@ void			ft_free_tracks(t_tracks *tracks)
 			tmp = tracks->next;
 			ft_free_path(tracks->path);
 			ft_free_path(tracks->cross);
+			free(tracks->ants);
 			tracks->path = NULL;
 			free(tracks);
 			tracks = tmp;

@@ -18,11 +18,7 @@ t_lemin			*ft_lemin_init(void)
 
 	tmp = (t_lemin*)ft_memalloc(sizeof(t_lemin));
 	if (!tmp)
-		ft_error_n_exit(
-				"Error malloc in ft_lemin_init()\n",
-				NULL,
-				NULL,
-				NULL);
+		ft_error_n_exit("Error malloc in ft_lemin_init()\n", NULL, NULL, NULL);
 	tmp->graph = NULL;
 	return (tmp);
 }

@@ -53,23 +53,16 @@ t_tracks			*ft_find_paths(t_lemin *lemin)
 	lvl = ft_set_levels(lemin, 0);
 	while (lvl >= 0)
 	{
-//		ft_print_matrix(lemin->graph, lemin->rooms, 0); //todo del
 		if ((current = ft_write_path(lemin, lvl, &tracks)) == NULL)
 			ft_error_n_exit("Error in ft_write_paths()\n", lemin, NULL, tracks);
-		if (current->cross)
-		{
-//			if (lvl == 126)
-//				ft_printf("");
-			ft_change_cross_ways(current, tracks, lemin);
-		}
 		ft_count_path_len(tracks);
-		//todo count DO WE NEED any more ways (steps & ants)!!!!!
-//		ft_print_matrix(lemin->graph, lemin->rooms, 1); //todo del
-//		ft_print_path(lemin->graph, tracks); //todo del
+		if (EXIT_FAILURE == ft_decision_to_countinue(&tracks, lemin->ants))
+			return (tracks);
+		if (current->cross)
+			ft_change_cross_ways(current, tracks, lemin);
+		ft_count_path_len(tracks);
 		ft_clear_lvls(lemin);
-//		ft_print_matrix(lemin->graph, lemin->rooms, 1);
 		lvl = ft_set_levels(lemin, 0);
 	}
-//	ft_free_tracks(tracks);
 	return (tracks);
 }
