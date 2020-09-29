@@ -138,4 +138,6 @@ void					ft_change_cross_ways(t_tracks *current, t_tracks *tracks, t_lemin *lemi
 void					ft_run_ants_run(t_lemin *lemin, t_tracks *tracks);
 void					ft_sort_tracks(t_tracks **tracks);
 
+int						ft_decision_to_countinue(t_tracks **tracks, int ants);
+
 #endif

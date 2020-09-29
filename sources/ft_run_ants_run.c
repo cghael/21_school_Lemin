@@ -36,20 +36,64 @@ static int		ft_create_ant_arrays(t_tracks *tracks)
 	return (EXIT_SUCCESS);
 }
 
+static t_tracks	*ft_smallest_tmp(t_tracks *tracks)
+{
+	t_tracks	*tmp;
+	t_tracks	*smallest;
+
+	tmp = tracks;
+	smallest = tmp;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		if ((tmp->len + tmp->ant_num) < (smallest->len + smallest->ant_num))
+			smallest = tmp;
+	}
+	return (smallest);
+}
+
 static void		ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks)
 {
 	t_tracks	*tmp;
 	int			ants;
 
 	ants = lemin->ants;
+
+
+	tmp = tracks;
+	int counter = 1;
+	while (tmp)
+	{
+		ft_printf("PATH%d\t%-3d|", counter, tmp->len);
+		counter++;
+		tmp = tmp->next;
+	}
+
+
+
 	while (ants)
 	{
-		tmp = tracks;
-		while (tmp->next && tmp->len + tmp->ant_num > tmp->next->len + tmp->next->ant_num)
-			tmp = tmp->next;
+//		tmp = tracks;
+		tmp = ft_smallest_tmp(tracks);
+//		while (tmp && ((tmp->len + tmp->ant_num) > (tmp->next->len + tmp->next->ant_num)))
+//			tmp = tmp->next;
+//		if (!tmp)
+//			tmp = tracks;
 		tmp->ant_num++;
+
 		ants--;
 	}
+
+
+
+	tmp = tracks;
+	ft_printf("\n");
+	while (tmp)
+	{
+		ft_printf("\t%7d|", tmp->ant_num);
+		tmp = tmp->next;
+	}
+	ft_printf("\n");
 }
 
 static int		ft_ants_tap_tap(t_ant *ants, int len, t_room *graph)
