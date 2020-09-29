@@ -12,26 +12,6 @@
 
 #include "lemin.h"
 
-//static int		ft_commands_are_valid(t_data **data)
-//{
-//	int		counter;
-//	t_data	*tmp;
-//
-//	tmp = *data;
-//	counter = (*data)->counter;
-//	while (counter)
-//	{
-//		if ((tmp->command == 's' || tmp->command == 'e') \
-//			&& tmp->content[0] == '#')
-//		{
-//			tmp->next->command = tmp->command;
-//			tmp->command = '\0';
-//		}
-//		counter--;
-//	}
-//	return (1);
-//}
-
 static int		ft_name_is_valid(char *name, t_data *data)
 {
 	int		counter;

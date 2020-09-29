@@ -19,7 +19,6 @@ static void		ft_free_path(t_path *path)
 	while (path != NULL)
 	{
 		tmp = path->next;
-//		free(path->name);
 		free(path);
 		path = tmp;
 	}

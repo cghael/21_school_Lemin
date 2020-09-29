@@ -32,6 +32,7 @@ int			ft_decision_to_countinue(t_tracks **tracks, int ants)
 {
 	t_tracks	*tmp;
 	t_tracks	*longest;
+	t_tracks	*free;
 	int			res;
 
 	res = 1;
@@ -40,13 +41,13 @@ int			ft_decision_to_countinue(t_tracks **tracks, int ants)
 	while (tmp)
 	{
 		res += longest->len - tmp->len;
-		ft_printf("ANTS = %d, RES = %d\n\n", ants, res);
 		if (res > ants)
 		{
 			tmp = *tracks;
 			while (tmp->next != longest)
 				tmp = tmp->next;
-			//todo free tracks
+			free = tmp->next;
+			ft_free_tracks(free);
 			tmp->next = NULL;
 			return (EXIT_FAILURE);
 		}

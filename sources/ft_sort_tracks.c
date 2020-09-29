@@ -12,43 +12,6 @@
 
 #include "lemin.h"
 
-//static void	ft_sort_first_two(t_tracks **tracks)
-//{
-//	t_tracks	*current;
-//	t_tracks	*next;
-//	t_tracks	*prev;
-//
-//	prev = *tracks;
-//	current = (*tracks)->next;
-//	if (prev->len > current->len)
-//	{
-//		if (current->next)
-//		{
-//			next = current->next;
-//			prev->next = next;
-//			current->next = prev;
-//			*tracks = current;
-//		}
-//		else
-//		{
-//			prev->next = current->next;
-//			current->next = prev;
-//			*tracks = current;
-//		}
-//	}
-//}
-//
-//static t_tracks		*ft_swap_to_tracks(t_tracks *current, t_tracks *prev)
-//{
-//	t_tracks	*next;
-//
-//	next = current->next;
-//	prev->next = next;
-//	current->next = next->next;
-//	next->next = current;
-//	return (next);
-//}
-
 static void	ft_swap_two_tracks(t_tracks **tracks, t_tracks *current)
 {
 	t_tracks	*tmp;

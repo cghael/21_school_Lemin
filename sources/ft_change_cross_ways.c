@@ -39,9 +39,6 @@ static void	ft_change_path_parts(t_path *tmp_p, t_path *tmp_cur, t_lemin *lemin)
 	t_path	*tmptmp_cur;
 	t_path	*del;
 
-//	lemin->graph[tmp_p->next->from].links[tmp_p->next->to].way = 0;
-//	lemin->graph[tmp_p->next->to].links[tmp_p->next->from].way = 0;
-//	tmptmp_p = tmp_p->next;
 	tmptmp_p = tmp_p->next;
 	while (tmptmp_p->from != tmp_cur->to)
 	{
@@ -62,21 +59,6 @@ static void	ft_change_path_parts(t_path *tmp_p, t_path *tmp_cur, t_lemin *lemin)
 	tmp_p->next = tmptmp_cur;
 	tmp_cur->next = tmptmp_p;
 	ft_make_new_way_links(lemin, tmp_p->next, tmp_cur->next);
-//	free(tmptmp_cur);
-//	free(tmptmp_p);
-}
-
-static void ft_print_p(t_path *path, t_lemin *lemin)
-{
-	t_path *tmp;
-
-	tmp = path;
-	while (tmp)
-	{
-		ft_printf("%s-%s ", lemin->graph[tmp->from].name, lemin->graph[tmp->to].name);
-		tmp = tmp->next;
-	}
-	ft_printf("\n");
 }
 
 static t_path	*ft_check_cross_length(t_path *cross)
@@ -93,7 +75,6 @@ static t_path	*ft_check_cross_length(t_path *cross)
 		cross_end = cross_end->next;
 		tmp = tmp->next;
 	}
-//		cross_end = cross_end->next;
 	return (tmp);
 }
 
@@ -107,35 +88,19 @@ void			ft_change_cross_ways(t_tracks *current, t_tracks *tracks, \
 
 	while (current->cross)
 	{
-//		if (current->cross->num == 15)
-//			ft_printf("%d\n", current->cross->num);
 		cross_end = ft_check_cross_length(current->cross);
-//		ft_printf("\ncurrent->path: \n"); //todo del
-//		ft_print_p(current->path, lemin); //todo del
-//		ft_printf("\ncurrent->cross: \n"); //todo del
-//		ft_print_p(current->cross, lemin); //todo del
 		tmp_cur = current->path;
 		while (tmp_cur && tmp_cur->next->to != cross_end->from \
 				&& tmp_cur->next->from != cross_end->to)
 			tmp_cur = tmp_cur->next;
-//		ft_printf("\ntmp_cur = %d-%d\n", tmp_cur->from, tmp_cur->to);
 		tmp_tr = tracks;
-//		if (current->cross->num == 15)
-//			ft_printf("%d\n", current->cross->num);
 		while (--current->cross->num > 0)
 			tmp_tr = tmp_tr->next;
 		tmp_p = tmp_tr->path;
-//		ft_printf("\ntmp_tr->path: \n"); //todo del
-//		ft_print_p(tmp_tr->path, lemin); //todo del
 		while (current->cross->from != tmp_p->next->from \
 				&& current->cross->to != tmp_p->next->to)
 			tmp_p = tmp_p->next;
-//		ft_printf("\ntmp_p = %d-%d\n", tmp_p->from, tmp_p->to);
 		ft_change_path_parts(tmp_p, tmp_cur, lemin);
 		current->cross = cross_end->next;
-//		ft_printf("\ncurrent->path: \n"); //todo del
-//		ft_print_p(current->path, lemin); //todo del
-//		ft_printf("\ntmp_tr->path: \n"); //todo del
-//		ft_print_p(tmp_tr->path, lemin); //todo del
 	}
 }

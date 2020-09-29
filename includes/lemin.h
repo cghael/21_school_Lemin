@@ -29,15 +29,8 @@
 # define ROOM_NOT_VALID	"Error. Please, enter rooms carefully\n"
 # define LINK_NOT_VALID	"Error. Please, enter links carefully\n"
 # define BAD_INPUT		"Error. Bad input.\n"
-# define IS_BUSY		1
-# define IS_FREE		0
 # define START			2
 # define END			-1
-
-# define ROOM			"t_room"
-# define LEMIN			"t_lemin"
-# define DATA			"t_data"
-# define EASY_FREE		NULL
 
 /*
 **--------------------------------structs---------------------------------------
@@ -48,7 +41,6 @@ typedef struct			s_path
 	int					from;
 	int					to;
 	int					num;
-	int					ant;
 	struct s_path		*next;
 }						t_path;
 
@@ -90,7 +82,6 @@ typedef struct			s_room
 	int					x;
 	int					y;
 	int					state;
-	int					weight;
 	int					level;
 	char				*name;
 	t_link				*links;

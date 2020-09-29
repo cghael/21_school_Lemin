@@ -58,42 +58,12 @@ static void		ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks)
 	int			ants;
 
 	ants = lemin->ants;
-
-
-	tmp = tracks;
-	int counter = 1;
-	while (tmp)
-	{
-		ft_printf("PATH%d\t%-3d|", counter, tmp->len);
-		counter++;
-		tmp = tmp->next;
-	}
-
-
-
 	while (ants)
 	{
-//		tmp = tracks;
 		tmp = ft_smallest_tmp(tracks);
-//		while (tmp && ((tmp->len + tmp->ant_num) > (tmp->next->len + tmp->next->ant_num)))
-//			tmp = tmp->next;
-//		if (!tmp)
-//			tmp = tracks;
 		tmp->ant_num++;
-
 		ants--;
 	}
-
-
-
-	tmp = tracks;
-	ft_printf("\n");
-	while (tmp)
-	{
-		ft_printf("\t%7d|", tmp->ant_num);
-		tmp = tmp->next;
-	}
-	ft_printf("\n");
 }
 
 static int		ft_ants_tap_tap(t_ant *ants, int len, t_room *graph)
@@ -144,7 +114,6 @@ static void		ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
 					tmp->running_ants--;
 				}
 			}
-//				ft_ants_tap_tap(tmp->ants, tmp->len, lemin->graph);
 			if (tmp->ant_num && ant_start)
 			{
 				tmp->ants[0].ant = ant_number;

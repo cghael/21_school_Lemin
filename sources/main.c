@@ -21,7 +21,6 @@ int		main(int argc, char *argv[])
 	if (argc > 1)
 		ft_check_flags(lemin, argc, argv);
 	lemin = ft_parse_data(lemin);
-	//todo убрать тупики и петли!!!
 	tracks = ft_find_paths(lemin);
 	ft_run_ants_run(lemin, tracks);
 	ft_free_lemin(lemin);
