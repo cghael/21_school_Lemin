@@ -36,6 +36,19 @@
 **--------------------------------structs---------------------------------------
 */
 
+typedef struct			s_step
+{
+	int					ant;
+	int					room;
+	struct s_step		*next;
+}						t_step;
+
+typedef struct			s_print
+{
+	struct s_step		*step;
+	struct s_print		*next;
+}						t_print;
+
 typedef struct			s_path
 {
 	int					from;
@@ -90,6 +103,7 @@ typedef struct			s_room
 typedef struct			s_lemin
 {
 	int					visual;
+	t_print				*print;
 	int					ants;
 	int					rooms;
 	int					start;
@@ -130,5 +144,7 @@ void					ft_run_ants_run(t_lemin *lemin, t_tracks *tracks);
 void					ft_sort_tracks(t_tracks **tracks);
 
 int						ft_decision_to_countinue(t_tracks **tracks, int ants);
+void					ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks);
+void					ft_ants_mooving(t_lemin *lemin, t_tracks *tracks);
 
 #endif
