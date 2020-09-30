@@ -28,12 +28,39 @@ static int	ft_check_filename(char *str)
 
 void		ft_check_flags(t_lemin *lemin, int argc, char *argv[])
 {
+	int i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (ft_strequ(argv[i], "-f"))
+		{
+			ft_check_f_flag(lemin, argv[i], argv[i + 1]);
+
+			i++;
+		}
+		else if (ft_strequ(argv[1], "-v"))
+			ft_check_v_flag();
+		else if (ft_strequ(argv[1], "-o"))
+		{
+			ft_check_o_flag();
+			i++;
+		}
+		else if (ft_strequ(argv[1], "--w"))
+			ft_check_w_flag();
+		i++;
+	}
+
+
+
+
 	if (ft_strequ(argv[1], "-f"))
 	{
 		if (argc < 2 || EXIT_FAILURE == ft_check_filename(argv[2]))
 			ft_error_n_exit(USAGE_FILE, lemin, NULL, NULL);
 		lemin->fd = open("./", O_CREAT, O_RDWR);
-		//todo CREATE OPEN FILE
+		if (lemin->fd < 0)
+			ft_error_n_exit("Error open file\n", lemin, NULL, NULL);
 	}
 	else if (ft_strequ(argv[1], "-v"))
 	{
