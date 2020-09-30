@@ -19,12 +19,15 @@
 
 # include "ft_printf.h"
 # include "ft_get_next_line.h"
+# include <fcntl.h>
 
 /*
 **--------------------------------defines---------------------------------------
 */
 
-# define HELP			"use flag -v for visualizer\n"
+# define HELP1			"flag -v for visualizer\n"
+# define HELP2			"flag -f filename to write output in file\n"
+# define USAGE_FILE		"USAGE:\t-f filename"
 # define ANTS_NOT_VALID	"Error. Please, enter the number of ants correctly.\n"
 # define ROOM_NOT_VALID	"Error. Please, enter rooms carefully\n"
 # define LINK_NOT_VALID	"Error. Please, enter links carefully\n"
@@ -103,6 +106,7 @@ typedef struct			s_room
 typedef struct			s_lemin
 {
 	int					visual;
+	int					fd;
 	t_print				*print;
 	int					ants;
 	int					rooms;
