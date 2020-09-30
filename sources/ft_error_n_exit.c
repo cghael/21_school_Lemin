@@ -12,7 +12,8 @@
 
 #include "lemin.h"
 
-void		ft_error_n_exit(char *str, t_lemin *lemin, t_data **data, t_tracks *tracks)
+void		ft_error_n_exit(char *str, t_lemin *lemin, t_data **data, \
+															t_tracks *tracks)
 {
 	write(2, str, ft_strlen(str));
 	if (data)

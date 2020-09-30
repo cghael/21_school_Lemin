@@ -23,6 +23,7 @@ int		main(int argc, char *argv[])
 	lemin = ft_parse_data(lemin);
 	tracks = ft_find_paths(lemin);
 	ft_run_ants_run(lemin, tracks);
+	ft_print_steps(lemin);
 	ft_free_lemin(lemin);
 	ft_free_tracks(tracks);
 	return (0);

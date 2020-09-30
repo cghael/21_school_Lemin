@@ -12,6 +12,28 @@
 
 #include "lemin.h"
 
+static void	ft_free_print(t_print *print)
+{
+	t_print	*tmp_pr;
+	t_step	*tmp_st;
+	void	*del;
+
+	tmp_pr = print;
+	while (tmp_pr)
+	{
+		tmp_st = tmp_pr->step;
+		while (tmp_st)
+		{
+			del = tmp_st;
+			tmp_st = tmp_st->next;
+			free(del);
+		}
+		del = tmp_pr;
+		tmp_pr = tmp_pr->next;
+		free(del);
+	}
+}
+
 void		ft_free_lemin(t_lemin *lemin)
 {
 	int i;
@@ -31,6 +53,8 @@ void		ft_free_lemin(t_lemin *lemin)
 			}
 			free(lemin->graph);
 		}
+		if (lemin->print)
+			ft_free_print(lemin->print);
 		free(lemin);
 	}
 }

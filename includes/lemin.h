@@ -145,6 +145,7 @@ void					ft_sort_tracks(t_tracks **tracks);
 
 int						ft_decision_to_countinue(t_tracks **tracks, int ants);
 void					ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks);
-void					ft_ants_mooving(t_lemin *lemin, t_tracks *tracks);
+int						ft_ants_mooving(t_lemin *lemin, t_tracks *tracks);
+void					ft_print_steps(t_lemin *lemin);
 
 #endif
