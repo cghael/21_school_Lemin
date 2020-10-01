@@ -28,7 +28,9 @@
 # define HELP1			"USAGE:\t'-v' for visualizer\n"
 # define HELP2			"\t\t'-f filename.sol' to write output in file\n"
 # define HELP3			"\t\t'-o filename.map' to open file with map\n"
-# define HELP4			"\t\t'-ow filename.map' to open file with map and write output in filename.sol\n"
+# define HELP4			"\t\t'-ow filename.map' to open file with map "
+# define HELP5			"and write output in filename.sol\n"
+# define HELP6			"\t\t'-no' ...you don't need to use this flag\n"
 # define ANTS_NOT_VALID	"Error. Please, enter the number of ants correctly.\n"
 # define ROOM_NOT_VALID	"Error. Please, enter rooms carefully\n"
 # define LINK_NOT_VALID	"Error. Please, enter links carefully\n"
@@ -127,16 +129,14 @@ void					ft_error_n_exit(char *str, t_lemin *lemin, t_data **data, t_tracks *tra
 void					ft_write_usage_n_exit(t_lemin *lemin);
 void					ft_create_n_open_file(t_lemin *lemin, char *file, int *fd);
 void					ft_free_data(t_data **data);
+void					ft_run_visual(t_lemin *lemin);
 void					ft_free_lemin(t_lemin *lemin);
-void					ft_free_room(t_room *room);
+void					ft_you_were_warned(t_lemin *lemin);
 void					ft_free_tracks(t_tracks *tracks);
 
 void					ft_check_flags(t_lemin *lemin, int argc, char *argv[]);
 t_lemin					*ft_parse_data(t_lemin *lemin);
-int
-ft_get_data(
-		t_data **data,
-		int fd);
+int						ft_get_data(t_data **data, int fd);
 void					ft_parse_ants(t_lemin *lemin, t_data **data);
 void					ft_parse_rooms(t_lemin *lemin, t_data **data);
 int						ft_check_correct_room(t_data **data);

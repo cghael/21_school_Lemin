@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_room.c                                     :+:      :+:    :+:   */
+/*   ft_run_visual.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/02 15:49:21 by cghael            #+#    #+#             */
-/*   Updated: 2020/09/02 15:49:23 by cghael           ###   ########.fr       */
+/*   Created: 2020/10/01 19:12:43 by cghael            #+#    #+#             */
+/*   Updated: 2020/10/01 19:12:44 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void		ft_free_room(t_room *room)
+void		ft_run_visual(t_lemin *lemin)
 {
-	if (room)
+	if (lemin->visual)
 	{
-		if (room->name)
-			free(room->name);
-		if (room->links)
-			free(room->links);
-		free(room);
+		FILE *visualiser;
+		visualiser = popen("./main.py", "r");
+		pclose(visualiser);
 	}
 }

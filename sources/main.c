@@ -46,6 +46,7 @@ int		main(int argc, char *argv[])
 	ft_run_ants_run(lemin, tracks);
 	ft_print_steps(lemin);
 	ft_close_files(lemin);
+	ft_run_visual(lemin);
 	ft_free_lemin(lemin);
 	ft_free_tracks(tracks);
 	return (0);
