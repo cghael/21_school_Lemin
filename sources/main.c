@@ -22,7 +22,6 @@ static void	ft_close_files(t_lemin *lemin)
 	}
 	if (lemin->fd_map)
 	{
-		free(lemin->solname);
 		if (close(lemin->fd_map))
 			write (2, "Error file close\n", 17);
 	}
