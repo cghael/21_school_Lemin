@@ -21,5 +21,6 @@ t_lemin			*ft_lemin_init(void)
 		ft_error_n_exit("Error malloc in ft_lemin_init()\n", NULL, NULL, NULL);
 	tmp->graph = NULL;
 	tmp->print = NULL;
+	tmp->fd_sol = 1;
 	return (tmp);
 }

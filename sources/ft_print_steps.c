@@ -15,12 +15,16 @@ void			ft_print_steps(t_lemin *lemin)
 		tmp_st = tmp_pr->step;
 		while (tmp_st)
 		{
-			ft_printf("L%d-%s", tmp_st->ant, lemin->graph[tmp_st->room].name);
+			ft_dprintf(lemin->fd_sol, "L%d-%s", tmp_st->ant, \
+											lemin->graph[tmp_st->room].name);
 			tmp_st = tmp_st->next;
 			if (tmp_st)
-				ft_printf(" ");
+				ft_dprintf(lemin->fd_sol, " ");
 		}
-		ft_printf("\n");
 		tmp_pr = tmp_pr->next;
+		if (lemin->fd_sol == 1 || tmp_pr)
+			ft_dprintf(lemin->fd_sol, "\n");
 	}
+	if (lemin->fd_sol > 1)
+		ft_dprintf(1, "Solution saved to file %s\n", lemin->solname);
 }

@@ -16,7 +16,7 @@ void		ft_parse_ants(t_lemin *lemin, t_data **data)
 {
 	while (lemin->ants == 0)
 	{
-		if (ft_get_data(data) < 1)
+		if (ft_get_data(data, lemin->fd_map) < 1)
 			ft_error_n_exit("Error in ft_parse_ants()\n", lemin, data, NULL);
 		if (!ft_str_is_int((*data)->back->content) \
 			&& (*data)->back->content[0] != '#')

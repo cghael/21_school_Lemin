@@ -33,7 +33,7 @@ static void		ft_add_tmp_to_data(t_data *tmp, t_data **data)
 	(*data)->counter++;
 }
 
-int 			ft_get_data(t_data **data)
+int				ft_get_data(t_data **data, int fd)
 {
 	t_data	*tmp;
 	int		res;
@@ -44,7 +44,7 @@ int 			ft_get_data(t_data **data)
 	tmp->content = NULL;
 	tmp->next = NULL;
 	tmp->back = NULL;
-	if ((res = ft_get_next_line(0, &(tmp->content))) < 1)
+	if ((res = ft_get_next_line(fd, &(tmp->content))) < 1)
 	{
 		free(tmp->content);
 		free(tmp);

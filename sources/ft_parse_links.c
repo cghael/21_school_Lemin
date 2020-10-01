@@ -18,7 +18,7 @@ void			ft_parse_links(t_lemin *lemin, t_data **data)
 
 	while ((*data)->back->content && ft_is_link(data, lemin) == 1)
 	{
-		if ((res = ft_get_data(data)) == -1)
+		if ((res = ft_get_data(data, lemin->fd_map)) == -1)
 			ft_error_n_exit("Error in ft_parse_links()\n", lemin, data, NULL);
 		else if (res == 0)
 			return ;

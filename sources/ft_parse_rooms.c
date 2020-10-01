@@ -70,11 +70,11 @@ void			ft_parse_rooms(t_lemin *lemin, t_data **data)
 {
 	int		res;
 
-	if (!ft_get_data(data))
+	if (!ft_get_data(data, lemin->fd_map))
 		ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, data, NULL);
 	while ((res = ft_is_room(data, lemin)) == 1)
 	{
-		if (ft_get_data(data) < 1)
+		if (ft_get_data(data, lemin->fd_map) < 1)
 			ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, data, NULL);
 	}
 	if (res == 0)
