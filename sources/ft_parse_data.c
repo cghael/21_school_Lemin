@@ -22,7 +22,8 @@ static void		ft_print_data(t_data *data, int ants)
 	ft_printf("%d\n", ants);
 	while (counter)
 	{
-		ft_printf("%s\n", tmp->content);
+		if (tmp->command != 'c')
+			ft_printf("%s\n", tmp->content);
 		tmp = tmp->next;
 		counter--;
 	}
