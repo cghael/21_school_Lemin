@@ -65,7 +65,7 @@ if __name__ == '__main__':
                         data.ants -= 1
                 print('CURR', ants)  # todo del
             else:
-                print('fucking ants end :)')
+                print('ants end (:')
                 # s.ft_parse_solution(data)
                 # cprint('open solution: ', end=' ', color='yellow')  # todo del
                 # data.ants = data.start_ants
