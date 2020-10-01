@@ -102,6 +102,7 @@ void		ft_check_flags(t_lemin *lemin, int argc, char *argv[])
 		{
 			ft_create_n_open_file(lemin, "viz.sol", &lemin->fd_sol);
 			lemin->solname = ft_strdup("viz.sol");
+			lemin->visual = TRUE;
 			//todo ВЫЗОВИ МНЕ ЗАПУСК ВИЗУАЛИЗАТОРА!!!!!
 		}
 		else if (ft_strequ(argv[i], "-o") && (i + 1 < argc))
