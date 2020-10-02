@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static void	ft_close_files(t_lemin *lemin)
+static void		ft_close_files(t_lemin *lemin)
 {
 	if (lemin->fd_sol > 1)
 	{
@@ -27,7 +27,15 @@ static void	ft_close_files(t_lemin *lemin)
 	}
 }
 
-int		main(int argc, char *argv[])
+static void		ft_no_solutions(t_lemin *lemin)
+{
+	ft_dprintf(lemin->fd_sol, "No solutions!\n");
+	ft_close_files(lemin);
+	ft_free_lemin(lemin);
+	exit(0);
+}
+
+int				main(int argc, char *argv[])
 {
 	t_lemin		*lemin;
 	t_tracks	*tracks;
@@ -37,12 +45,7 @@ int		main(int argc, char *argv[])
 		ft_check_flags(lemin, argc, argv);
 	lemin = ft_parse_data(lemin);
 	if (!(tracks = ft_find_paths(lemin)))
-	{
-		ft_dprintf(lemin->fd_sol, "No solutions!\n");
-		ft_close_files(lemin);
-		ft_free_lemin(lemin);
-		exit(0);
-	}
+		ft_no_solutions(lemin);
 	ft_run_ants_run(lemin, tracks);
 	ft_print_steps(lemin);
 	ft_close_files(lemin);

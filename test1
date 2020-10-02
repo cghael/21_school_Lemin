@@ -1,9 +1,11 @@
+#comment
 100
 ##start
 a 10 10
 b 20 10
 m 26 10
 c 32 10
+#comment
 n 37 10
 d 43 10
 e 50 10
@@ -19,6 +21,7 @@ a-b
 a-g
 b-m
 m-c
+##com
 b-i
 c-n
 n-d

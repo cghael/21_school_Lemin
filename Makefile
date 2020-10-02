@@ -32,6 +32,7 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 SRC_DIR = sources/
 SRC_LIST =	main.c \
+			ft_add_tmp_to_data.c \
 			ft_lemin_init.c \
 			ft_error_n_exit.c \
 			ft_check_flags.c \

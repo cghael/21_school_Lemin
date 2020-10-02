@@ -128,6 +128,7 @@ t_lemin					*ft_lemin_init(void);
 void					ft_error_n_exit(char *str, t_lemin *lemin, t_data **data, t_tracks *tracks);
 void					ft_write_usage_n_exit(t_lemin *lemin);
 void					ft_create_n_open_file(t_lemin *lemin, char *file, int *fd);
+void					ft_add_tmp_to_data(t_data *tmp, t_data **data);
 void					ft_free_data(t_data **data);
 void					ft_run_visual(t_lemin *lemin);
 void					ft_free_lemin(t_lemin *lemin);

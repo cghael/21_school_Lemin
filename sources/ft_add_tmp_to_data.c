@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_data.c                                      :+:      :+:    :+:   */
+/*   ft_add_tmp_to_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 13:59:13 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 13:59:14 by cghael           ###   ########.fr       */
+/*   Created: 2020/10/02 16:34:26 by cghael            #+#    #+#             */
+/*   Updated: 2020/10/02 16:34:28 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				ft_get_data(t_data **data, int fd)
+void		ft_add_tmp_to_data(t_data *tmp, t_data **data)
 {
-	t_data	*tmp;
-	int		res;
+	t_data *begin;
 
-	tmp = (t_data*)ft_memalloc(sizeof(t_data));
-	if (!tmp)
-		return (0);
-	tmp->content = NULL;
-	tmp->next = NULL;
-	tmp->back = NULL;
-	if ((res = ft_get_next_line(fd, &(tmp->content))) < 1)
+	begin = *data;
+	if (begin == NULL)
 	{
-		free(tmp->content);
-		free(tmp);
-		return (res);
+		tmp->next = tmp;
+		tmp->back = tmp;
+		*data = tmp;
 	}
-	ft_add_tmp_to_data(tmp, data);
-	return (res);
+	else
+	{
+		(*data)->back->next = tmp;
+		tmp->back = (*data)->back;
+		(*data)->back = tmp;
+		tmp->next = *data;
+	}
+	(*data)->counter++;
 }
