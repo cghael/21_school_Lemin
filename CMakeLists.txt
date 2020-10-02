@@ -19,7 +19,6 @@ set(SOURCES sources/main.c
         sources/ft_parse_links.c
         sources/ft_free_lemin.c
         sources/ft_find_paths.c
-        sources/ft_print_matrix.c
         sources/ft_set_levels.c
         sources/ft_free_tracks.c
         sources/ft_write_path.c

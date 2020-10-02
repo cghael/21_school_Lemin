@@ -47,7 +47,6 @@ SRC_LIST =	main.c \
 			ft_parse_links.c \
 			ft_free_lemin.c \
 			ft_find_paths.c \
-			ft_print_matrix.c \
 			ft_set_levels.c \
 			ft_free_tracks.c \
 			ft_write_path.c \

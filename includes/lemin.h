@@ -144,9 +144,6 @@ int						ft_is_link(t_data **data, t_lemin *lemin);
 void					ft_create_graph(t_lemin *lemin, t_data **data);
 void					ft_parse_links(t_lemin *lemin, t_data **data);
 
-void					ft_print_matrix(t_room *graph, int counter, int way);
-void					ft_print_path(t_room *graph, t_tracks *tracks);
-
 t_tracks				*ft_create_new_track(t_tracks **tracks);
 t_tracks				*ft_find_paths(t_lemin *lemin);
 t_tracks				*ft_write_path(t_lemin *lemin, int lvl, t_tracks **tracks);
