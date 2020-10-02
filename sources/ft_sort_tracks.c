@@ -6,7 +6,7 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:14:06 by cghael            #+#    #+#             */
-/*   Updated: 2020/09/16 14:14:07 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:40:18 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	ft_swap_two_tracks(t_tracks **tracks, t_tracks *current)
 	tmp->next = current;
 	prev->next = current->next;
 	current->next = prev;
-
 }
 
 void		ft_sort_tracks(t_tracks **tracks)

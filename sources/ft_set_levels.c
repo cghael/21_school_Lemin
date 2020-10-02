@@ -6,7 +6,7 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 16:27:54 by cghael            #+#    #+#             */
-/*   Updated: 2020/09/04 16:27:55 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:37:17 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 static int		ft_first_lvl_set(t_lemin *lemin)
 {
-	int 	i;
-	int		find;
+	int			i;
+	int			find;
 
 	i = 0;
 	find = NOT_FOUND;
@@ -40,8 +40,8 @@ static int		ft_first_lvl_set(t_lemin *lemin)
 
 static int		ft_set_lvl_on_links(t_lemin *lemin, int j, int lvl)
 {
-	int i;
-	int find;
+	int			i;
+	int			find;
 
 	find = NOT_FOUND;
 	i = 0;
@@ -63,9 +63,9 @@ static int		ft_set_lvl_on_links(t_lemin *lemin, int j, int lvl)
 
 static int		ft_set_not_first_levels(t_lemin *lemin, int lvl)
 {
-	int	j;
-	int	find;
-	int	res;
+	int			j;
+	int			find;
+	int			res;
 
 	j = 0;
 	find = NOT_FOUND;
@@ -84,9 +84,9 @@ static int		ft_set_not_first_levels(t_lemin *lemin, int lvl)
 	return (find ? LVL_FOUND : NOT_FOUND);
 }
 
-int		ft_set_levels(t_lemin *lemin, int lvl)
+int				ft_set_levels(t_lemin *lemin, int lvl)
 {
-	int	res;
+	int			res;
 
 	if (lvl == 0)
 	{

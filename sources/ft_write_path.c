@@ -6,7 +6,7 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 13:48:24 by cghael            #+#    #+#             */
-/*   Updated: 2020/09/07 13:48:26 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:39:20 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int			ft_add_new_cross_link(t_tracks **current, int from, \
 																int to, int way)
 {
-	t_path	*tmp;
-	t_path	*begin;
+	t_path			*tmp;
+	t_path			*begin;
 
 	if (!(tmp = ft_memalloc(sizeof(t_path))))
 		return (EXIT_FAILURE);
@@ -38,7 +38,7 @@ static int			ft_add_new_cross_link(t_tracks **current, int from, \
 
 static t_path		*ft_add_path(t_path *path, int from, int to)
 {
-	t_path *tmp;
+	t_path			*tmp;
 
 	if (!(tmp = ft_memalloc(sizeof(t_path))))
 		return (NULL);
@@ -51,10 +51,10 @@ static t_path		*ft_add_path(t_path *path, int from, int to)
 	return (path);
 }
 
-static t_path 		*ft_find_from_room(t_lemin *lemin, int lvl, int to, \
+static t_path		*ft_find_from_room(t_lemin *lemin, int lvl, int to, \
 															t_tracks **cur)
 {
-	int			from;
+	int				from;
 
 	from = 0;
 	while (from < lemin->rooms)
@@ -83,8 +83,8 @@ static t_path 		*ft_find_from_room(t_lemin *lemin, int lvl, int to, \
 
 t_tracks			*ft_write_path(t_lemin *lemin, int lvl, t_tracks **tracks)
 {
-	int			to;
-	t_tracks	*current;
+	int				to;
+	t_tracks		*current;
 
 	current = ft_create_new_track(tracks);
 	to = lemin->end;
@@ -92,7 +92,7 @@ t_tracks			*ft_write_path(t_lemin *lemin, int lvl, t_tracks **tracks)
 		return (NULL);
 	while (lvl > 0)
 	{
-		if((ft_find_from_room(lemin, lvl, to, &current)) == NULL)
+		if ((ft_find_from_room(lemin, lvl, to, &current)) == NULL)
 			return (NULL);
 		to = current->path->next->from;
 		lvl--;

@@ -6,3 +6,5 @@ python/__pycache__/
 lem-in
 
 objects/
+
+.DS_Store

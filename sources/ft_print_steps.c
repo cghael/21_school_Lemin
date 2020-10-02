@@ -1,13 +1,21 @@
-//
-// Created by  Anton Gorobets on 30.09.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_steps.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksemele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/02 17:49:47 by ksemele           #+#    #+#             */
+/*   Updated: 2020/10/02 17:50:03 by ksemele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lemin.h"
 
 void			ft_print_steps(t_lemin *lemin)
 {
-	t_print	*tmp_pr;
-	t_step	*tmp_st;
+	t_print		*tmp_pr;
+	t_step		*tmp_st;
 
 	tmp_pr = lemin->print;
 	while (tmp_pr)

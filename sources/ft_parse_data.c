@@ -6,7 +6,7 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 13:46:15 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 13:46:17 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:45:27 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static t_data	*ft_copy_ants_data(t_data *data, t_lemin *lemin)
 		if ((tmp = (t_data*)ft_memalloc(sizeof(t_data))) == NULL)
 		{
 			ft_free_data(&tmp);
-			ft_error_n_exit("Error in ft_copy_ants_data()\n", lemin, &data, NULL);
+			ft_error_n_exit("Error in ft_copy_ants_data()\n", \
+														lemin, &data, NULL);
 		}
 		tmp->content = NULL;
 		tmp->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 14:44:23 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/26 14:44:25 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:50:41 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		ft_coords_are_valid(char *x, char *y)
 {
 	if (FALSE == ft_str_is_int(x) || FALSE == ft_str_is_int(y))
 		return (0);
-	if (x[0] < 0 || y[0] < 0) //todo или сука могут, хз!
+	if (x[0] < 0 || y[0] < 0)
 		return (0);
 	return (1);
 }
@@ -50,7 +50,7 @@ int				ft_check_correct_room(t_data **data)
 	if (!str)
 		return (0);
 	if (FALSE == ft_coords_are_valid(str[1], str[2]) \
-		|| FALSE == ft_name_is_valid(str[0], *data)) //todo start 1 end 1
+		|| FALSE == ft_name_is_valid(str[0], *data))
 	{
 		ft_free_two_dem_str(str);
 		return (0);

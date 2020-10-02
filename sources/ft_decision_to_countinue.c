@@ -6,16 +6,16 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 11:46:48 by cghael            #+#    #+#             */
-/*   Updated: 2020/09/29 11:46:51 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:49:31 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_tracks	*ft_find_longest_track(t_tracks *tracks)
+static t_tracks		*ft_find_longest_track(t_tracks *tracks)
 {
-	t_tracks	*tmp;
-	t_tracks	*longest;
+	t_tracks		*tmp;
+	t_tracks		*longest;
 
 	tmp = tracks->next;
 	longest = tracks;
@@ -28,12 +28,12 @@ static t_tracks	*ft_find_longest_track(t_tracks *tracks)
 	return (longest);
 }
 
-int			ft_decision_to_countinue(t_tracks **tracks, int ants)
+int					ft_decision_to_countinue(t_tracks **tracks, int ants)
 {
-	t_tracks	*tmp;
-	t_tracks	*longest;
-	t_tracks	*free;
-	int			res;
+	t_tracks		*tmp;
+	t_tracks		*longest;
+	t_tracks		*free;
+	int				res;
 
 	res = 1;
 	tmp = *tracks;

@@ -6,7 +6,7 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 12:05:24 by cghael            #+#    #+#             */
-/*   Updated: 2020/08/25 12:05:27 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:44:00 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void		ft_close_files(t_lemin *lemin)
 	{
 		free(lemin->solname);
 		if (close(lemin->fd_sol))
-			write (2, "Error file close\n", 17);
+			write(2, "Error file close\n", 17);
 	}
 	if (lemin->fd_map)
 	{
 		if (close(lemin->fd_map))
-			write (2, "Error file close\n", 17);
+			write(2, "Error file close\n", 17);
 	}
 }
 

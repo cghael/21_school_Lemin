@@ -6,16 +6,17 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 13:47:25 by cghael            #+#    #+#             */
-/*   Updated: 2020/09/14 13:47:27 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:43:14 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void	ft_make_new_way_links(t_lemin *lemin, t_path *tmp1, t_path *tmp2)
+static void		ft_make_new_way_links(t_lemin *lemin, t_path *tmp1, \
+																t_path *tmp2)
 {
-	int		way1;
-	int		way2;
+	int			way1;
+	int			way2;
 
 	way1 = lemin->graph[tmp1->from].links[tmp1->to].way;
 	way2 = lemin->graph[tmp2->from].links[tmp2->to].way;
@@ -33,11 +34,12 @@ static void	ft_make_new_way_links(t_lemin *lemin, t_path *tmp1, t_path *tmp2)
 	}
 }
 
-static void	ft_change_path_parts(t_path *tmp_p, t_path *tmp_cur, t_lemin *lemin)
+static void		ft_change_path_parts(t_path *tmp_p, t_path *tmp_cur, \
+															t_lemin *lemin)
 {
-	t_path	*tmptmp_p;
-	t_path	*tmptmp_cur;
-	t_path	*del;
+	t_path		*tmptmp_p;
+	t_path		*tmptmp_cur;
+	t_path		*del;
 
 	tmptmp_p = tmp_p->next;
 	while (tmptmp_p->from != tmp_cur->to)
@@ -64,14 +66,15 @@ static void	ft_change_path_parts(t_path *tmp_p, t_path *tmp_cur, t_lemin *lemin)
 
 static t_path	*ft_check_cross_length(t_path *cross)
 {
-	t_path	*cross_end;
-	t_path	*tmp;
+	t_path		*cross_end;
+	t_path		*tmp;
 
 	tmp = cross;
 	if (!tmp->next)
 		return (tmp);
 	cross_end = cross->next;
-	while (cross_end && cross_end->from == tmp->to && cross_end->num == tmp->num)
+	while (cross_end && cross_end->from == tmp->to \
+			&& cross_end->num == tmp->num)
 	{
 		cross_end = cross_end->next;
 		tmp = tmp->next;
@@ -81,7 +84,7 @@ static t_path	*ft_check_cross_length(t_path *cross)
 
 static void		ft_free_cross_part(t_tracks *current, t_path *end)
 {
-	t_path	*tmp;
+	t_path		*tmp;
 
 	while (current->cross != end)
 	{
