@@ -6,7 +6,7 @@
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 17:29:48 by cghael            #+#    #+#             */
-/*   Updated: 2020/10/02 17:29:49 by cghael           ###   ########.fr       */
+/*   Updated: 2020/10/02 18:17:16 by ksemele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	ft_init_n_add_print(t_lemin *lemin, t_tracks *tracks)
 
 	tmp = ft_memalloc(sizeof(t_print));
 	if (tmp == NULL)
-		ft_error_n_exit("Error in ft_init_n_add_print()\n", lemin, NULL, tracks);
+		ft_error_n_exit("Error in ft_init_n_add_print()\n", \
+												lemin, NULL, tracks);
 	tmp->next = NULL;
 	tmp->step = NULL;
 	if (!lemin->print)

@@ -6,7 +6,7 @@
 #    By: cghael <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 12:00:54 by cghael            #+#    #+#              #
-#    Updated: 2020/07/24 12:00:57 by cghael           ###   ########.fr        #
+#    Updated: 2020/10/02 18:16:25 by ksemele          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,38 +31,40 @@ HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 SRC_DIR = sources/
-SRC_LIST =	main.c \
-			ft_add_tmp_to_data.c \
-			ft_lemin_init.c \
-			ft_error_n_exit.c \
-			ft_check_flags.c \
-			ft_parse_data.c \
-			ft_parse_ants.c \
-			ft_get_data.c \
-			ft_free_data.c \
-			ft_parse_rooms.c \
-			ft_get_last_data_node.c \
-			ft_check_correct_room.c \
-			ft_is_link.c \
-			ft_create_graph.c \
-			ft_parse_links.c \
-			ft_free_lemin.c \
-			ft_find_paths.c \
-			ft_set_levels.c \
-			ft_free_tracks.c \
-			ft_write_path.c \
-			ft_create_new_track.c \
-			ft_change_cross_ways.c \
-			ft_run_ants_run.c \
-			ft_sort_tracks.c \
-			ft_decision_to_countinue.c \
+SRC_LIST =	ft_add_tmp_to_data.c \
 			ft_ants_choose_ways.c \
 			ft_ants_mooving.c \
-			ft_print_steps.c \
-			ft_write_usage_n_exit.c \
+			ft_change_cross_ways.c \
+			ft_check_correct_room.c \
+			ft_check_flags.c \
+			ft_create_graph.c \
 			ft_create_n_open_file.c \
+			ft_create_new_track.c \
+			ft_decision_to_countinue.c \
+			ft_error_n_exit.c \
+			ft_find_one_step_solution.c \
+			ft_find_paths.c \
+			ft_free_data.c \
+			ft_free_lemin.c \
+			ft_free_tracks.c \
+			ft_get_data.c \
+			ft_get_last_data_node.c \
+			ft_init_n_add_print.c \
+			ft_is_link.c \
+			ft_lemin_init.c \
+			ft_parse_ants.c \
+			ft_parse_data.c \
+			ft_parse_links.c \
+			ft_parse_rooms.c \
+			ft_print_steps.c \
+			ft_run_ants_run.c \
+			ft_run_visual.c \
+			ft_set_levels.c \
+			ft_sort_tracks.c \
+			ft_write_path.c \
+			ft_write_usage_n_exit.c \
 			ft_you_were_warned.c \
-			ft_run_visual.c
+			main.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
