@@ -65,7 +65,7 @@ static int		ft_ants_tap_tap(t_ant *ants, int len, t_lemin *lemin)
 		if (ants[i].ant)
 		{
 			ants[i + 1].ant = ants[i].ant;
-			if (!(ft_init_n_add_step(&lemin->print, ants[i + 1].ant, ants[i+1].room)))
+			if (!(ft_init_n_add_step(&lemin->print, ants[i + 1].ant, ants[i + 1].room)))
 				return (-1);
 //			ft_printf("L%d-%s ", ants[i + 1].ant, lemin->graph[ants[i+1].room].name);
 			ants[i].ant = 0;
@@ -98,8 +98,6 @@ int			ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
 			return (EXIT_FAILURE);
 		while (tmp)
 		{
-//			if (!(ft_init_n_add_print(&lemin->print)))
-//				return (EXIT_FAILURE);
 			if (tmp->running_ants)
 			{
 				res = ft_ants_tap_tap(tmp->ants, tmp->len, lemin);
@@ -117,7 +115,6 @@ int			ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
 				tmp->running_ants++;
 				if (!(ft_init_n_add_step(&lemin->print, tmp->ants[0].ant, tmp->ants[0].room)))
 					return (EXIT_FAILURE);
-//				ft_printf("L%d-%s ", tmp->ants[0].ant, lemin->graph[tmp->ants[0].room].name);
 				ant_number++;
 				ant_start--;
 				tmp->ant_num--;
