@@ -21,17 +21,13 @@ static int		ft_is_command_or_comment(t_data **data, t_lemin *lemin)
 		if (ft_strequ((*data)->back->content, "##start"))
 		{
 			(*data)->back->command = 's';
-			if (lemin->start == 0)
-				lemin->start = 1;
-			else
+			if (lemin->start != 0)
 				return (-1);
 		}
 		else if (ft_strequ((*data)->back->content, "##end"))
 		{
 			(*data)->back->command = 'e';
-			if (lemin->end == 0)
-				lemin->end = 1;
-			else
+			if (lemin->end != 0)
 				return (-1);
 		}
 	}
@@ -62,6 +58,10 @@ static int		ft_is_room(t_data **data, t_lemin *lemin)
 			lemin->rooms++;
 		else
 			return (-1);
+		if ((*data)->back->back->command == 's')
+			lemin->start = lemin->rooms;
+		if ((*data)->back->back->command == 'e')
+			lemin->end = lemin->rooms;
 		return (1);
 	}
 }
