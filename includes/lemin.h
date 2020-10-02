@@ -125,9 +125,11 @@ typedef struct			s_lemin
 */
 
 t_lemin					*ft_lemin_init(void);
-void					ft_error_n_exit(char *str, t_lemin *lemin, t_data **data, t_tracks *tracks);
+void					ft_error_n_exit(char *str, t_lemin *lemin, \
+											t_data **data, t_tracks *tracks);
 void					ft_write_usage_n_exit(t_lemin *lemin);
-void					ft_create_n_open_file(t_lemin *lemin, char *file, int *fd);
+void					ft_create_n_open_file(t_lemin *lemin, char *file, \
+																	int *fd);
 void					ft_add_tmp_to_data(t_data *tmp, t_data **data);
 void					ft_free_data(t_data **data);
 void					ft_run_visual(t_lemin *lemin);
@@ -147,15 +149,22 @@ void					ft_parse_links(t_lemin *lemin, t_data **data);
 
 t_tracks				*ft_create_new_track(t_tracks **tracks);
 t_tracks				*ft_find_paths(t_lemin *lemin);
-t_tracks				*ft_write_path(t_lemin *lemin, int lvl, t_tracks **tracks);
+t_tracks				*ft_write_path(t_lemin *lemin, int lvl, \
+															t_tracks **tracks);
 int						ft_set_levels(t_lemin *lemin, int lvl);
-void					ft_change_cross_ways(t_tracks *current, t_tracks *tracks, t_lemin *lemin);
+void					ft_change_cross_ways(t_tracks *current, \
+											t_tracks *tracks, t_lemin *lemin);
 void					ft_run_ants_run(t_lemin *lemin, t_tracks *tracks);
 void					ft_sort_tracks(t_tracks **tracks);
 
 int						ft_decision_to_countinue(t_tracks **tracks, int ants);
 void					ft_ants_choose_ways(t_lemin *lemin, t_tracks *tracks);
-int						ft_ants_mooving(t_lemin *lemin, t_tracks *tracks);
+void					ft_ants_mooving(t_lemin *lemin, t_tracks *tracks);
+void					ft_init_n_add_print(t_lemin *lemin, t_tracks *tracks);
+void					ft_init_n_add_step(t_lemin *lemin, int ant, int room, \
+															t_tracks *tracks);
 void					ft_print_steps(t_lemin *lemin);
+int						ft_find_one_step_solution(t_lemin *lemin, \
+															t_tracks *tracks);
 
 #endif

@@ -1,59 +1,19 @@
-//
-// Created by  Anton Gorobets on 30.09.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ants_mooving.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/02 17:39:13 by cghael            #+#    #+#             */
+/*   Updated: 2020/10/02 17:39:14 by cghael           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_step	*ft_init_n_add_step(t_print **print, int ant, int room)
-{
-	t_step	*tmp;
-	t_step	*begin_step;
-	t_print	*begin_print;
-
-	tmp = ft_memalloc(sizeof(t_step));
-	if (!tmp)
-		return (NULL);
-	tmp->next = NULL;
-	tmp->ant = ant;
-	tmp->room = room;
-	begin_print = *print;
-	while (begin_print->next)
-		begin_print = begin_print->next;
-	if (!begin_print->step)
-		begin_print->step = tmp;
-	else
-	{
-		begin_step = begin_print->step;
-		while (begin_step->next)
-			begin_step = begin_step->next;
-		begin_step->next = tmp;
-	}
-	return (tmp);
-}
-
-static t_print	*ft_init_n_add_print(t_print **print)
-{
-	t_print *tmp;
-	t_print *begin;
-
-	tmp = ft_memalloc(sizeof(t_print));
-	if (!tmp)
-		return (NULL);
-	tmp->next = NULL;
-	tmp->step = NULL;
-	if (!*print)
-		*print = tmp;
-	else
-	{
-		begin = *print;
-		while (begin->next)
-			begin = begin->next;
-		begin->next = tmp;
-	}
-	return (tmp);
-}
-
-static int		ft_ants_tap_tap(t_ant *ants, int len, t_lemin *lemin)
+static int		ft_ants_tap_tap(t_ant *ants, int len, t_lemin *lemin, \
+															t_tracks *tracks)
 {
 	int		i;
 	int		res;
@@ -65,9 +25,8 @@ static int		ft_ants_tap_tap(t_ant *ants, int len, t_lemin *lemin)
 		if (ants[i].ant)
 		{
 			ants[i + 1].ant = ants[i].ant;
-			if (!(ft_init_n_add_step(&lemin->print, ants[i + 1].ant, ants[i + 1].room)))
-				return (-1);
-//			ft_printf("L%d-%s ", ants[i + 1].ant, lemin->graph[ants[i+1].room].name);
+			ft_init_n_add_step(lemin, ants[i + 1].ant, \
+												ants[i + 1].room, tracks);
 			ants[i].ant = 0;
 			if (i + 2 == len)
 			{
@@ -80,13 +39,35 @@ static int		ft_ants_tap_tap(t_ant *ants, int len, t_lemin *lemin)
 	return (res);
 }
 
-int			ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
+static int	ft_ants_try_step(t_lemin *lemin, t_tracks *tmp, t_tracks *tracks)
+{
+	int res;
+
+	res = ft_ants_tap_tap(tmp->ants, tmp->len, lemin, tracks);
+	if (res > 0)
+	{
+		tmp->running_ants--;
+		return (1);
+	}
+	return (0);
+}
+
+static int	ft_new_ant_start_step(t_lemin *lemin, t_tracks *tmp, \
+											int ant_number, t_tracks *tracks)
+{
+	tmp->ants[0].ant = ant_number;
+	tmp->running_ants++;
+	ft_init_n_add_step(lemin, tmp->ants[0].ant, tmp->ants[0].room, tracks);
+	tmp->ant_num--;
+	return (EXIT_SUCCESS);
+}
+
+void		ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
 {
 	int			ant_number;
 	int			ant_start;
 	int			ant_finish;
 	t_tracks	*tmp;
-	int			res;
 
 	ant_number = 1;
 	ant_start = lemin->ants;
@@ -94,34 +75,18 @@ int			ft_ants_mooving(t_lemin *lemin, t_tracks *tracks)
 	while (ant_finish < lemin->ants)
 	{
 		tmp = tracks;
-		if (!(ft_init_n_add_print(&lemin->print)))
-			return (EXIT_FAILURE);
+		ft_init_n_add_print(lemin, tracks);
 		while (tmp)
 		{
 			if (tmp->running_ants)
-			{
-				res = ft_ants_tap_tap(tmp->ants, tmp->len, lemin);
-				if (res < 0)
-					return (EXIT_FAILURE);
-				else if (res > 0)
-				{
-					ant_finish++;
-					tmp->running_ants--;
-				}
-			}
+				ant_finish += ft_ants_try_step(lemin, tmp, tracks);
 			if (tmp->ant_num && ant_start)
 			{
-				tmp->ants[0].ant = ant_number;
-				tmp->running_ants++;
-				if (!(ft_init_n_add_step(&lemin->print, tmp->ants[0].ant, tmp->ants[0].room)))
-					return (EXIT_FAILURE);
+				ft_new_ant_start_step(lemin, tmp, ant_number, tracks);
 				ant_number++;
 				ant_start--;
-				tmp->ant_num--;
 			}
 			tmp = tmp->next;
 		}
-//		ft_printf("\n");
 	}
-	return (EXIT_SUCCESS);
 }

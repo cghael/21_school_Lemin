@@ -38,10 +38,11 @@ static int		ft_create_ant_arrays(t_tracks *tracks)
 
 void			ft_run_ants_run(t_lemin *lemin, t_tracks *tracks)
 {
+	if (ft_find_one_step_solution(lemin, tracks))
+		return ;
 	ft_sort_tracks(&tracks);
 	if (EXIT_FAILURE == ft_create_ant_arrays(tracks))
 		ft_error_n_exit("Error in ft_run_ants_run()\n", lemin, NULL, tracks);
 	ft_ants_choose_ways(lemin, tracks);
-	if (EXIT_FAILURE == ft_ants_mooving(lemin, tracks))
-		ft_error_n_exit("Error in t_ants_mooving()\n", lemin, NULL, tracks);
+	ft_ants_mooving(lemin, tracks);
 }
