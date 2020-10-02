@@ -69,12 +69,14 @@ static int		ft_is_room(t_data **data, t_lemin *lemin)
 void			ft_parse_rooms(t_lemin *lemin, t_data **data)
 {
 	int		res;
+	int		res2;
 
 	if (!ft_get_data(data, lemin->fd_map))
 		ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, data, NULL);
-	while ((res = ft_is_room(data, lemin)) == 1)
+	while ((res = ft_is_room(data, lemin)) == 1 && res2)
 	{
-		if (ft_get_data(data, lemin->fd_map) < 1)
+		res2 = ft_get_data(data, lemin->fd_map);
+		if (res2 < 0)
 			ft_error_n_exit("Error in ft_parse_rooms()\n", lemin, data, NULL);
 	}
 	if (res == 0)
