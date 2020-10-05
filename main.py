@@ -146,6 +146,10 @@ def ft_open_solution(data, grafix):
     grafix.root.attributes("-topmost", False)
     data.solution_loaded = True
     data.solution = askopenfilename()
+    if data.solution == "":
+        print("you don't load solution!")
+        data.solution_loaded = False
+        return
     ft_parse_solution(data)
 
 
@@ -155,6 +159,9 @@ def ft_open_map(data, grafix):
         data.graph.clear()
     grafix.root.attributes("-topmost", False)
     new_map = askopenfilename()  # open new *.map
+    if new_map == "":
+        print("you don't open map!")
+        return
     grafix.fig.clf()  # clear figure
     data.ft_init_graph(new_map, grafix)  # parse, draw todo DATA IS NOT A PTR!
     data.solution_loaded = False
