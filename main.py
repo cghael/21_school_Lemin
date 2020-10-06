@@ -42,6 +42,7 @@ class ParsedData:
         self.g_ants = nx.Graph()
         self.ants = 0
         self.start_ants = 0
+        self.end_ants = 0
 
     def save_coords(self, curr_name, x, y):
         tmp_node = {}
@@ -53,7 +54,6 @@ class ParsedData:
     def ft_init_graph(self, map, grafix):
         ft_print_func_name('init graph')
         g = nx.Graph()
-        # data = ParsedData(g, 0, 0)  # init data class
         # open file
         if map == 'not map':
             cprint(map)
@@ -132,12 +132,8 @@ def ft_parse_solution(data):
         return
     data.solution_loaded = True
     data.curr_ants.clear()
-    # print(data.curr_ants)
     data.curr_ants = file.read().rstrip().split('\n')
     data.curr_ants.reverse()
-    # print(data.curr_ants)
-    # print(data.solution)
-    # print(data.g_ants)
 
 
 def ft_open_solution(data, grafix):
@@ -199,7 +195,7 @@ if __name__ == '__main__':
     if len(argv) == 2:
         data.ft_init_graph(argv[1], grafix)
     else:
-        data.ft_init_graph('./test', grafix)
+        data.ft_init_graph('./test.map', grafix)
     grafix.root.tk_setPalette('gray60')
     w = (grafix.root.winfo_screenwidth() // 2) - grafix.width // 2
     h = (grafix.root.winfo_screenheight() // 2) - grafix.height // 2
@@ -230,11 +226,14 @@ if __name__ == '__main__':
             data.g_ants.clear()
             if data.curr_ants:
                 ants = data.curr_ants.pop().split(' ')
+                data.ants = len(ants)
                 for each in ants:
                     each = ''.join(each).split('-')[-1:]
                     for ant in each:
+                        if ant == data.end_name:
+                            data.end_ants += 1
+                            data.ants -= 1
                         data.g_ants.add_node(ant)
-                        data.ants -= 1
                 print('CURR', ants)  # todo del
             else:
                 print('ants end (:')
@@ -244,7 +243,7 @@ if __name__ == '__main__':
             nx.draw_networkx_labels(data.graph, grafix.pos, font_size=8, font_color='k')
             nx.draw_networkx_edges(data.graph, grafix.pos, edge_color='gray')
             nx.draw_networkx_nodes(data.g_ants, grafix.pos, node_color="r", node_size=60)
-            if data.ants >= 0:
+            if data.start_ants - data.ants - data.end_ants > 0:
                 nx.draw_networkx_nodes(data.graph, grafix.pos,
                                             nodelist=[data.start_name], node_color="r", node_size=60)
             grafix.canvas.draw()
