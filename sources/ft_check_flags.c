@@ -110,7 +110,7 @@ void		ft_check_flags(t_lemin *lemin, int argc, char *argv[])
 			ft_check_ow_flag(lemin, argv[i + 1], &i);
 		else if (ft_strequ(argv[1], "-no"))
 			ft_you_were_warned(lemin);
-		else if ( i == 1 && argc == 2)
+		else if (i == 1 && argc == 2)
 			ft_check_o_flag(lemin, argv[i], &i);
 		else
 			ft_write_usage_n_exit(lemin);

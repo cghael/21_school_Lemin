@@ -18,12 +18,23 @@ static void	ft_swap_two_tracks(t_tracks **tracks, t_tracks *current)
 	t_tracks	*prev;
 
 	tmp = *tracks;
-	while (tmp->next->next != current)
-		tmp = tmp->next;
-	prev = tmp->next;
-	tmp->next = current;
-	prev->next = current->next;
-	current->next = prev;
+	if (tmp->next == current)
+	{
+		tmp->next = current->next;
+		*tracks = current;
+		current->next = tmp;
+	}
+	else
+	{
+		while (tmp->next != current)
+		{
+			prev = tmp;
+			tmp = tmp->next;
+		}
+		tmp->next = current->next;
+		prev->next = current;
+		current->next = tmp;
+	}
 }
 
 void		ft_sort_tracks(t_tracks **tracks)
