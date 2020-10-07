@@ -66,7 +66,7 @@ t_lemin			*ft_parse_data(t_lemin *lemin)
 	ft_parse_rooms(lemin, &data);
 	ft_create_graph(lemin, &data);
 	ft_parse_links(lemin, &data);
-	if (!lemin->visual && !lemin->fd_map && lemin->fd_sol == 1)
+	if (!lemin->visual && lemin->fd_sol == 1)
 	{
 		ft_print_data(tmp);
 		ft_print_data(data);

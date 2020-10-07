@@ -20,5 +20,6 @@ void		ft_write_usage_n_exit(t_lemin *lemin)
 	ft_putstr(HELP4);
 	ft_putstr(HELP5);
 	ft_putstr(HELP6);
+	ft_putstr(HELP7);
 	ft_error_n_exit("", lemin, NULL, NULL);
 }

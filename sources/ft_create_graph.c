@@ -32,7 +32,7 @@ static int		ft_copy_data_to_array(t_room *room, char *str, char command)
 	int		len_x;
 
 	ft_count_name_len(str, &len_name, &len_x);
-	if (!(room->name = (char*)ft_memalloc(sizeof(len_name) + 1)))
+	if (!(room->name = (char*)ft_memalloc(sizeof(char) * len_name + 1)))
 		return (FALSE);
 	room->name = ft_strncpy(room->name, str, len_name);
 	room->x = ft_atoi(&str[len_name]);

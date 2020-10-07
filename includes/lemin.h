@@ -25,12 +25,13 @@
 **--------------------------------defines---------------------------------------
 */
 
-# define HELP1			"USAGE:\t'-v' for visualizer\n"
-# define HELP2			"\t\t'-f filename.sol' to write output in file\n"
-# define HELP3			"\t\t'-o filename.map' to open file with map\n"
-# define HELP4			"\t\t'-of filename.map' to open file with map "
-# define HELP5			"and write output in filename.sol\n"
-# define HELP6			"\t\t'-no' ...you don't need to use this flag\n"
+# define HELP1			"USAGE:\t./lemin filename.map\n"
+# define HELP2			"\t\t'-v' for visualizer\n"
+# define HELP3			"\t\t'-f filename.sol' to write output in file\n"
+# define HELP4			"\t\t'-o filename.map' to open file with map\n"
+# define HELP5			"\t\t'-of filename.map' to open file with map "
+# define HELP6			"and write output in filename.sol\n"
+# define HELP7			"\t\t'-no' ...you don't need to use this flag\n"
 # define ANTS_NOT_VALID	"Error. Please, enter the number of ants correctly.\n"
 # define ROOM_NOT_VALID	"Error. Please, enter rooms carefully\n"
 # define LINK_NOT_VALID	"Error. Please, enter links carefully\n"

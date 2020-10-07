@@ -30,6 +30,8 @@ static int		ft_is_command_or_comment(t_data **data, t_lemin *lemin)
 			if (lemin->end != 0)
 				return (-1);
 		}
+		else
+			(*data)->back->command = 'c';
 	}
 	return (1);
 }
