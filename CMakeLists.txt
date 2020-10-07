@@ -33,7 +33,7 @@ set(SOURCES sources/main.c
         sources/ft_write_usage_n_exit.c
         sources/ft_create_n_open_file.c
         sources/ft_you_were_warned.c
-        sources/ft_run_visual.c sources/ft_add_tmp_to_data.c sources/ft_find_one_step_solution.c sources/ft_init_n_add_print.c)
+        sources/ft_run_visual.c sources/ft_add_tmp_to_data.c sources/ft_find_one_step_solution.c sources/ft_init_n_add_print.c sources/ft_count_symbols.c)
 
 add_executable(Lemin ${SOURCES})
 

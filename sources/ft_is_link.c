@@ -52,7 +52,8 @@ int			ft_is_link(t_data **data, t_lemin *lemin)
 		(*data)->back->command = 'c';
 	else
 	{
-		if (ft_word_count((*data)->back->content, '-') != 2)
+		if (ft_word_count((*data)->back->content, '-') != 2 \
+		|| ft_count_symbols((*data)->back->content, '-') != 1)
 			return (-1);
 		if (!(str = ft_strsplit((*data)->back->content, '-')))
 			return (-1);

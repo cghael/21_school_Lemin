@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_links.c                                   :+:      :+:    :+:   */
+/*   ft_count_symbols.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cghael <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/02 12:34:46 by cghael            #+#    #+#             */
-/*   Updated: 2020/10/06 18:45:14 by ksemele          ###   ########.fr       */
+/*   Created: 2020/10/07 20:26:28 by cghael            #+#    #+#             */
+/*   Updated: 2020/10/07 20:26:29 by cghael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void		ft_parse_links(t_lemin *lemin, t_data **data)
+int		ft_count_symbols(const char *str, char c)
 {
-	int		res;
-	int		res1;
+	int	i;
+	int	counter;
 
-//	if (ft_is_link(data, lemin) != 1)
-//		return ;
-	while ((*data)->back->content && (res1 = ft_is_link(data, lemin)) == 1)
+	i = 0;
+	counter = 0;
+	while (str[i])
 	{
-		if ((res = ft_get_data(data, lemin->fd_map)) == -1)
-			ft_error_n_exit("Error in ft_parse_links()\n", lemin, data, NULL);
-		else if (res == 0)
-			return ;
+		if (str[i] == c)
+			counter++;
+		i++;
 	}
-//	if ()
-	ft_error_n_exit(LINK_NOT_VALID, lemin, data, NULL);
+	return (counter);
 }

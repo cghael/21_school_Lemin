@@ -147,6 +147,7 @@ int						ft_check_correct_room(t_data **data);
 int						ft_is_link(t_data **data, t_lemin *lemin);
 void					ft_create_graph(t_lemin *lemin, t_data **data);
 void					ft_parse_links(t_lemin *lemin, t_data **data);
+int						ft_count_symbols(const char *str, char c);
 
 t_tracks				*ft_create_new_track(t_tracks **tracks);
 t_tracks				*ft_find_paths(t_lemin *lemin);

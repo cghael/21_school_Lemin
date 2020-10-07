@@ -64,6 +64,7 @@ SRC_LIST =	ft_add_tmp_to_data.c \
 			ft_write_path.c \
 			ft_write_usage_n_exit.c \
 			ft_you_were_warned.c \
+			ft_count_symbols.c \
 			main.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
