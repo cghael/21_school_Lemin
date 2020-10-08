@@ -58,14 +58,16 @@ t_lemin			*ft_parse_data(t_lemin *lemin)
 {
 	t_data	*data;
 	t_data	*tmp;
+	int		res;
 
 	data = NULL;
 	ft_parse_ants(lemin, &data);
 	tmp = ft_copy_ants_data(data, lemin);
 	ft_free_data(&data);
-	ft_parse_rooms(lemin, &data);
+	res = ft_parse_rooms(lemin, &data);
 	ft_create_graph(lemin, &data);
-	ft_parse_links(lemin, &data);
+	if (res)
+		ft_parse_links(lemin, &data);
 	if (!lemin->visual && lemin->fd_sol == 1)
 	{
 		ft_print_data(tmp);

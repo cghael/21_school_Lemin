@@ -15,17 +15,13 @@
 void		ft_parse_links(t_lemin *lemin, t_data **data)
 {
 	int		res;
-	int		res1;
 
-//	if (ft_is_link(data, lemin) != 1)
-//		return ;
-	while ((*data)->back->content && (res1 = ft_is_link(data, lemin)) == 1)
+	while (ft_is_link(data, lemin) == 1 && res)
 	{
 		if ((res = ft_get_data(data, lemin->fd_map)) == -1)
 			ft_error_n_exit("Error in ft_parse_links()\n", lemin, data, NULL);
 		else if (res == 0)
 			return ;
 	}
-//	if ()
 	ft_error_n_exit(LINK_NOT_VALID, lemin, data, NULL);
 }

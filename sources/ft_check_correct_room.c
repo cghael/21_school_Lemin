@@ -46,6 +46,8 @@ int				ft_check_correct_room(t_data **data)
 	char	**str;
 
 	str = NULL;
+	if (ft_count_symbols((*data)->back->content, ' ') != 2)
+		return (0);
 	str = ft_strsplit((*data)->back->content, ' ');
 	if (!str)
 		return (0);

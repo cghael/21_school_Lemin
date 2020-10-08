@@ -49,7 +49,12 @@ int			ft_is_link(t_data **data, t_lemin *lemin)
 
 	str = NULL;
 	if ((*data)->back->content[0] == '#')
+	{
 		(*data)->back->command = 'c';
+		if (ft_strequ((*data)->back->content, "##start") \
+		|| ft_strequ((*data)->back->content, "##end"))
+		return (-1);
+	}
 	else
 	{
 		if (ft_word_count((*data)->back->content, '-') != 2 \

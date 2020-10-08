@@ -142,7 +142,7 @@ void					ft_check_flags(t_lemin *lemin, int argc, char *argv[]);
 t_lemin					*ft_parse_data(t_lemin *lemin);
 int						ft_get_data(t_data **data, int fd);
 void					ft_parse_ants(t_lemin *lemin, t_data **data);
-void					ft_parse_rooms(t_lemin *lemin, t_data **data);
+int						ft_parse_rooms(t_lemin *lemin, t_data **data);
 int						ft_check_correct_room(t_data **data);
 int						ft_is_link(t_data **data, t_lemin *lemin);
 void					ft_create_graph(t_lemin *lemin, t_data **data);
