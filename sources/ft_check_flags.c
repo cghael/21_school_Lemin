@@ -83,7 +83,11 @@ static void	ft_check_ow_flag(t_lemin *lemin, char *file, int *i)
 	ft_open_file(lemin, file, &lemin->fd_map);
 	if (!(sol_name = ft_strsub(file, 0, dot - file + 1)))
 		ft_error_n_exit("Error in ft_check_ow_flag\n", lemin, NULL, NULL);
-	lemin->solname = ft_strjoin(sol_name, "sol");
+	if (!(lemin->solname = ft_strjoin(sol_name, "sol")))
+	{
+		free(sol_name);
+		ft_error_n_exit("Error in ft_check_ow_flag\n", lemin, NULL, NULL);
+	}
 	free(sol_name);
 	ft_create_n_open_file(lemin, lemin->solname, &lemin->fd_sol);
 	*i = *i + 1;
